@@ -1,0 +1,28 @@
+Ideas:
+
+0 Pass:
+
+hardcode array:
+WHMMAW
+Wall Heat Metal Air Wall
+
+Heat is metal that has set temprature [heatTemp(t)]
+
+Air is reset to ambient temp each round [ambientTemp]
+
+Functions:
+	updateFlows
+	updateTemps
+	heatTemp
+
+Variables:
+	newTemp
+	currTemp
+	materials
+	flows
+
+
+Define:
+	matRef
+	airTemp
+
