@@ -16,16 +16,16 @@ Functions:
 	uint16_t heatTemp (material, currentTemp, flow); //Returns the cell's new temperature
 
 Variables:
-	newTemp
-	currTemp
+	newTemp (Celcius)
+	currTemp (Celcius)
 	materials (constant)
-	flows
+	flows (joules)
 
 
 Define:
 	matRef[]
-	heaterTemp
-	airTemp
+	heaterTemp (Celcius)
+	airTemp (Celcius)
 
 
 Data types:
