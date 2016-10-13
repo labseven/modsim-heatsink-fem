@@ -25,8 +25,7 @@ bool updateFlows (NUM cellCount, NUM temps[], NUM flows[], NUM materials[], mate
 
 		conduction = (material1.conductivity + material2.conductivity) / 2 * CELLSIZE; //Factors in material conductivities (/2 for avg), area, and center-to-center dist
 
-		flows[i] = (temp2 - temp1) * conduction; //The division by 2 is to average the conductivities
-
+		flows[i] = (temp2 - temp1) * conduction; //Units are already dealt with in conduction
 
 	}
 
