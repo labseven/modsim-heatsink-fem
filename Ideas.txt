@@ -11,8 +11,8 @@ Heat is metal that has set temprature [heatTemp] // not yet a function, but coul
 Air is reset to ambient temp each round [ambientTemp]
 
 Functions:
-	bool updateFlows(cellCount, temps[], flows[], materials[], matRef[]); //Feel free to mess with args
-	bool updateTemps(cellCount, currentTemps[], newTemps[], flows[], materials[], matRef[]);
+	bool updateFlows (cellCount, temps[], flows[], materials[], matRef[]); //Feel free to mess with args, returns true on success
+	bool updateTemps (cellCount, currentTemps[], newTemps[], flows[], materials[], matRef[]);
 	uint16_t heatTemp (material, currentTemp, flow); //Returns the cell's new temperature
 
 Variables:
@@ -29,17 +29,17 @@ Define:
 
 
 Data types:
-	uint16_t // 16-bit unsigned integer, old way of storing temperatures
+	unsigned int // 16-bit unsigned integer, old way of storing temperatures -- alternately, use signed for uniformity
 		-128 C = 0
       		0C = 32768
 		127 + 255/256 C = 65535
 		Resolution is about 0.004 C
 
-	int16_t // 16-bit signed integer, one option for flow power (because negative is a thing)
+	int // 16-bit signed integer, one option for flow power (because negative is a thing)
 		Power range could be -16 W to 15 + 2047/2048 W
-		Resolution is about 0.5mW, which is a gradient of about 2.5 * 10^-3 C -- small enough?
+		Resolution is about 0.5mW, which is a gradient of about 2.5 * 10^-3 C -- not small enough, 1000 cells w/2.5C difference
 		
-	int32_t // 32-bit signed integer, excessive but definitely enough
+	long int // 32-bit signed integer, excessive but definitely enough
 		Power:
 		Power range could be -32 W to ~32W
 		Resolution is 2^-26 W ~= 1.5 * 10^-8 w, which is a very small gradient
@@ -57,6 +57,8 @@ Rough values:
       Conductivity of aluminum = 205 w/M*K   //Value taken at 25C, probably close enough across our range
       Conductivity of air = 0.024 w/M*K
       A 50C gradient in aluminum, with 1mm cubes, gives 10.25W of flow
+
+      matRef = [(bool doFlow, bool constantTemp, NUM conductivity, NUM specificHeat, NUM tempSetPoint)] //The last is only relevant if constantTemp == true2
 
 
 
