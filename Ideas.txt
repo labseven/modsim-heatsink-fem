@@ -29,7 +29,7 @@ Define:
 
 
 Data types:
-	uint16_t // 16-bit unsigned integer, probably used for temperatures (should we switch to signed for uniformity?)
+	uint16_t // 16-bit unsigned integer, old way of storing temperatures
 		-128 C = 0
       		0C = 32768
 		127 + 255/256 C = 65535
@@ -39,9 +39,14 @@ Data types:
 		Power range could be -16 W to 15 + 2047/2048 W
 		Resolution is about 0.5mW, which is a gradient of about 2.5C -- too high!
 		
-	int32_t // 32-bit signed integer, another option for flow power
+	int32_t // 32-bit signed integer, probably the right option for flow power and temperature
+		Power:
 		Power range could be -32 W to ~32W
 		Resolution is 2^-26 W ~= 1.5 * 10^-8 w, which is a very small gradient
+		Temperature:
+		Center at 0C
+		-256 C < temp < ~256 C
+		Resolution is around 1/8,000,000 C
 		 
 
 
@@ -51,3 +56,10 @@ Rough values:
       Conductivity of aluminum = 205 w/M*K   //Value taken at 25C, probably close enough across our range
       Conductivity of air = 0.024 w/M*K
       A 50C gradient in aluminum, with 1mm cubes, gives 10.25W of flow
+
+
+
+Reference:
+
+https://matt.sh/howto-c
+http://www.cplusplus.com/reference/thread/thread/
