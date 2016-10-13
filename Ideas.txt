@@ -58,7 +58,7 @@ Rough values:
       Conductivity of air = 0.024 w/M*K
       A 50C gradient in aluminum, with 1mm cubes, gives 10.25W of flow
 
-      matRef = [(bool doFlow, bool constantTemp, NUM conductivity, NUM specificHeat, NUM tempSetPoint)] //The last is only relevant if constantTemp == true2
+      matRef = [(bool constantTemp, NUM conductivity, NUM specificHeat, NUM tempSetPoint)] //The last is only relevant if constantTemp == true2
 
 
 

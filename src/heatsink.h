@@ -15,7 +15,7 @@ typedef struct {
 	NUM conductivity;
 	NUM specificHeat;
 	NUM tempSetPoint;
-}materials;
+}material;
 
 
 

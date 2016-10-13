@@ -5,9 +5,10 @@
  *      Author: neophile
  */
 
+#include "heatsink.h"
+
 //Calculates flow between each pair of cells, given cell temps and materials
 bool updateFlows (NUM cellCount, NUM &temps, NUM &flows, NUM &materials, NUM &matRef );
-
 
 
 bool updateFlows (NUM cellCount, NUM &temps, NUM &flows, NUM &materials, NUM &matRef ) {
@@ -21,6 +22,8 @@ bool updateFlows (NUM cellCount, NUM &temps, NUM &flows, NUM &materials, NUM &ma
 		temp2 = temps[i+1];
 		material1 = matRef[materials[i]];
 		material2 = matRef[materials[i]];
+
+
 
 	}
 
