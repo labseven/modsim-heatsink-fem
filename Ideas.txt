@@ -54,8 +54,8 @@ Data types:
 Rough values:
       Distance between cells = 1mm
       Time step = 10ms
-      Conductivity of aluminum = 205 w/M*K   //Value taken at 25C, probably close enough across our range
-      Conductivity of air = 0.024 w/M*K
+      Conductivity of aluminum = 205 w/m*K   //Value taken at 25C, probably close enough across our range
+      Conductivity of air = 0.024 w/m*K
       A 50C gradient in aluminum, with 1mm cubes, gives 10.25W of flow
 
       matRef = [(bool constantTemp, NUM conductivity, NUM specificHeat, NUM tempSetPoint)] //The last is only relevant if constantTemp == true2
