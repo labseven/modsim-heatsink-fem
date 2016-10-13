@@ -18,6 +18,7 @@ typedef struct {
 }material;
 
 #define CELLSIZE 0.001 //meters
-
+#define KELVINOFFSET 273.150
+#define UNITSPERC 2^23
 
 #endif /* HEATSINK_H_ */
