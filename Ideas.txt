@@ -37,9 +37,9 @@ Data types:
 
 	int16_t // 16-bit signed integer, one option for flow power (because negative is a thing)
 		Power range could be -16 W to 15 + 2047/2048 W
-		Resolution is about 0.5mW, which is a gradient of about 2.5C -- too high!
+		Resolution is about 0.5mW, which is a gradient of about 2.5 * 10^-3 C -- small enough?
 		
-	int32_t // 32-bit signed integer, probably the right option for flow power and temperature
+	int32_t // 32-bit signed integer, excessive but definitely enough
 		Power:
 		Power range could be -32 W to ~32W
 		Resolution is 2^-26 W ~= 1.5 * 10^-8 w, which is a very small gradient
