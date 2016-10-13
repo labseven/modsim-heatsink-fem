@@ -43,6 +43,7 @@ Data types:
 		Power:
 		Power range could be -32 W to ~32W
 		Resolution is 2^-26 W ~= 1.5 * 10^-8 w, which is a very small gradient
+		Or -256 W to 256 W, which is probably still fine enough and allows for e.g. liquid-cooled gun barrels
 		Temperature:
 		Center at 0C
 		-256 C < temp < ~256 C
