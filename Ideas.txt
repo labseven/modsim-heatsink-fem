@@ -6,23 +6,48 @@ hardcode array:
 WHMMAW
 Wall Heat Metal Air Wall
 
-Heat is metal that has set temprature [heatTemp(t)]
+Heat is metal that has set temprature [heatTemp] // not yet a function, but could be swapped in later
 
 Air is reset to ambient temp each round [ambientTemp]
 
 Functions:
-	updateFlows
-	updateTemps
-	heatTemp
+	bool updateFlows(cellCount, temps[], flows[], materials[], matRef[]); //Feel free to mess with args
+	bool updateTemps(cellCount, currentTemps[], newTemps[], flows[], materials[], matRef[]);
+	uint16_t heatTemp (material, currentTemp, flow); //Returns the cell's new temperature
 
 Variables:
 	newTemp
 	currTemp
-	materials
+	materials (constant)
 	flows
 
 
 Define:
-	matRef
+	matRef[]
+	heaterTemp
 	airTemp
 
+
+Data types:
+	uint16_t // 16-bit unsigned integer, probably used for temperatures (should we switch to signed for uniformity?)
+		-128 C = 0
+      		0C = 32768
+		127 + 255/256 C = 65535
+		Resolution is about 0.004 C
+
+	int16_t // 16-bit signed integer, one option for flow power (because negative is a thing)
+		Power range could be -16 W to 15 + 2047/2048 W
+		Resolution is about 0.5mW, which is a gradient of about 2.5C -- too high!
+		
+	int32_t // 32-bit signed integer, another option for flow power
+		Power range could be -32 W to ~32W
+		Resolution is 2^-26 W ~= 1.5 * 10^-8 w, which is a very small gradient
+		 
+
+
+Rough values:
+      Distance between cells = 1mm
+      Time step = 10ms
+      Conductivity of aluminum = 205 w/M*K   //Value taken at 25C, probably close enough across our range
+      Conductivity of air = 0.024 w/M*K
+      A 50C gradient in aluminum, with 1mm cubes, gives 10.25W of flow
