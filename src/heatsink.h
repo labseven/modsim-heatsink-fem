@@ -17,7 +17,7 @@ typedef struct {
 	NUM tempSetPoint;
 }material;
 
-
+#define CELLSIZE 0.001 //meters
 
 
 #endif /* HEATSINK_H_ */
