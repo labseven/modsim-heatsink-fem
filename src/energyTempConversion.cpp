@@ -9,14 +9,14 @@
 
 
 
-NUM energy2temp (NUM energy, NUM specificHeat)
+NUM energy2temp (NUM energy, NUM heatCapacity)
 {
-	return energy*1.0 / specificHeat;
+	return energy*1.0 / heatCapacity;
 }
 
-NUM temp2energy (NUM temp, NUM specificHeat)
+NUM temp2energy (NUM temp, NUM heatCapacity)
 {
-	return temp * specificHeat;
+	return temp * heatCapacity;
 
 }
 
