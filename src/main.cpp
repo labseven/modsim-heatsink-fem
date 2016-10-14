@@ -5,7 +5,7 @@
  *      Author: neophile
  */
 
-#include "heatsink.h"
+#include "main.h"
 
 using namespace std;
 
@@ -21,6 +21,13 @@ int main() {
 	NUM temps[] = {c2units(0), c2units(0), c2units(1), c2units(0)};
 	NUM materials[] = {0, 1, 1, 0};
 	NUM flows[3];
+
+	if (updateFlows (4, temps, flows, materials, matRef)) {
+		for (int i = 0; i < 3; i++) {
+			cout << units2w(flows[i]) <<", ";
+		}
+
+	} else cout <<"updateFlows failed.\n";
 
 }
 

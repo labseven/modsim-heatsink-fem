@@ -5,9 +5,7 @@
  *
  * */
 
-
-#include "heatsink.h"
-
+#include "updateTemps.h"
 
 bool updateTemps(NUM cellCount, NUM currentTemps[], NUM newTemps[], NUM flows[], NUM materials[], material matRef[])
 {

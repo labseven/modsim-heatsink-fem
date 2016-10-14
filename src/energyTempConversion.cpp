@@ -5,9 +5,7 @@
  *      Author: kevin
  */
 
-#include "heatsink.h"
-
-
+#include "energyTempConversion.h"
 
 NUM energy2temp (NUM energy, NUM heatCapacity)
 {
@@ -30,3 +28,14 @@ NUM c2units(NUM c)
 {
 	return c * UNITSPERC;
 }
+
+NUM units2w(NUM units)
+{
+	return units / UNITSPERW;
+}
+
+NUM w2units(NUM w)
+{
+	return w * UNITSPERW;
+}
+
