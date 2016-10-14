@@ -9,7 +9,7 @@
 #include "heatsink.h"
 
 
-bool updateTemps(NUM *cellCount, NUM *currentTemps[], NUM *newTemps[], NUM *flows[], NuM materials[], matRef[])
+bool updateTemps(NUM *cellCount, NUM *currentTemps[], NUM *newTemps[], NUM *flows[], NUM materials[], material matRef[])
 {
 	for(int i = 0; i < cellCount; i++)
 	{

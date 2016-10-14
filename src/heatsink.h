@@ -8,6 +8,8 @@
 #ifndef HEATSINK_H_
 #define HEATSINK_H_
 
+#include <iostream>
+
 #define NUM long int
 
 typedef struct {
