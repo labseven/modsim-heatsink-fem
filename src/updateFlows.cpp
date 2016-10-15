@@ -15,14 +15,19 @@ bool updateFlows (NUM cellCount, NUM temps[], NUM flows[], NUM materials[], mate
 	NUM temp1, temp2, conduction;
 	material  *material1 = NULL, *material2 = NULL;
 
-	for (int i = 0; i < cellCount-2; i++) { //One fewer than the number of cells
+	for (int i = 0; i < cellCount-1; i++) { //One fewer than the number of cells
 
 		temp1 = temps[i]; //Get current temperatures from array 'temps'
 		temp2 = temps[i+1];
 		material1 = &matRef[materials[i]]; //Get relevant materials, because we will use their conductivities
 		material2 = &matRef[materials[i+1]];
 
-		conduction = (material1->conductivity + material2->conductivity) / 2 * CELLSIZE; //Factors in material conductivities (/2 for avg), area, and center-to-center dist
+		if (material1->conductivity == 0 || material2->conductivity == 0) conduction = 0;
+		else {
+			//std::cout << "1 / " <<material1->conductivity <<" = " <<1/material1->conductivity <<".\n";
+			//conduction = 1/(1/(material1->conductivity) + 1/(material2->conductivity)) * CELLSIZE * 2; //Factors in material conductivities, area, and center-to-center dist
+			conduction = (material1->conductivity) * (material2->conductivity) / ( (material1->conductivity) + (material2->conductivity) ) * CELLSIZE * 2; //Gets the same result, without dividing by large numbers
+		}
 
 		flows[i] = (temp2 - temp1) * conduction; //Units are already dealt with in conduction
 

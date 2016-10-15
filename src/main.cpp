@@ -20,7 +20,7 @@ int main() {
 
 	NUM temps[] = {c2units(0), c2units(0), c2units(1), c2units(0)};
 	NUM materials[] = {0, 1, 1, 0};
-	NUM flows[3];
+	NUM flows[] = {-1, -1, -1};
 
 	if (updateFlows (4, temps, flows, materials, matRef)) {
 		for (int i = 0; i < 3; i++) {
