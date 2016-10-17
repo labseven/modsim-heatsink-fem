@@ -37,8 +37,10 @@ struct material{
 
 //#define UNITSPERC 8388608 //2^23
 //#define UNITSPERW 67108864 //2^26
-static const NUM UNITSPERC = pow(2, 23);
-static const NUM UNITSPERW = pow(2, 26);
+//static const NUM UNITSPERC = pow(2, 23);
+//static const NUM UNITSPERW = pow(2, 26);
+static const NUM UNITSPERC = 1;
+static const NUM UNITSPERW = 1;
 
 static const NUM ALU_CONDUCT = 205 /*W/mC*/ * UNITSPERW /*units/W*/ / ( UNITSPERC /*units/C*/ * 1000 /*mm/m*/ );
 static const NUM AIR_CONDUCT = 0.024 /*W/mC*/ * UNITSPERW /*units/W*/ / ( UNITSPERC  /*units/C*/* 1000 /*mm/m*/ );
