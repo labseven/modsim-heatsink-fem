@@ -12,16 +12,16 @@ using namespace std;
 int main() {
 
 
-	/*
+
 
 	material matRef[] = {
 			material(true, 0, 0, 0), //Magic wall.  Yes, this will cause division by zero if its new temperature is evaluated.
-			material(false, (ALU_CONDUCT / CONSTMULT), (ALU_HCAP / CONSTMULT), 0), //Aluminum
-			material(true, (AIR_CONDUCT / CONSTMULT), (AIR_HCAP / CONSTMULT), (AMBIENT_TEMP / CONSTMULT)) //Air
+			material(false, ALU_CONDUCT, ALU_HCAP, 0), //Aluminum
+			material(true, AIR_CONDUCT, AIR_HCAP, AMBIENT_TEMP) //Air
 	};
 
 	NUM temps[] = {c2units(0), c2units(0), c2units(1), c2units(0)};
-	NUM materials[] = {0, 1, 1, 0};
+	int materials[] = {0, 1, 1, 0};
 	NUM flows[] = {-1, -1, -1};
 
 	if (updateFlows (4, temps, flows, materials, matRef)) {
@@ -31,14 +31,7 @@ int main() {
 
 	} else cout <<"updateFlows failed.\n";
 
-	*/
 
-	fixpoint b = 10, c = 20;
-
-	fixpoint a = b / c;
-
-
-	cout << "Internal value:   " <<a.getValue() <<"\nDivided internal: " <<a.getValue()/pow(2, 16) <<"\nExternal value:   " <<a.toDouble() <<endl;
 
 }
 
