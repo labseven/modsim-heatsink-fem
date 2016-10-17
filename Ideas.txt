@@ -58,7 +58,21 @@ Rough values:
       Conductivity of air = 0.024 w/m*K
       A 50C gradient in aluminum, with 1mm cubes, gives 10.25W of flow
 
+      Aluminium specific heat: 910 J/kg*K = .0025 J/cell*K
+      Aluminium density: 2712 kg/m^3 = 2.7 e-6 kg / mm^3
+      
+      Air density: 1.275×10^-9 kg/mm^3 = 1.283 e-9
+      Air specific heat: 1.002 C / kg
       matRef = [(bool constantTemp, NUM conductivity, NUM specificHeat, NUM tempSetPoint)] //The last is only relevant if constantTemp == true2
+
+
+
+
+10/17 Units:
+fixpoint: temps, energy, flows
+NUM: cellcount, materials
+matRef(bool constTemp, fixpoint conductivity, fixpoint specificHeat)
+
 
 
 
