@@ -31,11 +31,6 @@ int main() {
 	NUM flows[] = {-1, -1, -1};
 
 	if (updateFlows (4, temps, flows, materials, matRef)) {
-		for (int i = 0; i < 3; i++) {
-			cout << 1000*flows[i] <<" mw, ";
-		}
-		cout << "\n";
-
 	} else cout <<"updateFlows failed.\n";
 
 	if (updateTemps(4, DELTATIME, temps, newTemps, flows, materials, matRef)){
@@ -44,7 +39,7 @@ int main() {
 			cout << newTemps[i] << "C, ";
 		}
 		cout << "\n";
-	}
+	} else cout << "updateTemps failed.\n";
 }
 
 
