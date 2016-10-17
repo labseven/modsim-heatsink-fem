@@ -31,9 +31,8 @@ struct material{
 
 };
 
-static const NUM CONSTMULT = pow(2, 16);
 
-#define CELLSIZE 1 * CONSTMULT //millimeters
+#define CELLSIZE 1  //millimeters
 #define KELVINOFFSET 273.150
 
 //#define UNITSPERC 8388608 //2^23
@@ -41,13 +40,13 @@ static const NUM CONSTMULT = pow(2, 16);
 static const NUM UNITSPERC = pow(2, 23); //Notably exempt from all of the constant multiplication
 static const NUM UNITSPERW = pow(2, 26);
 
-static const NUM ALU_CONDUCT = 205 /*W/mC*/ / 1000 /*mm/m*/ * UNITSPERW /*units/W*/ / UNITSPERC /*units/C*/ * CONSTMULT;
-static const NUM AIR_CONDUCT = 0.024 /*W/mC*/ / 1000 /*mm/m*/ * UNITSPERW /*units/W*/ / UNITSPERC  /*units/C*/ * CONSTMULT;
+static const NUM ALU_CONDUCT = 205 /*W/mC*/ / 1000 /*mm/m*/ * UNITSPERW /*units/W*/ / UNITSPERC /*units/C*/;
+static const NUM AIR_CONDUCT = 0.024 /*W/mC*/ / 1000 /*mm/m*/ * UNITSPERW /*units/W*/ / UNITSPERC  /*units/C*/;
 
-static const NUM ALU_HCAP = 0.91 /*J/gC*/ * 0.0027 /*g/mm^3*/ * UNITSPERC /*units/C*/* CONSTMULT;
-static const NUM AIR_HCAP = 1.005 /*J/gC*/ * 1.2*0.000001 /*g/mm^3*/ * UNITSPERC /*units/C*/ * CONSTMULT;
+static const NUM ALU_HCAP = 0.91 /*J/gC*/ * 0.0027 /*g/mm^3*/ * UNITSPERC /*units/C*/;
+static const NUM AIR_HCAP = 1.005 /*J/gC*/ * 1.2*0.000001 /*g/mm^3*/ * UNITSPERC /*units/C*/;
 
-static const NUM AMBIENT_TEMP = 25 /*C*/ * UNITSPERC /*units/C*/ * CONSTMULT;
+static const NUM AMBIENT_TEMP = 25 /*C*/ * UNITSPERC /*units/C*/ ;
 
 
 #include "energyTempConversion.h"

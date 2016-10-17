@@ -10,7 +10,7 @@
 
 #include "main.h"
 
-bool updateFlows (NUM cellCount, NUM temps[], NUM flows[], NUM materials[], material matRef[]);
+bool updateFlows (fixpoint cellCount, fixpoint temps[], fixpoint flows[], fixpoint materials[], material matRef[]);
 //Calculates flow between each pair of cells, given cell temps and materials
 
 
