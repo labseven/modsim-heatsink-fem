@@ -38,7 +38,7 @@ int main() {
 	fixpoint a = b / c;
 
 
-	cout << "Internal value: " <<a.getValue() <<"\nExternal value: " <<a.toDouble() <<endl;
+	cout << "Internal value:   " <<a.getValue() <<"\nDivided internal: " <<a.getValue()/pow(2, 16) <<"\nExternal value:   " <<a.toDouble() <<endl;
 
 }
 
