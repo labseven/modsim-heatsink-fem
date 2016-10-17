@@ -12,6 +12,8 @@ using namespace std;
 int main() {
 
 
+	/*
+
 	material matRef[] = {
 			material(true, 0, 0, 0), //Magic wall.  Yes, this will cause division by zero if its new temperature is evaluated.
 			material(false, (ALU_CONDUCT / CONSTMULT), (ALU_HCAP / CONSTMULT), 0), //Aluminum
@@ -28,6 +30,12 @@ int main() {
 		}
 
 	} else cout <<"updateFlows failed.\n";
+
+	*/
+
+	fixpoint a = 10, b = 20;
+
+	cout << (a + b).getVal();
 
 }
 
