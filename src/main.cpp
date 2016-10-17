@@ -34,11 +34,6 @@ int main() {
 	} else cout <<"updateFlows failed.\n";
 
 	if (updateTemps(4, DELTATIME, temps, newTemps, flows, materials, matRef)){
-		cout << "Temperatures: ";
-		for (int i = 0; i<4; i++) {
-			cout << newTemps[i] << "C, ";
-		}
-		cout << "\n";
 	} else cout << "updateTemps failed.\n";
 }
 
