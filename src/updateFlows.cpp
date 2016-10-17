@@ -10,12 +10,12 @@
 //Calculates flow between each pair of cells, given cell temps and materials
 
 
-bool updateFlows (NUM cellCount, NUM temps[], NUM flows[], NUM materials[], material matRef[]) {
+bool updateFlows (fixpoint cellCount, fixpoint temps[], fixpoint flows[], fixpoint materials[], material matRef[]) {
 
-	NUM temp1, temp2, conduction;
+	fixpoint temp1, temp2, conduction;
 	material  *material1 = NULL, *material2 = NULL;
 
-	for (int i = 0; i < cellCount-1; i++) { //One fewer than the number of cells
+	for (int i = 0; i < cellCount-1; i++) { //One fewer than the fixpointber of cells
 
 		temp1 = temps[i]; //Get current temperatures from array 'temps'
 		temp2 = temps[i+1];
@@ -26,7 +26,7 @@ bool updateFlows (NUM cellCount, NUM temps[], NUM flows[], NUM materials[], mate
 		else {
 			//std::cout << "1 / " <<material1->conductivity <<" = " <<1/material1->conductivity <<".\n";
 			//conduction = 1/(1/(material1->conductivity) + 1/(material2->conductivity)) * CELLSIZE * 2; //Factors in material conductivities, area, and center-to-center dist
-			conduction = (material1->conductivity) * (material2->conductivity) / ( (material1->conductivity) + (material2->conductivity) ) * (CELLSIZE / CONSTMULT) * 2; //Gets the same result, without dividing by large numbers
+			conduction = (material1->conductivity) * (material2->conductivity) / ( (material1->conductivity) + (material2->conductivity) ) * CELLSIZE * 2; //Gets the same result, without dividing by large numbers
 		}
 
 		flows[i] = (temp2 - temp1) * conduction; //Units are already dealt with in conduction

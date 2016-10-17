@@ -26,15 +26,15 @@ fixpoint::~fixpoint() {
 }
 
 
-long int fixpoint::getValue() {
+long int fixpoint::getValue() const {
 
-	return this->value;
+	return value;
 
 }
 
-double fixpoint::toDouble() {
+double fixpoint::toDouble() const {
 
-	return value / multiplier;
+	return double(value) / multiplier;
 
 }
 
@@ -46,7 +46,7 @@ fixpoint fixpoint::operator+=(double valIn) {
 
 }
 
-fixpoint fixpoint::operator+=(fixpoint &fixpointIn) {
+fixpoint fixpoint::operator+=(const fixpoint &fixpointIn) {
 
 	this->value += fixpointIn.getValue();
 
@@ -54,12 +54,92 @@ fixpoint fixpoint::operator+=(fixpoint &fixpointIn) {
 
 }
 
-fixpoint operator+(fixpoint &left, fixpoint &right) {
+fixpoint fixpoint::operator++() {
+
+	this->value += multiplier;
+	return *this;
+
+}
+
+fixpoint operator+(fixpoint left, const fixpoint &right) {
 
 	left += right;
 	return left;
 
 }
 
+fixpoint fixpoint::operator-=(double valIn) {
+
+	this->value -= valIn * multiplier;
+
+	return *this;
+
+}
+
+fixpoint fixpoint::operator-=(const fixpoint &fixpointIn) {
+
+	this->value -= fixpointIn.getValue();
+
+	return *this;
+
+}
+
+fixpoint fixpoint::operator--() {
+
+	this->value -= multiplier;
+	return *this;
+
+}
+
+fixpoint operator-(fixpoint left, const fixpoint &right) {
+
+	left -= right;
+	return left;
+
+}
+
+fixpoint fixpoint::operator*= (double valIn) {
+
+	this->value *= valIn;
+	return *this;
+
+}
+
+
+fixpoint fixpoint::operator*= (const fixpoint &fixpointIn){
+
+	this->value *= fixpointIn.toDouble();
+	return *this;
+
+}
+
+fixpoint operator*(fixpoint left, const fixpoint &right) {
+
+	left *= right;
+	return left;
+
+}
+
+fixpoint fixpoint::operator/= (double valIn) {
+
+	this->value /= valIn;
+	return *this;
+
+}
+
+
+fixpoint fixpoint::operator/= (const fixpoint &fixpointIn){
+
+	this->value /= fixpointIn.toDouble();
+	return *this;
+
+}
+
+fixpoint operator/(fixpoint left, const fixpoint &right) {
+
+	left /= right;
+	return left;
+
+}
 
 
