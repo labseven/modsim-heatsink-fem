@@ -11,6 +11,6 @@
 #include "main.h"
 #include "energyTempConversion.h"
 
-bool updateTemps(NUM cellCount, NUM dt, NUM currentTemps[], NUM newTemps[], NUM flows[], int materials[], material matRef[]);
+updateTemps(int cellCount, NUM deltaTime, NUM currentTemps[], NUM newTemps[], NUM flows[], int materials[], material matRef[])
 
 #endif /* UPDATETEMPS_H_ */
