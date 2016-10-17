@@ -28,13 +28,13 @@ fixpoint::~fixpoint() {
 
 long int fixpoint::getValue() const {
 
-	return this->value;
+	return value;
 
 }
 
 double fixpoint::toDouble() const {
 
-	return value / multiplier;
+	return double(value) / multiplier;
 
 }
 
