@@ -15,11 +15,26 @@ public:
 	fixpoint(double valIn);
 	fixpoint(const fixpoint &fixpointIn);
 	virtual ~fixpoint();
-	double toDouble();
-	long int getValue(); //Get the value, including the multiplier.
+	double toDouble() const;
+	long int getValue() const; //Get the value, including the multiplier.
+
 	fixpoint operator+= (double valIn);
-	fixpoint operator+= (fixpoint &fixpointIn);
-	friend fixpoint operator+ (fixpoint &left, fixpoint &right);
+	fixpoint operator+= (const fixpoint &fixpointIn);
+	friend fixpoint operator+ (fixpoint left, const fixpoint &right);
+	fixpoint operator++ ();
+
+	fixpoint operator-= (double valIn);
+	fixpoint operator-= (const fixpoint &fixpointIn);
+	fixpoint operator-- ();
+	friend fixpoint operator- (fixpoint left, const fixpoint &right);
+
+	fixpoint operator*= (double valIn);
+	fixpoint operator*= (const fixpoint &fixpointIn);
+	friend fixpoint operator* (fixpoint left, const fixpoint &right);
+
+	fixpoint operator/= (double valIn);
+	fixpoint operator/= (const fixpoint &fixpointIn);
+	friend fixpoint operator/ (fixpoint left, const fixpoint &right);
 
 private:
 	long int value;
