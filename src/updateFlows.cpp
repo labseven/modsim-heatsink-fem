@@ -26,7 +26,7 @@ bool updateFlows (NUM cellCount, NUM temps[], NUM flows[], NUM materials[], mate
 		else {
 			//std::cout << "1 / " <<material1->conductivity <<" = " <<1/material1->conductivity <<".\n";
 			//conduction = 1/(1/(material1->conductivity) + 1/(material2->conductivity)) * CELLSIZE * 2; //Factors in material conductivities, area, and center-to-center dist
-			conduction = (material1->conductivity) * (material2->conductivity) / ( (material1->conductivity) + (material2->conductivity) ) * CELLSIZE * 2; //Gets the same result, without dividing by large numbers
+			conduction = (material1->conductivity) * (material2->conductivity) / ( (material1->conductivity) + (material2->conductivity) ) * (CELLSIZE / CONSTMULT) * 2; //Gets the same result, without dividing by large numbers
 		}
 
 		flows[i] = (temp2 - temp1) * conduction; //Units are already dealt with in conduction
