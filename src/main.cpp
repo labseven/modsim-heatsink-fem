@@ -18,7 +18,7 @@ int main() {
 			material(true, AIR_CONDUCT, AIR_HCAP, AMBIENT_TEMP) //Air
 	};
 
-	NUM temps[] = {c2units(0), c2units(0), c2units(1), c2units(0)};
+	NUM temps[] = {0,0,1,0};
 
 	cout << "Original temps: ";
 	for (int i = 0; i<4; i++) {
@@ -32,7 +32,7 @@ int main() {
 
 	if (updateFlows (4, temps, flows, materials, matRef)) {
 		for (int i = 0; i < 3; i++) {
-			cout << units2w(1000*flows[i]) <<" mw, ";
+			cout << 1000*flows[i] <<" mw, ";
 		}
 		cout << "\n";
 
