@@ -9,7 +9,8 @@
 #define UPDATETEMPS_H_
 
 #include "main.h"
+#include "energyTempConversion.h"
 
-bool updateTemps(NUM cellCount, NUM currentTemps[], NUM newTemps[], NUM flows[], NUM materials[], material matRef[]);
+bool updateTemps(NUM cellCount, NUM dt, NUM currentTemps[], NUM newTemps[], NUM flows[], NUM materials[], material matRef[]);
 
 #endif /* UPDATETEMPS_H_ */
