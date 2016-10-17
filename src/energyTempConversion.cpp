@@ -20,13 +20,14 @@ EANDTTYPE temp2energy (EANDTTYPE temp, EANDTTYPE heatCapacity) /* Temperature Un
 
 }
 
+/*
 
-EANDTTYPE units2c(EANDTTYPE units) /* units to Celcius */
+EANDTTYPE units2c(EANDTTYPE units) // units to Celcius
 {
 	return units / UNITSPERC;
 }
 
-EANDTTYPE c2units(EANDTTYPE c) /* Celcius to units */
+EANDTTYPE c2units(EANDTTYPE c) // Celcius to units
 {
 	return c * UNITSPERC;
 }
@@ -41,3 +42,4 @@ EANDTTYPE w2units(EANDTTYPE w)
 	return w * UNITSPERW;
 }
 
+*/
