@@ -13,15 +13,13 @@
 class fixpoint {
 public:
 	fixpoint(double valIn);
-	fixpoint(fixpoint &fixpointIn);
+	fixpoint(const fixpoint &fixpointIn);
 	virtual ~fixpoint();
 	double toDouble();
 	long int getValue(); //Get the value, including the multiplier.
 	fixpoint operator+= (double valIn);
 	fixpoint operator+= (fixpoint &fixpointIn);
-	fixpoint operator-= (double valIn);
-	fixpoint operator+ (fixpoint &right);
-	fixpoint operator- (fixpoint &right);
+	friend fixpoint operator+ (fixpoint &left, fixpoint &right);
 
 private:
 	long int value;

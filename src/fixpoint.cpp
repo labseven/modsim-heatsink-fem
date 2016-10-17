@@ -13,7 +13,7 @@ fixpoint::fixpoint(double valIn) {
 
 }
 
-fixpoint::fixpoint(fixpoint &fixpointIn) {
+fixpoint::fixpoint(const fixpoint &fixpointIn) {
 
 	value = fixpointIn.value;
 
@@ -24,6 +24,7 @@ fixpoint::fixpoint(fixpoint &fixpointIn) {
 fixpoint::~fixpoint() {
 
 }
+
 
 long int fixpoint::getValue() {
 
@@ -53,17 +54,12 @@ fixpoint fixpoint::operator+=(fixpoint &fixpointIn) {
 
 }
 
-fixpoint operator+(fixpoint left, fixpoint right) {
+fixpoint operator+(fixpoint &left, fixpoint &right) {
 
 	left += right;
 	return left;
 
 }
 
-fixpoint fixpoint::operator-(fixpoint &right) {
-
-
-
-}
 
 

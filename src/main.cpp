@@ -33,9 +33,10 @@ int main() {
 
 	*/
 
-	fixpoint a = 10, b = 20;
+	fixpoint a = 10;
 
-	cout << (a + b).toDouble();
+
+	cout << "Internal value: " <<a.getValue() <<"\nExternal value: " <<a.toDouble() <<endl;
 
 }
 
