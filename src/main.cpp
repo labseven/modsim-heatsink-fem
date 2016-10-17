@@ -20,11 +20,11 @@ int main() {
 
 	NUM temps[] = {0,0,1,0};
 
-	cout << "Original temps: ";
+	cout << "\nOriginal temps: ";
 	for (int i = 0; i<4; i++) {
 		cout << temps[i] << "C, ";
 	}
-	cout << "\n";
+	cout << "\n\n";
 
 	NUM newTemps[] = {0,0,0,0};
 	int materials[] = {0, 1, 1, 0};
@@ -35,6 +35,12 @@ int main() {
 
 	if (updateTemps(4, DELTATIME, temps, newTemps, flows, materials, matRef)){
 	} else cout << "updateTemps failed.\n";
+
+	cout << "\nNew temps: ";
+	for (int i = 0; i<4; i++) {
+		cout << newTemps[i] << "C, ";
+	}
+	cout << "\n\n";
 }
 
 
