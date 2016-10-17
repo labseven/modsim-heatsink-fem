@@ -12,7 +12,7 @@
 #include <cmath>
 
 
-#define NUM long int
+#define NUM double
 
 struct material{
 	bool constantTemp;
