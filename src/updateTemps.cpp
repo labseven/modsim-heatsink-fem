@@ -17,13 +17,13 @@ NUM newTemp(NUM currentTemp, NUM deltaTime, int inMaterial, material matRef[], N
 	currentEnergy = temp2energy(currentTemp, thisMaterial->heatCapacity);
 
 
-	newEnergy = energy + (flow * deltaTime);
+	newEnergy = currentEnergy + (flow * deltaTime);
 
 	newTemperature = energy2temp(newEnergy, thisMaterial->heatCapacity);
 
 
-	if (newTemprature < 0){
-		std::cout << "Warning: new temp is <0. (" << newTemprature << ")\n";
+	if (newTemperature < 0){
+		std::cout << "Warning: new temp is <0. (" << newTemperature << ")\n";
 	}
 	return newTemperature;
 }
