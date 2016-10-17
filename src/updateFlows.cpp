@@ -10,7 +10,7 @@
 //Calculates flow between each pair of cells, given cell temps and materials
 
 
-bool updateFlows (NUM cellCount, fixpoint temps[], fixpoint flows[], NUM materials[], material matRef[]) {
+bool updateFlows (NUM cellCount, NUM temps[], NUM flows[], NUM materials[], material matRef[]) {
 
 	fixpoint temp1, temp2, conduction;
 	material  *material1 = NULL, *material2 = NULL;
