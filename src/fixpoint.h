@@ -8,15 +8,24 @@
 #ifndef FIXPOINT_H_
 #define FIXPOINT_H_
 
+#include "main.h"
+
 class fixpoint {
 public:
-	fixpoint(long int valIn);
+	fixpoint(double valIn);
+	fixpoint(fixpoint &fixpointIn);
 	virtual ~fixpoint();
-	long int getVal();
+	double toDouble();
+	long int getValue(); //Get the value, including the multiplier.
+	fixpoint operator+= (double valIn);
+	fixpoint operator+= (fixpoint &fixpointIn);
+	fixpoint operator-= (double valIn);
 	fixpoint operator+ (fixpoint &right);
+	fixpoint operator- (fixpoint &right);
 
 private:
 	long int value;
+	static const long int multiplier = pow(2, 16);
 };
 
 #endif /* FIXPOINT_H_ */

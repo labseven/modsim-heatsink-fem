@@ -35,7 +35,7 @@ int main() {
 
 	fixpoint a = 10, b = 20;
 
-	cout << (a + b).getVal();
+	cout << (a + b).toDouble();
 
 }
 

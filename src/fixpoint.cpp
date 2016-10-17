@@ -7,24 +7,63 @@
 
 #include "fixpoint.h"
 
-fixpoint::fixpoint(long int valIn) {
+fixpoint::fixpoint(double valIn) {
 
-	value = valIn;
+	value = valIn * multiplier;
 
 }
+
+fixpoint::fixpoint(fixpoint &fixpointIn) {
+
+	value = fixpointIn.value;
+
+}
+
+
 
 fixpoint::~fixpoint() {
 
 }
 
-long int fixpoint::getVal() {
+long int fixpoint::getValue() {
 
-	return value;
+	return this->value;
+
+}
+
+double fixpoint::toDouble() {
+
+	return value / multiplier;
 
 }
 
-fixpoint fixpoint::operator+(fixpoint &right) {
+fixpoint fixpoint::operator+=(double valIn) {
 
-	return fixpoint(this->getVal() + right.getVal());
+	this->value += valIn * multiplier;
+
+	return *this;
 
 }
+
+fixpoint fixpoint::operator+=(fixpoint &fixpointIn) {
+
+	this->value += fixpointIn.getValue();
+
+	return *this;
+
+}
+
+fixpoint operator+(fixpoint left, fixpoint right) {
+
+	left += right;
+	return left;
+
+}
+
+fixpoint fixpoint::operator-(fixpoint &right) {
+
+
+
+}
+
+
