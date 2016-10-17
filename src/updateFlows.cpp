@@ -10,12 +10,13 @@
 //Calculates flow between each pair of cells, given cell temps and materials
 
 
-bool updateFlows (fixpoint cellCount, fixpoint temps[], fixpoint flows[], fixpoint materials[], material matRef[]) {
+bool updateFlows (NUM cellCount, fixpoint temps[], fixpoint flows[], NUM materials[], material matRef[]) {
 
 	fixpoint temp1, temp2, conduction;
 	material  *material1 = NULL, *material2 = NULL;
 
-	for (int i = 0; i < cellCount-1; i++) { //One fewer than the fixpointber of cells
+	for (int i = 0; i < cellCount-1; i++) { //One fewer than
+		the fixpointber of cells
 
 		temp1 = temps[i]; //Get current temperatures from array 'temps'
 		temp2 = temps[i+1];
