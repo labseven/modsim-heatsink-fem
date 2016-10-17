@@ -7,7 +7,7 @@
 
 #include "energyTempConversion.h"
 
-#define EANDTTYPE fixpoint
+#define EANDTTYPE NUM
 
 EANDTTYPE energy2temp (EANDTTYPE energy, EANDTTYPE heatCapacity) /* energy J to Temperature Units */
 {
