@@ -27,7 +27,7 @@ NUM newTemp(NUM currentTemp, NUM deltaTime, int inMaterial, material matRef[], N
 	return newTemperature;
 }
 
-bool updateTemps(NUM cellCount, NUM deltaTime, NUM currentTemps[], NUM newTemps[], NUM flows[], int materials[], material matRef[])
+bool updateTemps(int cellCount, NUM deltaTime, NUM currentTemps[], NUM newTemps[], NUM flows[], int materials[], material matRef[])
 {
 
 	for(int i = 0; i < cellCount-1; i++) // Loop through all cells
