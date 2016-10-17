@@ -6,7 +6,6 @@
  * */
 
 #include "updateTemps.h"
-#include "energyTempConversion.h"
 
 NUM newTemp(NUM currentTemp, NUM deltaTime, int inMaterial, material matRef[], NUM flow)
 {
@@ -23,7 +22,7 @@ NUM newTemp(NUM currentTemp, NUM deltaTime, int inMaterial, material matRef[], N
 
 
 	if (newTemperature < 0){
-		std::cout << "Warning: new temp is <0. (" << newTemperature << ")\n";
+		std::cout << "Warning: new temp is < 0. (" << newTemperature << ")\n";
 	}
 	return newTemperature;
 }
