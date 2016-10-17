@@ -10,7 +10,7 @@
 NUM newTemp(NUM currentTemp, NUM deltaTime, int inMaterial, material matRef[], NUM flow)
 {
 	NUM newEnergy, newTemperature, currentEnergy;
-	material thisMaterial;
+	material *thisMaterial;
 
 	thisMaterial = &matRef[inMaterial];
 	currentEnergy = temp2energy(currentTemp, thisMaterial->heatCapacity);
@@ -29,8 +29,6 @@ NUM newTemp(NUM currentTemp, NUM deltaTime, int inMaterial, material matRef[], N
 
 bool updateTemps(NUM cellCount, NUM deltaTime, NUM currentTemps[], NUM newTemps[], NUM flows[], int materials[], material matRef[])
 {
-	NUM energy, flow;
-	material *thisMaterial;
 
 	for(int i = 0; i < cellCount-1; i++) // Loop through all cells
 	{
