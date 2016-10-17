@@ -10,7 +10,7 @@
 
 bool updateTemps(NUM cellCount, NUM currentTemps[], NUM newTemps[], NUM flows[], NUM materials[], material matRef[])
 {
-	fixpoint energy, flow;
+	NUM energy, flow;
 	material *material;
 
 	for(int i = 0; i < cellCount-1; i++) // Loop through all cells
