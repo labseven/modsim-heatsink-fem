@@ -21,6 +21,7 @@ int main() {
 	};
 
 	NUM temps[] = {c2units(0), c2units(0), c2units(1), c2units(0)};
+	NUM newTemps[4];
 	int materials[] = {0, 1, 1, 0};
 	NUM flows[] = {-1, -1, -1};
 
@@ -31,6 +32,12 @@ int main() {
 
 	} else cout <<"updateFlows failed.\n";
 
+	if (updateTemps(4, DELTATIME, temps, newTemps, flows, materials, matRef)){
+		cout << "Tempratures: ";
+		for (int i = 0; i<3; i++) {
+			cout << newTemps[i] << ", ";
+		}
+	}
 }
 
 
