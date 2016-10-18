@@ -1,0 +1,10 @@
+Todo:
+
+.csv export
+	write to file every x updates
+
+tests?
+
+
+Other notes:
+
