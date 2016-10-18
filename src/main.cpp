@@ -6,7 +6,7 @@
  */
 
 #include "main.h"
-#define DEBUG 0
+#define DEBUG 1
 
 using namespace std;
 
@@ -28,20 +28,21 @@ int main() {
 	material matRef[] = {
 			material(true, 0, 0, 0), //Magic wall.  Yes, this will cause division by zero if its new temperature is evaluated.
 			material(false, ALU_CONDUCT, ALU_HCAP, 0), //Aluminum
-			material(true, AIR_CONDUCT, AIR_HCAP, AMBIENT_TEMP) //Air
+			material(true, AIR_CONDUCT, AIR_HCAP, AMBIENT_TEMP), //Air
+			material(true, ALU_CONDUCT, ALU_HCAP, 100) //Heated Aluminum
 	};
 
 	// Setup Parameters
-	const int cellCount = 5;
-	NUM currentTemps[] = 		{0, 0, 100, 0, 0};
-	int materials[] = 			{0, 1, 1, 1, 0};
-	const int loopTimes = 10000;
+	const int cellCount = 6;
+	NUM currentTemps[] = 		{0, 0, 25, 25, 0, 0};
+	int materials[] = 			{0, 3, 1,  1,  2, 0};
+	const int loopTimes = 100;
 
 
 	NUM newTemps[cellCount];
 	NUM flows[cellCount - 1];
 
-
+	// need to initalize currentTemps array for constTemp cells (first updateFlows is wonky)
 
 	for (int loopCounter = 0; loopCounter < loopTimes; loopCounter ++)
 	{
