@@ -18,7 +18,7 @@ int main() {
 			material(true, AIR_CONDUCT, AIR_HCAP, AMBIENT_TEMP) //Air
 	};
 
-	NUM temps[] = {0,0,1,0};
+	NUM temps[] = {0,0,2,0};
 
 	cout << "\nOriginal temps: ";
 	for (int i = 0; i<4; i++) {
