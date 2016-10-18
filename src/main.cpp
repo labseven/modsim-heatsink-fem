@@ -6,9 +6,21 @@
  */
 
 #include "main.h"
-#define DEBUG 1
+#define DEBUG 0
 
 using namespace std;
+
+bool printTemps(int cellCount, NUM temps[])
+{
+	std::cout << "Temperatures: ";
+	for (int i = 0; i < cellCount; i++)
+	{
+		std::cout << temps[i] << "C ";
+	}
+
+	std::cout << "\n";
+	return true;
+}
 
 int main() {
 
@@ -21,9 +33,9 @@ int main() {
 
 	// Setup Parameters
 	const int cellCount = 5;
-	NUM temps[] = 		{0, 0, 2, 0, 0};
-	int materials[] = 	{0, 1, 1, 1, 0};
-	const int loopTimes = 10;
+	NUM currentTemps[] = 		{0, 0, 100, 0, 0};
+	int materials[] = 			{0, 1, 1, 1, 0};
+	const int loopTimes = 10000;
 
 
 	NUM newTemps[cellCount];
@@ -31,25 +43,20 @@ int main() {
 
 
 
+	for (int loopCounter = 0; loopCounter < loopTimes; loopCounter ++)
+	{
+		if (updateFlows (cellCount, currentTemps, flows, materials, matRef)) {
+		} else cout <<"updateFlows failed.\n";
 
-	if (updateFlows (cellCount, temps, flows, materials, matRef)) {
-	} else cout <<"updateFlows failed.\n";
-
-	if (updateTemps(cellCount, DELTATIME, temps, newTemps, flows, materials, matRef)){
-	} else cout << "updateTemps failed.\n";
+		if (updateTemps(cellCount, DELTATIME, currentTemps, newTemps, flows, materials, matRef)){
+		} else cout << "updateTemps failed.\n";
 
 
+		// Swap newTemp into currentTemp
+		memcpy(currentTemps, newTemps, sizeof(NUM)*cellCount);
 
-	if(DEBUG){
-		cout << "\nNew temps: ";
 
-		for (int i = 0; i < cellCount; i++) {
-			cout << newTemps[i] << "C, ";
-		}
-		cout << "\n\n";
+		if (DEBUG) printTemps(cellCount, currentTemps);
 	}
+	printTemps(cellCount, currentTemps);
 }
-
-
-
-
