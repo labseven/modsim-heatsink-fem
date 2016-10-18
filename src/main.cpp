@@ -6,7 +6,7 @@
  */
 
 #include "main.h"
-#define DEBUG 0
+#define DEBUG 1
 
 using namespace std;
 
@@ -20,21 +20,22 @@ int main() {
 	};
 
 	// Setup Parameters
+	const int cellCount = 4;
 	NUM temps[] = {0,0,2,0};
 	int materials[] = {0, 1, 1, 0};
 	const int loopTimes = 10;
 
 
-	NUM newTemps[] = {0,0,0,0};
-	NUM flows[] = {-1, -1, -1};
+	NUM newTemps[cellCount];
+	NUM flows[cellCount - 1];
 
 
 
 
-	if (updateFlows (4, temps, flows, materials, matRef)) {
+	if (updateFlows (cellCount, temps, flows, materials, matRef)) {
 	} else cout <<"updateFlows failed.\n";
 
-	if (updateTemps(4, DELTATIME, temps, newTemps, flows, materials, matRef)){
+	if (updateTemps(cellCount, DELTATIME, temps, newTemps, flows, materials, matRef)){
 	} else cout << "updateTemps failed.\n";
 
 
