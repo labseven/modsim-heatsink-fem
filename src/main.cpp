@@ -20,9 +20,9 @@ int main() {
 	};
 
 	// Setup Parameters
-	const int cellCount = 4;
-	NUM temps[] = {0,0,2,0};
-	int materials[] = {0, 1, 1, 0};
+	const int cellCount = 5;
+	NUM temps[] = 		{0, 0, 2, 0, 0};
+	int materials[] = 	{0, 1, 1, 1, 0};
 	const int loopTimes = 10;
 
 
@@ -43,7 +43,7 @@ int main() {
 	if(DEBUG){
 		cout << "\nNew temps: ";
 
-		for (int i = 0; i<4; i++) {
+		for (int i = 0; i < cellCount; i++) {
 			cout << newTemps[i] << "C, ";
 		}
 		cout << "\n\n";
