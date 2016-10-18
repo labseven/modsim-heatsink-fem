@@ -34,7 +34,7 @@ struct material{
 
 #define CELLSIZE 1  //millimeters
 #define KELVINOFFSET 273.150
-#define DELTATIME .01 // Seconds
+#define DELTATIME .0001 // Seconds
 
 //#define UNITSPERC 8388608 //2^23
 //#define UNITSPERW 67108864 //2^26
