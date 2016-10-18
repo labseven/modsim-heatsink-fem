@@ -15,7 +15,7 @@ bool updateFlows (int cellCount, NUM temps[], NUM flows[], int materials[], mate
 	NUM temp1, temp2, conduction;
 	material  *material1 = NULL, *material2 = NULL;
 
-	std::cout << "\n updateFlows:\nFlows: ";
+	std::cout << "updateFlows:\nFlows: ";
 	for (int i = 0; i < cellCount-1; i++) { //One fewer than the number of cells
 
 		temp1 = temps[i]; //Get current temperatures from array 'temps'
@@ -31,7 +31,7 @@ bool updateFlows (int cellCount, NUM temps[], NUM flows[], int materials[], mate
 		}
 
 		flows[i] = (temp1 - temp2) * conduction; //Units are already dealt with in conduction
-		std::cout << flows[i] << "mw ";
+		std::cout << flows[i] << "W ";
 
 	}
 	std::cout << "\n";
