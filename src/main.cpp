@@ -6,7 +6,7 @@
  */
 
 #include "main.h"
-#define DEBUG 1
+#define DEBUG 0
 
 using namespace std;
 
@@ -33,9 +33,9 @@ int main() {
 
 	// Setup Parameters
 	const int cellCount = 5;
-	NUM currentTemps[] = 		{0, 0, 2, 0, 0};
+	NUM currentTemps[] = 		{0, 0, 100, 0, 0};
 	int materials[] = 			{0, 1, 1, 1, 0};
-	const int loopTimes = 10;
+	const int loopTimes = 10000;
 
 
 	NUM newTemps[cellCount];
@@ -56,6 +56,7 @@ int main() {
 		memcpy(currentTemps, newTemps, sizeof(NUM)*cellCount);
 
 
-		printTemps(cellCount, currentTemps);
+		if (DEBUG) printTemps(cellCount, currentTemps);
 	}
+	printTemps(cellCount, currentTemps);
 }
