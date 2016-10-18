@@ -2,6 +2,9 @@ Todo:
 
 .csv export
 	write to file every x updates
+document things in documentation.txt:
+	what each function recieves and returns
+	what each variable is
 
 tests?
 

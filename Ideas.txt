@@ -74,6 +74,10 @@ NUM: cellcount, materials
 matRef(bool constTemp, fixpoint conductivity, fixpoint specificHeat)
 
 
+TODO:
+
+make arrays pointer pointers to make them reassignable
+
 
 
 Reference:
