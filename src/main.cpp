@@ -6,6 +6,7 @@
  */
 
 #include "main.h"
+#define DEBUG 0
 
 using namespace std;
 
@@ -18,17 +19,17 @@ int main() {
 			material(true, AIR_CONDUCT, AIR_HCAP, AMBIENT_TEMP) //Air
 	};
 
+	// Setup Parameters
 	NUM temps[] = {0,0,2,0};
+	int materials[] = {0, 1, 1, 0};
+	const int loopTimes = 10;
 
-	cout << "\nOriginal temps: ";
-	for (int i = 0; i<4; i++) {
-		cout << temps[i] << "C, ";
-	}
-	cout << "\n\n";
 
 	NUM newTemps[] = {0,0,0,0};
-	int materials[] = {0, 1, 1, 0};
 	NUM flows[] = {-1, -1, -1};
+
+
+
 
 	if (updateFlows (4, temps, flows, materials, matRef)) {
 	} else cout <<"updateFlows failed.\n";
@@ -36,11 +37,16 @@ int main() {
 	if (updateTemps(4, DELTATIME, temps, newTemps, flows, materials, matRef)){
 	} else cout << "updateTemps failed.\n";
 
-	cout << "\nNew temps: ";
-	for (int i = 0; i<4; i++) {
-		cout << newTemps[i] << "C, ";
+
+
+	if(DEBUG){
+		cout << "\nNew temps: ";
+
+		for (int i = 0; i<4; i++) {
+			cout << newTemps[i] << "C, ";
+		}
+		cout << "\n\n";
 	}
-	cout << "\n\n";
 }
 
 
