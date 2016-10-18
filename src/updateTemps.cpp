@@ -7,20 +7,21 @@
 
 #include "updateTemps.h"
 
-NUM newTemp(NUM currentTemp, NUM deltaTime, int inMaterial, material matRef[], NUM flow)
+NUM newTemp(NUM currentTemp, NUM deltaTime, int inMaterial, material matRef[], NUM flow1, NUM flow2)
 {
 	NUM newEnergy, newTemperature, currentEnergy;
 	material *thisMaterial;
 
 	thisMaterial = &matRef[inMaterial];
 	if(thisMaterial->constantTemp){
+		std::cout << "constantTemp, will not change\n";
 		return (thisMaterial->tempSetPoint);
 	}
 
 	currentEnergy = temp2energy(currentTemp, thisMaterial->heatCapacity);
 
-	newEnergy = currentEnergy + (flow * deltaTime);
-	std::cout << "currE: " << currentEnergy << "J flow: " << flow << "W newE: " << newEnergy << "J (dt: " << deltaTime << ") \t";
+	newEnergy = currentEnergy + ((flow1-flow2) * deltaTime); // Flows move left to right, add left one, subtract right one
+	std::cout << "Update Temp: currE: " << currentEnergy << "J flow1: " << flow1 << "W flow2: " << flow2 << "W  newE: " << newEnergy << "J (dt: " << deltaTime << ") \n";
 
 	newTemperature = energy2temp(newEnergy, thisMaterial->heatCapacity);
 
@@ -36,9 +37,9 @@ bool updateTemps(int cellCount, NUM deltaTime, NUM currentTemps[], NUM newTemps[
 {
 
 	std::cout << "\nupdateTemps: \n";
-	for(int i = 0; i < cellCount-1; i++) // Loop through all cells removing the first and last
+	for(int i = 0; i < cellCount; i++) // Loop through all cells
 	{
-		newTemps[i] = newTemp(currentTemps[i], deltaTime, materials[i], matRef, flows[i]);
+		newTemps[i] = newTemp(currentTemps[i], deltaTime, materials[i], matRef, flows[i-1], flows[i]);
 	}
 
 
