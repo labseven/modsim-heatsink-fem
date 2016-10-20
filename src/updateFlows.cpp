@@ -42,20 +42,19 @@ bool updateFlows (int cellCount, NUM temps[], NUM flows[], int materials[], mate
 }
 
 
-bool updateFlows2D (NUM temps[MAP_X][MAP_Y], NUM flowsX[MAP_Y][MAP_X-1], NUM flowsY[MAP_X][MAP_Y-1], int materials[MAP_X][MAP_Y], material matRef[]) {
+bool updateFlows2D (NUM temps[MAP_Y][MAP_X], NUM flowsX[MAP_Y][MAP_X-1], NUM flowsY[MAP_X][MAP_Y-1], int materials[MAP_Y][MAP_X], material matRef[]) {
 
 	NUM tempRow[MAP_X];
 	int matRow[MAP_X];
 
-	for (int i = 0; i < MAP_Y; i++) {
+	for (int i = 0; i < MAP_Y; i++) { //First, the horizontal flows.
 
-		for (int j = 0; j < MAP_X; j++) { //Get the rows of current temps and materials
-			tempRow[j] = temps[j][i];
-			matRow[j] = materials[j][i];
+		for (int j = 0; j < MAP_X; j++) { //Get the rows of current temps and materials.  Yes, this is horribly inefficient.
+			tempRow[j] = temps[i][j];
+			matRow[j] = materials[i][j];
 		}
 
 		if (! updateFlows(MAP_X, tempRow, flowsX[i], matRow, matRef)) return (false); //Update the current row, fail if it should
-
 
 	}
 

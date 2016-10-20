@@ -22,6 +22,18 @@ bool printTemps(int cellCount, NUM temps[])
 	return true;
 }
 
+bool printFlows(int cellCount, NUM flows[])
+{
+	std::cout << "Flows: ";
+	for (int i = 0; i < cellCount; i++)
+	{
+		std::cout << flows[i] << "W ";
+	}
+
+	std::cout << "\n";
+	return true;
+}
+
 int main() {
 
 	material matRef[] = {
@@ -32,21 +44,27 @@ int main() {
 	};
 
 
-	NUM temps[MAP_X][MAP_Y] = {
-			{0, 0, 0},
-			{0, 50, 0},
-			{0, 0, 0},
-			{0, 0, 0}
+	NUM temps[MAP_Y][MAP_X] = {
+			{0, 0, 0, 0},
+			{0, 1, 0, 0},
+			{0, 0, 0, 0}
 	};
 
-	int materials[MAP_X][MAP_Y] = {
-			{0, 0, 0},
-			{0, 1, 0},
-			{0, 1, 0},
-			{0, 0, 0}
+	int materials[MAP_Y][MAP_X] = {
+			{0, 0, 0, 0},
+			{0, 1, 1, 0},
+			{0, 0, 0, 0}
 	};
 
 	NUM flowsX[MAP_Y][MAP_X-1], flowsY[MAP_X][MAP_Y-1];
+
+	updateFlows2D(temps, flowsX, flowsY, materials, matRef);
+
+	for (int i = 0; i < MAP_Y; i++) {
+
+		printFlows(MAP_X, flowsX[i]);
+
+	}
 
 
 
