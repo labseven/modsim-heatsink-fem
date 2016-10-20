@@ -44,6 +44,8 @@ int main() {
 	};
 
 
+
+	// Initial temp map
 	NUM temps[MAP_Y][MAP_X] = {
 			{0, 0, 0, 0},
 			{0, 1, 0, 0},
@@ -56,9 +58,13 @@ int main() {
 			{0, 0, 0, 0}
 	};
 
+
+
 	NUM flowsX[MAP_Y][MAP_X-1], flowsY[MAP_X][MAP_Y-1];
 
+
 	updateFlows2D(temps, flowsX, flowsY, materials, matRef);
+
 
 	cout << "Horizontal:";
 	for (int i = 0; i < MAP_Y; i++) {
