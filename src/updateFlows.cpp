@@ -49,7 +49,7 @@ bool updateFlows2D (NUM temps[MAP_Y][MAP_X], NUM flowsX[MAP_Y][MAP_X-1], NUM flo
 
 	for (int i = 0; i < MAP_Y; i++) { //First, the horizontal flows.
 
-		for (int j = 0; j < MAP_X; j++) { //Get the rows of current temps and materials.  Yes, this is horribly inefficient.
+		for (int j = 0; j < MAP_X-1; j++) { //Get the rows of current temps and materials.  Yes, this is horribly inefficient.
 			tempRow[j] = temps[i][j];
 			matRow[j] = materials[i][j];
 		}
@@ -58,5 +58,21 @@ bool updateFlows2D (NUM temps[MAP_Y][MAP_X], NUM flowsX[MAP_Y][MAP_X-1], NUM flo
 
 	}
 
+
+	NUM tempCol[MAP_Y];
+	int matCol[MAP_Y];
+
+	for (int i = 0; i < MAP_X; i++) { //Next the vertical flows
+
+		for (int j = 0; j < MAP_Y-1; j++) { //Get the columns of current temps and materials.  This time the inefficiency is necessary.
+			tempCol[j] = temps[j][i];
+			matCol[j] = materials[j][i];
+		}
+
+		if (! updateFlows(MAP_Y, tempCol, flowsY[i], matCol, matRef)) return (false); //Update the current col, fail if it should
+
+	}
+
+	return (true);
 
 }

@@ -60,12 +60,18 @@ int main() {
 
 	updateFlows2D(temps, flowsX, flowsY, materials, matRef);
 
+	cout << "Horizontal:";
 	for (int i = 0; i < MAP_Y; i++) {
 
-		printFlows(MAP_X, flowsX[i]);
+		printFlows(MAP_X-1, flowsX[i]);
 
 	}
 
+	cout << "\nVertical:";
+	for (int i = 0; i < MAP_Y; i++) {
 
+		printFlows(MAP_Y-1, flowsY[i]);
+
+	}
 
 }

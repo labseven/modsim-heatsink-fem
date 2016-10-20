@@ -59,6 +59,7 @@ static const int MAP_Y = 3;
 #include "energyTempConversion.h"
 #include "updateFlows.h"
 #include "updateTemps.h"
+#include "csvExport.h"
 //#include "fixpoint.h"
 
 #endif /* MAIN_H_ */
