@@ -24,7 +24,6 @@ bool printTemps(int cellCount, NUM temps[])
 
 int main() {
 
-
 	material matRef[] = {
 			material(true, 0, 0, 0), //Magic wall.  Yes, this will cause division by zero if its new temperature is evaluated.
 			material(false, ALU_CONDUCT, ALU_HCAP, 0), //Aluminum
@@ -32,32 +31,23 @@ int main() {
 			material(true, ALU_CONDUCT, ALU_HCAP, 100) //Heated Aluminum
 	};
 
-	// Setup Parameters
-	const int cellCount = 6;
-	NUM currentTemps[] = 		{0, 0, 25, 25, 0, 0};
-	int materials[] = 			{0, 3, 1,  1,  2, 0};
-	const int loopTimes = 100;
+
+	NUM temps[MAP_X][MAP_Y] = {
+			{0, 0, 0},
+			{0, 50, 0},
+			{0, 0, 0},
+			{0, 0, 0}
+	};
+
+	int materials[MAP_X][MAP_Y] = {
+			{0, 0, 0},
+			{0, 1, 0},
+			{0, 1, 0},
+			{0, 0, 0}
+	};
+
+	NUM flowsX[MAP_Y][MAP_X-1], flowsY[MAP_X][MAP_Y-1];
 
 
-	NUM newTemps[cellCount];
-	NUM flows[cellCount - 1];
 
-	// need to initalize currentTemps array for constTemp cells (first updateFlows is wonky)
-
-	for (int loopCounter = 0; loopCounter < loopTimes; loopCounter ++)
-	{
-		if (updateFlows (cellCount, currentTemps, flows, materials, matRef)) {
-		} else cout <<"updateFlows failed.\n";
-
-		if (updateTemps(cellCount, DELTATIME, currentTemps, newTemps, flows, materials, matRef)){
-		} else cout << "updateTemps failed.\n";
-
-
-		// Swap newTemp into currentTemp
-		memcpy(currentTemps, newTemps, sizeof(NUM)*cellCount);
-
-
-		if (DEBUG) printTemps(cellCount, currentTemps);
-	}
-	printTemps(cellCount, currentTemps);
 }

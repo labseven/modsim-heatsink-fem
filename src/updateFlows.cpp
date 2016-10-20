@@ -40,3 +40,24 @@ bool updateFlows (int cellCount, NUM temps[], NUM flows[], int materials[], mate
 	return true; //Unless something went wrong
 
 }
+
+
+bool updateFlows2D (NUM temps[MAP_X][MAP_Y], NUM flowsX[MAP_Y][MAP_X-1], NUM flowsY[MAP_X][MAP_Y-1], int materials[MAP_X][MAP_Y], material matRef[]) {
+
+	NUM tempRow[MAP_X];
+	int matRow[MAP_X];
+
+	for (int i = 0; i < MAP_Y; i++) {
+
+		for (int j = 0; j < MAP_X; j++) { //Get the rows of current temps and materials
+			tempRow[j] = temps[j][i];
+			matRow[j] = materials[j][i];
+		}
+
+		if (! updateFlows(MAP_X, tempRow, flowsX[i], matRow, matRef)) return (false); //Update the current row, fail if it should
+
+
+	}
+
+
+}
