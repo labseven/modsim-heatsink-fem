@@ -56,6 +56,7 @@ static const NUM AMBIENT_TEMP = 25 /*C*/ * UNITSPERC /*units/C*/ ;
 #include "energyTempConversion.h"
 #include "updateFlows.h"
 #include "updateTemps.h"
+#include "csvExport.h"
 //#include "fixpoint.h"
 
 #endif /* MAIN_H_ */
