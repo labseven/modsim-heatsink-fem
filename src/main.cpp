@@ -6,7 +6,7 @@
  */
 
 #include "main.h"
-#define DEBUG 1
+#define DEBUG 0
 
 using namespace std;
 
@@ -37,21 +37,26 @@ int main() {
 	NUM currentTemps[] = 		{0, 0, 25, 25, 0, 0};
 	int materials[] = 			{0, 3, 1,  1,  2, 0};
 	const int loopTimes = 100;
-
+	NUM currentTime = 0;
 
 	NUM newTemps[cellCount];
 	NUM flows[cellCount - 1];
 
 	// need to initalize currentTemps array for constTemp cells (first updateFlows is wonky)
+	clearCSV();
 
 	for (int loopCounter = 0; loopCounter < loopTimes; loopCounter ++)
 	{
+		csvExport(cellCount, currentTemps, currentTime);
+
 		if (updateFlows (cellCount, currentTemps, flows, materials, matRef)) {
 		} else cout <<"updateFlows failed.\n";
 
 		if (updateTemps(cellCount, DELTATIME, currentTemps, newTemps, flows, materials, matRef)){
 		} else cout << "updateTemps failed.\n";
 
+
+		currentTime += DELTATIME;
 
 		// Swap newTemp into currentTemp
 		memcpy(currentTemps, newTemps, sizeof(NUM)*cellCount);
