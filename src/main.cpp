@@ -6,7 +6,7 @@
  */
 
 #include "main.h"
-#define DEBUG 1
+#define DEBUG 0
 
 using namespace std;
 
@@ -43,28 +43,42 @@ int main() {
 			material(true, ALU_CONDUCT, ALU_HCAP, 100) //Heated Aluminum
 	};
 
-
-
 	// Initial temp map
-	NUM temps[MAP_Y][MAP_X] = {
+	NUM currentTemps[MAP_Y][MAP_X] = {
 			{0, 0, 0, 0},
+			{0, 2, 1, 0},
 			{0, 1, 0, 0},
 			{0, 0, 0, 0}
 	};
 
+	NUM newTemps[MAP_Y][MAP_X];
+
+	// Need magic wall along whole border
 	int materials[MAP_Y][MAP_X] = {
 			{0, 0, 0, 0},
+			{0, 1, 1, 0},
 			{0, 1, 1, 0},
 			{0, 0, 0, 0}
 	};
 
 
 
-	NUM flowsX[MAP_Y][MAP_X-1], flowsY[MAP_X][MAP_Y-1];
+	NUM flowsX[MAP_Y][MAP_X-1] = {
+			{0, 0, 0},
+			{0, 1, 1},
+			{0, 0, 0}
+	};
+
+	NUM flowsY[MAP_X][MAP_Y-1] = {
+			{0,0,0},
+			{0,1,0},
+			{0,1,0},
+			{0,0,0}
+	};
 
 
-	updateFlows2D(temps, flowsX, flowsY, materials, matRef);
-
+	//updateFlows2D(currentTemps, flowsX, flowsY, materials, matRef);
+	updateTemps2D (DELTATIME, currentTemps, newTemps, flowsX, flowsY, materials, matRef);
 
 	cout << "Horizontal:";
 	for (int i = 0; i < MAP_Y; i++) {
