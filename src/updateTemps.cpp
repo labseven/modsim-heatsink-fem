@@ -6,7 +6,7 @@
  * */
 
 #include "updateTemps.h"
-#define DEBUG 0
+#define DEBUG 1
 
 NUM newTemp(NUM currentTemp, NUM deltaTime, int inMaterial, material matRef[], NUM flow1, NUM flow2)
 {
@@ -47,6 +47,21 @@ NUM newTemp2D(NUM currentTemp, NUM deltaTime, int inMaterial, material matRef[],
 	}
 
 	currentEnergy = temp2energy(currentTemp, thisMaterial->heatCapacity);
+
+	newEnergy = currentEnergy + (((flowX1-flowX2) + (flowY1-flowY2)) * deltaTime); // Flows move left to right, up to down; add left/up, subtract right/down
+
+	if(DEBUG) std::cout << "updateTemp2D: currE: " << currentEnergy << "J flowX1: " << flowX1 << "W flowX2: " << flowX2 << "W flowY1: " << flowY1 << "W flowY2: " << flowY2 << "W  newE: " << newEnergy << "J (dt: " << deltaTime << ") \n";
+
+	newTemperature = energy2temp(newEnergy, thisMaterial->heatCapacity);
+
+	if(DEBUG) std::cout << "new temp: " << newTemperature << "C\n";
+
+	if (newTemperature < 0){
+		if(DEBUG) std::cout << "Warning: new temp is < 0. (" << newTemperature << ")\n";
+	}
+	return newTemperature;
+
+
 }
 
 bool updateTemps(int cellCount, NUM deltaTime, NUM currentTemps[], NUM newTemps[], NUM flows[], int materials[], material matRef[])
@@ -67,7 +82,10 @@ bool updateTemps2D (NUM deltaTime, NUM currentTemps[MAP_Y][MAP_X], NUM newTemps[
 	if(DEBUG) std::cout << "\nupdateTemps2D: \n";
 	for(int x = 0; x < MAP_X; x++) // Loop through all cells
 	{
-		//newTemps[x] = newTemp2D(currentTemps[x], deltaTime, materials[x], matRef, flowsX[x-1], flowsX[x]);
+		for(int y = 0; y < MAP_Y; y++)
+		{
+			newTemps[y][x] = newTemp2D(currentTemps[y][x], deltaTime, materials[y][x], matRef, flowsX[y][x-1], flowsX[y][x], flowsY[y][x], flowsY[y][x]); // Errors will occur here from picking wrong flowsX and flowsY values
+		}
 	}
 
 
