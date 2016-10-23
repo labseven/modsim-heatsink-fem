@@ -84,7 +84,7 @@ bool updateTemps2D (NUM deltaTime, NUM currentTemps[MAP_Y][MAP_X], NUM newTemps[
 	{
 		for(int y = 0; y < MAP_Y; y++)
 		{
-			newTemps[y][x] = newTemp2D(currentTemps[y][x], deltaTime, materials[y][x], matRef, flowsX[y][x-1], flowsX[y][x], flowsY[y][x], flowsY[y][x]); // Errors will occur here from picking wrong flowsX and flowsY values
+			newTemps[y][x] = newTemp2D(currentTemps[y][x], deltaTime, materials[y][x], matRef, flowsX[y][x-1], flowsX[y][x], flowsY[x][y-1], flowsY[x][y]); // Errors will occur here from picking wrong flowsX and flowsY values
 		}
 	}
 

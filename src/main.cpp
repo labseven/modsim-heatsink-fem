@@ -65,22 +65,21 @@ int main() {
 
 	NUM flowsX[MAP_Y][MAP_X-1] = {
 			{0, 0, 0},
-			{0, 1, 1},
+			{0, 0, 0},
 			{0, 0, 0}
 	};
 
 	NUM flowsY[MAP_X][MAP_Y-1] = {
 			{0,0,0},
-			{0,1,0},
-			{0,1,0},
+			{0,0,0},
+			{0,0,0},
 			{0,0,0}
 	};
 
 
-	//updateFlows2D(currentTemps, flowsX, flowsY, materials, matRef);
-	updateTemps2D (DELTATIME, currentTemps, newTemps, flowsX, flowsY, materials, matRef);
 
-	cout << "Horizontal:";
+
+	/*cout << "Horizontal:";
 	for (int i = 0; i < MAP_Y; i++) {
 
 		printFlows(MAP_X-1, flowsX[i]);
@@ -92,6 +91,13 @@ int main() {
 
 		printFlows(MAP_Y-1, flowsY[i]);
 
-	}
+	}*/
+
+	clearCSV2D();
+	csvExport2D(currentTemps, 1);
+	updateFlows2D(currentTemps, flowsX, flowsY, materials, matRef);
+	updateTemps2D (DELTATIME, currentTemps, newTemps, flowsX, flowsY, materials, matRef);
+	csvExport2D(currentTemps, 2);
+
 
 }
