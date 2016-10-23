@@ -17,4 +17,7 @@ bool csvExport(int cellCount, NUM currentTemps[], NUM currentTime);
 bool clearCSV();
 
 
+bool csvExport2D(NUM currentTemps[MAP_Y][MAP_X], NUM currentTime);
+bool clearCSV2D();
+
 #endif /* CSVEXPORT_H_ */
