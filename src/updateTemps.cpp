@@ -34,6 +34,21 @@ NUM newTemp(NUM currentTemp, NUM deltaTime, int inMaterial, material matRef[], N
 	return newTemperature;
 }
 
+NUM newTemp2D(NUM currentTemp, NUM deltaTime, int inMaterial, material matRef[], NUM flowX1, NUM flowX2,NUM flowY1, NUM flowY2)
+{
+
+	NUM newEnergy, newTemperature, currentEnergy;
+	material *thisMaterial;
+
+	thisMaterial = &matRef[inMaterial];
+	if(thisMaterial->constantTemp){
+		if(DEBUG) std::cout << "constantTemp, will not change\n";
+		return (thisMaterial->tempSetPoint);
+	}
+
+	currentEnergy = temp2energy(currentTemp, thisMaterial->heatCapacity);
+}
+
 bool updateTemps(int cellCount, NUM deltaTime, NUM currentTemps[], NUM newTemps[], NUM flows[], int materials[], material matRef[])
 {
 
@@ -45,4 +60,17 @@ bool updateTemps(int cellCount, NUM deltaTime, NUM currentTemps[], NUM newTemps[
 
 
 	return true;
+}
+
+bool updateTemps2D (NUM deltaTime, NUM currentTemps[MAP_Y][MAP_X], NUM newTemps[MAP_Y][MAP_X], NUM flowsX[MAP_Y][MAP_X-1], NUM flowsY[MAP_X][MAP_Y-1], int materials[MAP_Y][MAP_X], material matRef[])
+{
+	if(DEBUG) std::cout << "\nupdateTemps2D: \n";
+	for(int x = 0; x < MAP_X; x++) // Loop through all cells
+	{
+		//newTemps[x] = newTemp2D(currentTemps[x], deltaTime, materials[x], matRef, flowsX[x-1], flowsX[x]);
+	}
+
+
+	return true;
+
 }
