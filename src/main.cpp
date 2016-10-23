@@ -65,19 +65,20 @@ int main() {
 
 	NUM flowsX[MAP_Y][MAP_X-1] = {
 			{0, 0, 0},
-			{0, 1, 1},
-			{0, 0, 0}
+			{0, 1, 0},
+			{0, 1, 0},
+			{0, 1, 0}
 	};
 
 	NUM flowsY[MAP_X][MAP_Y-1] = {
-			{0,0,0},
-			{0,1,0},
-			{0,1,0},
-			{0,0,0}
+			{0, 0, 0},
+			{0, 1, 0},
+			{0, 1, 0},
+			{0, 0, 0}
 	};
 
 
-	//updateFlows2D(currentTemps, flowsX, flowsY, materials, matRef);
+	updateFlows2D(currentTemps, flowsX, flowsY, materials, matRef);
 	updateTemps2D (DELTATIME, currentTemps, newTemps, flowsX, flowsY, materials, matRef);
 
 	cout << "Horizontal:";
