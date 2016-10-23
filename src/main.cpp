@@ -6,10 +6,7 @@
  */
 
 #include "main.h"
-#define DEBUG 1
-
-static const int MAP_X = 4;
-static const int MAP_Y = 3;
+#define DEBUG 0
 
 using namespace std;
 
@@ -62,11 +59,16 @@ int main() {
 
 
 	NUM flowsX[MAP_Y][MAP_X-1] = {
-			{0, 0, 0, 0},
-			{0, 1, 1, 0}
-	}
-	NUM flowsY[MAP_X][MAP_Y-1] = {
+			{0, 0, 0},
+			{0, 1, 1},
+			{0, 1, 1}
+	};
 
+	NUM flowsY[MAP_X][MAP_Y-1] = {
+			{0,0},
+			{1,1},
+			{0,0},
+			{0,0}
 	};
 
 

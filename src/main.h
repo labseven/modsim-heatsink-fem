@@ -52,6 +52,9 @@ static const NUM AIR_HCAP = 1.005 /*J/gC*/ * 1.2*0.000001 /*g/mm^3*/ * UNITSPERC
 
 static const NUM AMBIENT_TEMP = 25 /*C*/ * UNITSPERC /*units/C*/ ;
 
+static const int MAP_X = 4;
+static const int MAP_Y = 3;
+
 
 #include "energyTempConversion.h"
 #include "updateFlows.h"
