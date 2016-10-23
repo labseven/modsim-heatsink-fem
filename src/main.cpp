@@ -22,8 +22,19 @@ bool printTemps(int cellCount, NUM temps[])
 	return true;
 }
 
-int main() {
+bool printFlows(int cellCount, NUM flows[])
+{
+	std::cout << "Flows: ";
+	for (int i = 0; i < cellCount; i++)
+	{
+		std::cout << flows[i] << "W ";
+	}
 
+	std::cout << "\n";
+	return true;
+}
+
+int main() {
 
 	material matRef[] = {
 			material(true, 0, 0, 0), //Magic wall.  Yes, this will cause division by zero if its new temperature is evaluated.
@@ -32,37 +43,55 @@ int main() {
 			material(true, ALU_CONDUCT, ALU_HCAP, 100) //Heated Aluminum
 	};
 
-	// Setup Parameters
-	const int cellCount = 6;
-	NUM currentTemps[] = 		{0, 0, 25, 25, 0, 0};
-	int materials[] = 			{0, 3, 1,  1,  2, 0};
-	const int loopTimes = 100;
-	NUM currentTime = 0;
+	// Initial temp map
+	NUM currentTemps[MAP_Y][MAP_X] = {
+			{0, 0, 0, 0},
+			{0, 2, 1, 0},
+			{0, 1, 0, 0},
+			{0, 0, 0, 0}
+	};
 
-	NUM newTemps[cellCount];
-	NUM flows[cellCount - 1];
+	NUM newTemps[MAP_Y][MAP_X];
 
-	// need to initalize currentTemps array for constTemp cells (first updateFlows is wonky)
-	clearCSV();
-
-	for (int loopCounter = 0; loopCounter < loopTimes; loopCounter ++)
-	{
-		csvExport(cellCount, currentTemps, currentTime);
-
-		if (updateFlows (cellCount, currentTemps, flows, materials, matRef)) {
-		} else cout <<"updateFlows failed.\n";
-
-		if (updateTemps(cellCount, DELTATIME, currentTemps, newTemps, flows, materials, matRef)){
-		} else cout << "updateTemps failed.\n";
+	// Need magic wall along whole border
+	int materials[MAP_Y][MAP_X] = {
+			{0, 0, 0, 0},
+			{0, 1, 1, 0},
+			{0, 1, 1, 0},
+			{0, 0, 0, 0}
+	};
 
 
-		currentTime += DELTATIME;
 
-		// Swap newTemp into currentTemp
-		memcpy(currentTemps, newTemps, sizeof(NUM)*cellCount);
+	NUM flowsX[MAP_Y][MAP_X-1] = {
+			{0, 0, 0},
+			{0, 1, 1},
+			{0, 0, 0}
+	};
+
+	NUM flowsY[MAP_X][MAP_Y-1] = {
+			{0,0,0},
+			{0,1,0},
+			{0,1,0},
+			{0,0,0}
+	};
 
 
-		if (DEBUG) printTemps(cellCount, currentTemps);
+	//updateFlows2D(currentTemps, flowsX, flowsY, materials, matRef);
+	updateTemps2D (DELTATIME, currentTemps, newTemps, flowsX, flowsY, materials, matRef);
+
+	cout << "Horizontal:";
+	for (int i = 0; i < MAP_Y; i++) {
+
+		printFlows(MAP_X-1, flowsX[i]);
+
 	}
-	printTemps(cellCount, currentTemps);
+
+	cout << "\nVertical:";
+	for (int i = 0; i < MAP_Y; i++) {
+
+		printFlows(MAP_Y-1, flowsY[i]);
+
+	}
+
 }
