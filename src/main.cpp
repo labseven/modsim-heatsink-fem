@@ -8,6 +8,9 @@
 #include "main.h"
 #define DEBUG 1
 
+static const int MAP_X = 4;
+static const int MAP_Y = 3;
+
 using namespace std;
 
 bool printTemps(int cellCount, NUM temps[])
@@ -43,8 +46,6 @@ int main() {
 			material(true, ALU_CONDUCT, ALU_HCAP, 100) //Heated Aluminum
 	};
 
-
-
 	// Initial temp map
 	NUM temps[MAP_Y][MAP_X] = {
 			{0, 0, 0, 0},
@@ -60,7 +61,13 @@ int main() {
 
 
 
-	NUM flowsX[MAP_Y][MAP_X-1], flowsY[MAP_X][MAP_Y-1];
+	NUM flowsX[MAP_Y][MAP_X-1] = {
+			{0, 0, 0, 0},
+			{0, 1, 1, 0}
+	}
+	NUM flowsY[MAP_X][MAP_Y-1] = {
+
+	};
 
 
 	updateFlows2D(temps, flowsX, flowsY, materials, matRef);
