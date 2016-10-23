@@ -53,6 +53,7 @@ int main() {
 
 	NUM newTemps[MAP_Y][MAP_X];
 
+	// Need magic wall along whole border
 	int materials[MAP_Y][MAP_X] = {
 			{0, 0, 0, 0},
 			{0, 1, 1, 0},
