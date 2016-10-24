@@ -36,7 +36,7 @@ bool printFlows(int cellCount, NUM flows[])
 
 bool printFlows3D(NUM flowsX[MAP_Z][MAP_Y][MAP_X-1], NUM flowsY[MAP_X][MAP_Z][MAP_Y-1], NUM flowsZ[MAP_Y][MAP_X][MAP_Z-1]) {
 
-	cout << "X:";
+	cout << "X:" <<endl;
 
 	for (int z = 0; z < MAP_Z; z++) { //First, the X axis flows
 		for (int y = 0; y < MAP_Y; y++) {
