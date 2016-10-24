@@ -51,3 +51,34 @@ bool clearCSV2D()
 	myfile.close();
 	return true;
 }
+
+bool clearPython2D()
+{
+	ofstream myfile;
+	myfile.open ("outputPython.csv");
+	myfile << MAP_X << "," << MAP_Y << "\n";
+	myfile.close();
+	return true;
+}
+
+bool exportPython2D(NUM currentTemps[MAP_Y][MAP_X], NUM currentTime)
+{
+	ofstream myfile;
+	myfile.open ("outputPython.csv", ios::app);
+
+	myfile << currentTime << "\n";
+
+	for(int y = 0; y < MAP_Y; y++)
+	{
+		for (int x = 0; x < MAP_X; x++)
+		{
+			myfile << currentTemps[y][x] << ",";
+		}
+		myfile << "\n";
+	}
+	myfile.close();
+
+
+	return true;
+}
+

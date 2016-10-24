@@ -34,9 +34,9 @@ bool printFlows(int cellCount, NUM flows[])
 	return true;
 }
 
-bool printTemps2D(NUM temps[MAP_Y][MAP_X])
+bool printTemps2D(NUM temps[MAP_Y][MAP_X], NUM time)
 {
-	std::cout << "Temperatures: \n";
+	std::cout << "Temperatures (" << time << "): \n";
 	for(int y = 0; y < MAP_Y; y++)
 		{
 			for (int x = 0; x < MAP_X; x++)
@@ -104,32 +104,19 @@ int main() {
 	const int loopTimes = 1000;
 	NUM time = 0;
 
-	clearCSV2D();
-	csvExport2D(currentTemps, time);
+	clearPython2D();
+	exportPython2D(currentTemps, time);
 
-	for(int i = 0; i < loopTimes; i++)
+	for(int i = 1; i < loopTimes; i++) // Starting at 1 to make time the same as i (exports are on even numbers)
 	{
 		updateFlows2D(currentTemps, flowsX, flowsY, materials, matRef);
 		updateTemps2D (DELTATIME, currentTemps, newTemps, flowsX, flowsY, materials, matRef);
 
+		time += DELTATIME;
 		memcpy(currentTemps, newTemps, sizeof(NUM)*MAP_Y*MAP_X);
 
-		csvExport2D(currentTemps, time);
-		if(i%100 == 0) printTemps2D(currentTemps);
+		if(i%100 == 0) exportPython2D(currentTemps, time);
+		if(i%100 == 0) printTemps2D(currentTemps, time);
 	}
-
-	/*cout << "Horizontal:";
-	for (int i = 0; i < MAP_Y; i++) {
-
-		printFlows(MAP_X-1, flowsX[i]);
-
-	}
-
-	cout << "\nVertical:\n";
-	for (int i = 0; i < MAP_Y; i++) {
-
-		printFlows(MAP_Y-1, flowsY[i]);
-
-	}*/
 
 }
