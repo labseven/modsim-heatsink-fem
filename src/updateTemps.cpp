@@ -42,7 +42,7 @@ NUM newTemp2D(NUM currentTemp, NUM deltaTime, int inMaterial, material matRef[],
 
 	thisMaterial = &matRef[inMaterial];
 	if(thisMaterial->constantTemp){
-		if(DEBUG) std::cout << "constantTemp, will not change\n";
+		if(DEBUG) std::cout << "updateTemp2D: constantTemp, will not change\n";
 		return (thisMaterial->tempSetPoint);
 	}
 
@@ -50,7 +50,7 @@ NUM newTemp2D(NUM currentTemp, NUM deltaTime, int inMaterial, material matRef[],
 
 	newEnergy = currentEnergy + (((flowX1-flowX2) + (flowY1-flowY2)) * deltaTime); // Flows move left to right, up to down; add left/up, subtract right/down
 
-	if(DEBUG) std::cout << "updateTemp2D: currE: " << currentEnergy << "J flowX1: " << flowX1 << "W flowX2: " << flowX2 << "W flowY1: " << flowY1 << "W flowY2: " << flowY2 << "W  newE: " << newEnergy << "J (dt: " << deltaTime << ") \n";
+	if(DEBUG) std::cout << "updateTemp2D: currE: " << currentEnergy << "J flowX1: " << flowX1 << "W flowX2: " << flowX2 << "W flowY1: " << flowY1 << "W flowY2: " << flowY2 << "W  newE: " << newEnergy << "J (dt: " << deltaTime << ") ";
 
 	newTemperature = energy2temp(newEnergy, thisMaterial->heatCapacity);
 
@@ -84,7 +84,7 @@ bool updateTemps2D (NUM deltaTime, NUM currentTemps[MAP_Y][MAP_X], NUM newTemps[
 	{
 		for(int y = 0; y < MAP_Y; y++)
 		{
-			newTemps[y][x] = newTemp2D(currentTemps[y][x], deltaTime, materials[y][x], matRef, flowsX[y][x-1], flowsX[y][x], flowsY[y][x], flowsY[y][x]); // Errors will occur here from picking wrong flowsX and flowsY values
+			newTemps[y][x] = newTemp2D(currentTemps[y][x], deltaTime, materials[y][x], matRef, flowsX[y][x-1], flowsX[y][x], flowsY[x][y-1], flowsY[x][y]); // Errors will occur here from picking wrong flowsX and flowsY values
 		}
 	}
 
