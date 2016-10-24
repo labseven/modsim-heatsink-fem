@@ -69,7 +69,7 @@ int main() {
 	// Initial temp map
 	NUM currentTemps[MAP_Y][MAP_X] = {
 			{0, 0, 0, 0},
-			{0, 2, 1, 0},
+			{0, 2, .5, 0},
 			{0, 1, 0, 0},
 			{0, 0, 0, 0}
 	};
@@ -102,12 +102,21 @@ int main() {
 
 
 	const int loopTimes = 1000;
+	NUM time = 0;
 
-	updateFlows2D(currentTemps, flowsX, flowsY, materials, matRef);
-	updateTemps2D (DELTATIME, currentTemps, newTemps, flowsX, flowsY, materials, matRef);
+	clearCSV2D();
+	csvExport2D(currentTemps, time);
 
-	cout << "Horizontal:\n";
+	for(int i = 0; i < loopTimes; i++)
+	{
+		updateFlows2D(currentTemps, flowsX, flowsY, materials, matRef);
+		updateTemps2D (DELTATIME, currentTemps, newTemps, flowsX, flowsY, materials, matRef);
 
+		memcpy(currentTemps, newTemps, sizeof(NUM)*MAP_Y*MAP_X);
+
+		csvExport2D(currentTemps, time);
+		if(i%100 == 0) printTemps2D(currentTemps);
+	}
 
 	/*cout << "Horizontal:";
 	for (int i = 0; i < MAP_Y; i++) {
@@ -122,16 +131,5 @@ int main() {
 		printFlows(MAP_Y-1, flowsY[i]);
 
 	}*/
-
-	clearCSV2D();
-
-	for
-	csvExport2D(currentTemps, 1);
-	//updateFlows2D(currentTemps, flowsX, flowsY, materials, matRef);
-	printTemps2D(currentTemps);
-	updateTemps2D (DELTATIME, currentTemps, newTemps, flowsX, flowsY, materials, matRef);
-	printTemps2D(newTemps);
-	//csvExport2D(currentTemps, 2);
-
 
 }
