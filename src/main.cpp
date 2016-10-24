@@ -34,6 +34,29 @@ bool printFlows(int cellCount, NUM flows[])
 	return true;
 }
 
+bool printTemps2D(NUM temps[MAP_Y][MAP_X])
+{
+	std::cout << "Temperatures: \n";
+	for(int y = 0; y < MAP_Y; y++)
+		{
+			for (int x = 0; x < MAP_X; x++)
+			{
+				std::cout << temps[y][x] << ",";
+			}
+			std::cout << "\n";
+		}
+
+	std::cout << "\n\n";
+	return true;
+}
+
+bool printFlows2D(NUM flowsX[MAP_Y][MAP_X-1], NUM flowsY[MAP_X][MAP_Y-1])
+{
+	std::cout << "Flows: ";
+
+	return true;
+}
+
 int main() {
 
 	material matRef[] = {
@@ -65,15 +88,15 @@ int main() {
 
 	NUM flowsX[MAP_Y][MAP_X-1] = {
 			{0, 0, 0},
-			{0, 0, 0},
-			{0, 0, 0},
+			{0, 1, 0},
+			{0, 1, 0},
 			{0, 0, 0}
 	};
 
 	NUM flowsY[MAP_X][MAP_Y-1] = {
 			{0,0,0},
-			{0,0,0},
-			{0,0,0},
+			{0,1,0},
+			{0,1,0},
 			{0,0,0}
 	};
 
@@ -96,9 +119,11 @@ int main() {
 
 	clearCSV2D();
 	csvExport2D(currentTemps, 1);
-	updateFlows2D(currentTemps, flowsX, flowsY, materials, matRef);
+	//updateFlows2D(currentTemps, flowsX, flowsY, materials, matRef);
+	printTemps2D(currentTemps);
 	updateTemps2D (DELTATIME, currentTemps, newTemps, flowsX, flowsY, materials, matRef);
-	csvExport2D(currentTemps, 2);
+	printTemps2D(newTemps);
+	//csvExport2D(currentTemps, 2);
 
 
 }
