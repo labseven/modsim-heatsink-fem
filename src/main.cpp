@@ -81,14 +81,14 @@ int main() {
 	updateFlows2D(currentTemps, flowsX, flowsY, materials, matRef);
 	updateTemps2D (DELTATIME, currentTemps, newTemps, flowsX, flowsY, materials, matRef);
 
-	cout << "Horizontal:";
+	cout << "Horizontal:\n";
 	for (int i = 0; i < MAP_Y; i++) {
 
 		printFlows(MAP_X-1, flowsX[i]);
 
 	}
 
-	cout << "\nVertical:";
+	cout << "\nVertical:\n";
 	for (int i = 0; i < MAP_Y; i++) {
 
 		printFlows(MAP_Y-1, flowsY[i]);
