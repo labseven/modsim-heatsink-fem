@@ -83,43 +83,38 @@ bool updateFlows3D (NUM temps[MAP_Z][MAP_Y][MAP_X],
 		int materials[MAP_Z][MAP_Y][MAP_X], material matRef[]
 	) {
 
-	NUM tempRow[MAP_X];
-	int matRow[MAP_X];
-
+	NUM tempStripX[MAP_X]; //One-dimensional arrays that updateFlows can eat
+	int matStripX[MAP_X];
 
 	for (int z = 0; z < MAP_Z; z++) { //First, the X axis flows
 		for (int y = 0; y < MAP_Y; y++) {
 
 			for (int x = 0; x < MAP_X; x++) { //Get the rows of current temps and materials.  Yes, this is horribly inefficient.  Not that it's not X-1 because this is the copy operation.
-						tempRow[x] = temps[z][y][x];
-						matRow[x] = materials[z][y][x];
+				tempStripX[x] = temps[z][y][x];
+				matStripX[x] = materials[z][y][x];
 					}
 
-				if (! updateFlows(MAP_X, tempRow, flowsX[z][y], matRow, matRef)) return (false); //Update the current row, fail if it should
+				if (! updateFlows(MAP_X, tempStripX, flowsX[z][y], matStripX, matRef)) return (false); //Update the current row, fail if it should
 
 		} //End Y loop
 	} //End Z loop
 
 
-	/*
+	NUM tempStripY[MAP_Y]; //One-dimensional arrays that updateFlows can eat
+	int matStripY[MAP_Y];
 
-	// This is the inefficient way.  It uses lots and lots of memory.
+	for (int x = 0; x < MAP_X; x++) { //First, the X axis flows
+		for (int z = 0; z < MAP_Z; z++) {
 
-	NUM tempsX[MAP_Z][MAP_Y][MAP_X]; //Each array here is rotated so that dimension's flow calculator can use it
-	NUM tempsY[MAP_X][MAP_Z][MAP_Y]; //i.e. the relevant dimension is last
-	NUM tempsZ[MAP_Y][MAP_X][MAP_Z];
+			for (int y = 0; y < MAP_Y; y++) { //Get the rows of current temps and materials.  Yes, this is horribly inefficient.  Not that it's not X-1 because this is the copy operation.
+				tempStripY[y] = temps[z][y][x];
+				matStripY[y] = materials[z][y][x];
+					}
 
-	for (int z = 0; z < MAP_Z; z++) { //Copy the rotated arrays
-		for (int y = 0; y < MAP_Y; y++) {
-			for (int x = 0; x < MAP_X; x++) {
-				tempsX[z][y][x] = temps[z][y][x];
-				tempsY[x][z][y] = temps[z][y][x];
-				tempsZ[y][x][z] = temps[z][y][x];
-			}
-		}
-	}
+				if (! updateFlows(MAP_Y, tempStripY, flowsY[x][z], matStripY, matRef)) return (false); //Update the current row, fail if it should
 
-	*/
+		} //End Y loop
+	} //End Z loop
 
 
 }

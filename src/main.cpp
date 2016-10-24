@@ -34,6 +34,49 @@ bool printFlows(int cellCount, NUM flows[])
 	return true;
 }
 
+bool printFlows3D(NUM flowsX[MAP_Z][MAP_Y][MAP_X-1], NUM flowsY[MAP_X][MAP_Z][MAP_Y-1], NUM flowsZ[MAP_Y][MAP_X][MAP_Z-1]) {
+
+	cout << "X:";
+
+	for (int z = 0; z < MAP_Z; z++) { //First, the X axis flows
+		for (int y = 0; y < MAP_Y; y++) {
+			for (int x = 0; x < MAP_X-1; x++) {
+				cout <<flowsX[z][y][x] <<", ";
+			} //End x
+			cout <<endl;
+		} //End y
+		cout <<endl <<endl;
+	}//End z
+
+	cout <<endl <<"Y:" <<endl;
+
+	for (int x = 0; x < MAP_X; x++) { //First, the X axis flows
+		for (int z = 0; z < MAP_Z; z++) {
+			for (int y = 0; y < MAP_Y-1; y++) {
+				cout <<flowsY[x][z][y] <<", ";
+			} //End y
+			cout <<endl;
+		} //End z
+		cout <<endl <<endl;
+	}//End x
+
+	cout <<endl <<"Z:" <<endl;
+
+		for (int y = 0; y < MAP_Y; y++) { //First, the X axis flows
+			for (int x = 0; x < MAP_X; x++) {
+				for (int z = 0; z < MAP_Z-1; z++) {
+					cout <<flowsZ[y][x][z] <<", ";
+				} //End z
+				cout <<endl;
+			} //End x
+			cout <<endl <<endl;
+		}//End y
+
+		return true;
+
+
+} //end function
+
 int main() {
 
 	material matRef[] = {
@@ -43,56 +86,73 @@ int main() {
 			material(true, ALU_CONDUCT, ALU_HCAP, 100) //Heated Aluminum
 	};
 
-	// Initial temp map
-	NUM currentTemps[MAP_Y][MAP_X] = {
-			{0, 0, 0, 0},
-			{0, 2, 1, 0},
-			{0, 1, 0, 0},
-			{0, 0, 0, 0}
+	NUM currentTemps[MAP_Z][MAP_Y][MAP_X] = {
+			{
+					{0, 0, 0, 0},
+					{0, 0, 0, 0},
+					{0, 0, 0, 0},
+					{0, 0, 0, 0}
+			},
+			{
+					{0, 0, 0, 0},
+					{0, 2, 1, 0},
+					{0, 1, 0, 0},
+					{0, 0, 0, 0}
+			},
+			{
+					{0, 0, 0, 0},
+					{0, 1, 0, 0},
+					{0, 0, 0, 0},
+					{0, 0, 0, 0}
+			},
+			{
+					{0, 0, 0, 0},
+					{0, 0, 0, 0},
+					{0, 0, 0, 0},
+					{0, 0, 0, 0}
+			}
 	};
 
-	NUM newTemps[MAP_Y][MAP_X];
+	NUM newTemps[MAP_Z][MAP_Y][MAP_X];
 
-	// Need magic wall along whole border
-	int materials[MAP_Y][MAP_X] = {
-			{0, 0, 0, 0},
-			{0, 1, 1, 0},
-			{0, 1, 1, 0},
-			{0, 0, 0, 0}
+	int materials[MAP_Z][MAP_Y][MAP_X] = {
+			{
+					{0, 0, 0, 0},
+					{0, 0, 0, 0},
+					{0, 0, 0, 0},
+					{0, 0, 0, 0}
+			},
+			{
+					{0, 0, 0, 0},
+					{0, 1, 1, 0},
+					{0, 1, 1, 0},
+					{0, 0, 0, 0}
+			},
+			{
+					{0, 0, 0, 0},
+					{0, 1, 1, 0},
+					{0, 1, 1, 0},
+					{0, 0, 0, 0}
+			},
+			{
+					{0, 0, 0, 0},
+					{0, 0, 0, 0},
+					{0, 0, 0, 0},
+					{0, 0, 0, 0}
+			}
 	};
 
 
+	NUM flowsX[MAP_Z][MAP_Y][MAP_X-1];
+	NUM flowsY[MAP_X][MAP_Z][MAP_Y-1];
+	NUM flowsZ[MAP_Y][MAP_X][MAP_Z-1];
 
-	NUM flowsX[MAP_Y][MAP_X-1] = {
-			{0, 0, 0},
-			{0, 1, 0},
-			{0, 1, 0},
-			{0, 1, 0}
-	};
+//	updateFlows2D(currentTemps, flowsX, flowsY, materials, matRef);
+//	updateTemps2D (DELTATIME, currentTemps, newTemps, flowsX, flowsY, materials, matRef);
 
-	NUM flowsY[MAP_X][MAP_Y-1] = {
-			{0, 0, 0},
-			{0, 1, 0},
-			{0, 1, 0},
-			{0, 0, 0}
-	};
+	updateFlows3D(currentTemps, flowsX, flowsY, flowsZ, materials, matRef);
 
+	printFlows3D(flowsX, flowsY, flowsZ);
 
-	updateFlows2D(currentTemps, flowsX, flowsY, materials, matRef);
-	updateTemps2D (DELTATIME, currentTemps, newTemps, flowsX, flowsY, materials, matRef);
-
-	cout << "Horizontal:\n";
-	for (int i = 0; i < MAP_Y; i++) {
-
-		printFlows(MAP_X-1, flowsX[i]);
-
-	}
-
-	cout << "\nVertical:\n";
-	for (int i = 0; i < MAP_Y; i++) {
-
-		printFlows(MAP_Y-1, flowsY[i]);
-
-	}
 
 }
