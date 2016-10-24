@@ -89,7 +89,7 @@ bool updateFlows3D (NUM temps[MAP_Z][MAP_Y][MAP_X],
 	for (int z = 0; z < MAP_Z; z++) { //First, the X axis flows
 		for (int y = 0; y < MAP_Y; y++) {
 
-			for (int x = 0; x < MAP_X; x++) { //Get the rows of current temps and materials.  Yes, this is horribly inefficient.  Not that it's not X-1 because this is the copy operation.
+			for (int x = 0; x < MAP_X; x++) {
 				tempStripX[x] = temps[z][y][x];
 				matStripX[x] = materials[z][y][x];
 					}
@@ -103,15 +103,32 @@ bool updateFlows3D (NUM temps[MAP_Z][MAP_Y][MAP_X],
 	NUM tempStripY[MAP_Y]; //One-dimensional arrays that updateFlows can eat
 	int matStripY[MAP_Y];
 
-	for (int x = 0; x < MAP_X; x++) { //First, the X axis flows
+	for (int x = 0; x < MAP_X; x++) { //Next the Y axis
 		for (int z = 0; z < MAP_Z; z++) {
 
-			for (int y = 0; y < MAP_Y; y++) { //Get the rows of current temps and materials.  Yes, this is horribly inefficient.  Not that it's not X-1 because this is the copy operation.
+			for (int y = 0; y < MAP_Y; y++) {
 				tempStripY[y] = temps[z][y][x];
 				matStripY[y] = materials[z][y][x];
 					}
 
 				if (! updateFlows(MAP_Y, tempStripY, flowsY[x][z], matStripY, matRef)) return (false); //Update the current row, fail if it should
+
+		} //End Y loop
+	} //End Z loop
+
+
+	NUM tempStripZ[MAP_Z]; //One-dimensional arrays that updateFlows can eat
+	int matStripZ[MAP_Z];
+
+	for (int y = 0; y < MAP_Y; y++) { //And last the Z acis
+		for (int x = 0; x < MAP_X; x++) {
+
+			for (int z = 0; z < MAP_Z; z++) {
+				tempStripZ[z] = temps[z][y][x];
+				matStripZ[z] = materials[z][y][x];
+					}
+
+				if (! updateFlows(MAP_Z, tempStripZ, flowsZ[y][x], matStripZ, matRef)) return (false); //Update the current row, fail if it should
 
 		} //End Y loop
 	} //End Z loop
