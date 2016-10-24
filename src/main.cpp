@@ -88,18 +88,20 @@ int main() {
 
 	NUM flowsX[MAP_Y][MAP_X-1] = {
 			{0, 0, 0},
-			{0, 1, 0},
-			{0, 1, 0},
+			{0, 0, 0},
+			{0, 0, 0},
 			{0, 0, 0}
 	};
 
 	NUM flowsY[MAP_X][MAP_Y-1] = {
 			{0, 0, 0},
-			{0, 1, 0},
-			{0, 1, 0},
+			{0, 0, 0},
+			{0, 0, 0},
 			{0, 0, 0}
 	};
 
+
+	const int loopTimes = 1000;
 
 	updateFlows2D(currentTemps, flowsX, flowsY, materials, matRef);
 	updateTemps2D (DELTATIME, currentTemps, newTemps, flowsX, flowsY, materials, matRef);
@@ -122,6 +124,8 @@ int main() {
 	}*/
 
 	clearCSV2D();
+
+	for
 	csvExport2D(currentTemps, 1);
 	//updateFlows2D(currentTemps, flowsX, flowsY, materials, matRef);
 	printTemps2D(currentTemps);

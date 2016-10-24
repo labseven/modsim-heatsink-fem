@@ -6,7 +6,7 @@
  * */
 
 #include "updateTemps.h"
-#define DEBUG 1
+#define DEBUG 0
 
 NUM newTemp(NUM currentTemp, NUM deltaTime, int inMaterial, material matRef[], NUM flow1, NUM flow2)
 {
