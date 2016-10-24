@@ -20,4 +20,7 @@ bool clearCSV();
 bool csvExport2D(NUM currentTemps[MAP_Y][MAP_X], NUM currentTime);
 bool clearCSV2D();
 
+bool exportPython2D(NUM currentTemps[MAP_Y][MAP_X], NUM currentTime);
+bool clearPython2D();
+
 #endif /* CSVEXPORT_H_ */
