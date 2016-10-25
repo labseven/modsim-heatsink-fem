@@ -47,14 +47,14 @@ bool updateFlows2D (NUM temps[MAP_Y][MAP_X], NUM flowsX[MAP_Y][MAP_X-1], NUM flo
 	NUM tempRow[MAP_X];
 	int matRow[MAP_X];
 
-	for (int i = 0; i < MAP_Y; i++) { //First, the horizontal flows.
+	for (int y = 0; y < MAP_Y; y++) { //First, the horizontal flows.
 
-		for (int j = 0; j < MAP_X; j++) { //Get the rows of current temps and materials.  Yes, this is horribly inefficient.  Not that it's not X-1 because this is the copy operation.
-			tempRow[j] = temps[i][j];
-			matRow[j] = materials[i][j];
+		for (int x = 0; x < MAP_X; x++) { //Get the rows of current temps and materials.  Yes, this is horribly inefficient.  Not that it's not X-1 because this is the copy operation.
+			tempRow[x] = temps[y][x];
+			matRow[x] = materials[y][x];
 		}
 
-		if (! updateFlows(MAP_X, tempRow, flowsX[i], matRow, matRef)) return (false); //Update the current row, fail if it should
+		if (! updateFlows(MAP_X, tempRow, flowsX[y], matRow, matRef)) return (false); //Update the current row, fail if it should
 
 	}
 
@@ -62,17 +62,78 @@ bool updateFlows2D (NUM temps[MAP_Y][MAP_X], NUM flowsX[MAP_Y][MAP_X-1], NUM flo
 	NUM tempCol[MAP_Y];
 	int matCol[MAP_Y];
 
-	for (int i = 0; i < MAP_X; i++) { //Next the vertical flows
+	for (int x = 0; x < MAP_X; x++) { //Next the vertical flows
 
-		for (int j = 0; j < MAP_Y; j++) { //Get the columns of current temps and materials.  This time the inefficiency is necessary.
-			tempCol[j] = temps[j][i];
-			matCol[j] = materials[j][i];
+		for (int y = 0; y < MAP_Y; y++) { //Get the columns of current temps and materials.  This time the inefficiency is necessary.
+			tempCol[y] = temps[y][x];
+			matCol[y] = materials[y][x];
 		}
 
-		if (! updateFlows(MAP_Y, tempCol, flowsY[i], matCol, matRef)) return (false); //Update the current col, fail if it should
+		if (! updateFlows(MAP_Y, tempCol, flowsY[x], matCol, matRef)) return (false); //Update the current col, fail if it should
 
 	}
 
 	return (true);
 
 }
+
+
+bool updateFlows3D (NUM temps[MAP_Z][MAP_Y][MAP_X],
+		NUM flowsX[MAP_Z][MAP_Y][MAP_X-1], NUM flowsY[MAP_X][MAP_Z][MAP_Y-1], NUM flowsZ[MAP_Y][MAP_X][MAP_Z-1],
+		int materials[MAP_Z][MAP_Y][MAP_X], material matRef[]
+	) {
+
+	NUM tempStripX[MAP_X]; //One-dimensional arrays that updateFlows can eat
+	int matStripX[MAP_X];
+
+	for (int z = 0; z < MAP_Z; z++) { //First, the X axis flows
+		for (int y = 0; y < MAP_Y; y++) {
+
+			for (int x = 0; x < MAP_X; x++) {
+				tempStripX[x] = temps[z][y][x];
+				matStripX[x] = materials[z][y][x];
+					}
+
+				if (! updateFlows(MAP_X, tempStripX, flowsX[z][y], matStripX, matRef)) return (false); //Update the current row, fail if it should
+
+		} //End Y loop
+	} //End Z loop
+
+
+	NUM tempStripY[MAP_Y]; //One-dimensional arrays that updateFlows can eat
+	int matStripY[MAP_Y];
+
+	for (int x = 0; x < MAP_X; x++) { //Next the Y axis
+		for (int z = 0; z < MAP_Z; z++) {
+
+			for (int y = 0; y < MAP_Y; y++) {
+				tempStripY[y] = temps[z][y][x];
+				matStripY[y] = materials[z][y][x];
+					}
+
+				if (! updateFlows(MAP_Y, tempStripY, flowsY[x][z], matStripY, matRef)) return (false); //Update the current row, fail if it should
+
+		} //End Y loop
+	} //End Z loop
+
+
+	NUM tempStripZ[MAP_Z]; //One-dimensional arrays that updateFlows can eat
+	int matStripZ[MAP_Z];
+
+	for (int y = 0; y < MAP_Y; y++) { //And last the Z acis
+		for (int x = 0; x < MAP_X; x++) {
+
+			for (int z = 0; z < MAP_Z; z++) {
+				tempStripZ[z] = temps[z][y][x];
+				matStripZ[z] = materials[z][y][x];
+					}
+
+				if (! updateFlows(MAP_Z, tempStripZ, flowsZ[y][x], matStripZ, matRef)) return (false); //Update the current row, fail if it should
+
+		} //End Y loop
+	} //End Z loop
+
+
+}
+
+
