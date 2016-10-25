@@ -101,37 +101,10 @@ int main() {
 	material matRef[] = {
 			material(true,  0,           0,        0,            false), //Magic wall.  Yes, this will cause division by zero if its new temperature is evaluated.
 			material(false, ALU_CONDUCT, ALU_HCAP, 0,            false), //Aluminum
-			material(true,  AIR_CONDUCT, AIR_HCAP, AMBIENT_TEMP, true), //Air
+//			material(true,  AIR_CONDUCT, AIR_HCAP, AMBIENT_TEMP, true), //Old air
+			material(false, AIR_CONDUCT, AIR_HCAP, 0,            true), //New air
 			material(true,  ALU_CONDUCT, ALU_HCAP, 100,          false) //Heated Aluminum
 	};
-
-	NUM currentTemps[MAP_Z][MAP_Y][MAP_X] = {
-			{
-					{0, 0, 0, 0},
-					{0, 0, 0, 0},
-					{0, 0, 0, 0},
-					{0, 0, 0, 0}
-			},
-			{
-					{0, 0, 0, 0},
-					{0, 6, 5, 0},
-					{0, 4, 3, 0},
-					{0, 0, 0, 0}
-			},
-			{
-					{0, 0, 0, 0},
-					{0, 3, 2, 0},
-					{0, 1, 0, 0},
-					{0, 0, 0, 0}
-			},
-			{
-					{0, 0, 0, 0},
-					{0, 0, 0, 0},
-					{0, 0, 0, 0},
-					{0, 0, 0, 0}
-			}
-	};
-
 
 	// Need magic wall along whole border
 	int materials[MAP_Z][MAP_Y][MAP_X] = {
@@ -143,14 +116,14 @@ int main() {
 			},
 			{
 					{0, 0, 0, 0},
-					{0, 1, 1, 0},
-					{0, 1, 1, 0},
+					{0, 2, 2, 0},
+					{0, 2, 2, 0},
 					{0, 0, 0, 0}
 			},
 			{
 					{0, 0, 0, 0},
-					{0, 1, 1, 0},
-					{0, 1, 1, 0},
+					{0, 2, 2, 0},
+					{0, 2, 2, 0},
 					{0, 0, 0, 0}
 			},
 			{
@@ -160,6 +133,35 @@ int main() {
 					{0, 0, 0, 0}
 			}
 	};
+
+
+	NUM currentTemps[MAP_Z][MAP_Y][MAP_X] = {
+			{
+					{0, 0, 0, 0},
+					{0, 0, 0, 0},
+					{0, 0, 0, 0},
+					{0, 0, 0, 0}
+			},
+			{
+					{0, 0, 0, 0},
+					{0, 5, 0, 0},
+					{0, 0, 0, 0},
+					{0, 0, 0, 0}
+			},
+			{
+					{0, 0, 0, 0},
+					{0, 0, 0, 0},
+					{0, 0, 0, 0},
+					{0, 0, 0, 0}
+			},
+			{
+					{0, 0, 0, 0},
+					{0, 0, 0, 0},
+					{0, 0, 0, 0},
+					{0, 0, 0, 0}
+			}
+	};
+
 
 
 	NUM flowsX[MAP_Z][MAP_Y][MAP_X-1];
@@ -175,7 +177,7 @@ int main() {
 
 	NUM newTemps[MAP_Z][MAP_Y][MAP_X];
 
-	NUM deltaTime = 0.01;
+	NUM deltaTime = 0.001;
 
 	updateTemps3D (deltaTime, currentTemps, newTemps, flowsX, flowsY, flowsZ, materials, matRef);
 
