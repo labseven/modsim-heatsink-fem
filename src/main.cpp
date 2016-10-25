@@ -113,7 +113,6 @@ int main() {
 			}
 	};
 
-	NUM newTemps[MAP_Z][MAP_Y][MAP_X];
 
 	// Need magic wall along whole border
 	int materials[MAP_Z][MAP_Y][MAP_X] = {
@@ -155,8 +154,8 @@ int main() {
 
 	printFlows3D(flowsX, flowsY, flowsZ);
 
-=======
 
+	NUM newTemps[MAP_Z][MAP_Y][MAP_X];
 
 	/*const int loopTimes = 1000;
 	NUM time = 0;
@@ -173,7 +172,7 @@ int main() {
 		memcpy(currentTemps, newTemps, sizeof(NUM)*MAP_Y*MAP_X);
 
 		if(i%100 == 0) exportPython2D(currentTemps, time);
-		if(i%100 == 0) printTemps2D(currentTemps, time);*/
-	}
+		if(i%100 == 0) printTemps2D(currentTemps, time);
+	}*/
 
 }
