@@ -11,7 +11,7 @@
 //Calculates flow between each pair of cells, given cell temps and materials
 
 
-bool updateFlows (int cellCount, NUM temps[], NUM flows[], int materials[], material matRef[]) {
+bool updateFlows (int cellCount, NUM temps[], NUM flows[], bool doFluidMix, int materials[], material matRef[]) {
 
 	NUM temp1, temp2, conduction;
 	material  *material1 = NULL, *material2 = NULL;
@@ -31,7 +31,10 @@ bool updateFlows (int cellCount, NUM temps[], NUM flows[], int materials[], mate
 			conduction = (material1->conductivity) * (material2->conductivity) / ( (material1->conductivity) + (material2->conductivity) ) * CELLSIZE * 2; //Gets the same result, without dividing by large numbers
 		}
 
-		flows[i] = (temp1 - temp2) * conduction; //Units are already dealt with in conduction
+		if (doFluidMix && material1->isFluid && material2->isFluid)
+			flows[i] = (temp1 - temp2) * conduction; //Multiply when fluid mixing is on and both are fluids
+		else
+			flows[i] = (temp1 - temp2) * conduction; //Units are already dealt with in conduction
 		if(DEBUG) std::cout << flows[i] << "W ";
 
 	}
@@ -54,7 +57,7 @@ bool updateFlows2D (NUM temps[MAP_Y][MAP_X], NUM flowsX[MAP_Y][MAP_X-1], NUM flo
 			matRow[x] = materials[y][x];
 		}
 
-		if (! updateFlows(MAP_X, tempRow, flowsX[y], matRow, matRef)) return (false); //Update the current row, fail if it should
+		if (! updateFlows(MAP_X, tempRow, flowsX[y], false, matRow, matRef)) return (false); //No fluid mixing in X
 
 	}
 
@@ -69,7 +72,7 @@ bool updateFlows2D (NUM temps[MAP_Y][MAP_X], NUM flowsX[MAP_Y][MAP_X-1], NUM flo
 			matCol[y] = materials[y][x];
 		}
 
-		if (! updateFlows(MAP_Y, tempCol, flowsY[x], matCol, matRef)) return (false); //Update the current col, fail if it should
+		if (! updateFlows(MAP_Y, tempCol, flowsY[x], false, matCol, matRef)) return (false); //No fluid mixing here either
 
 	}
 
@@ -83,6 +86,8 @@ bool updateFlows3D (NUM temps[MAP_Z][MAP_Y][MAP_X],
 		int materials[MAP_Z][MAP_Y][MAP_X], material matRef[]
 	) {
 
+	bool fluidMixing[] = {true, true, false}; //X, Y, Z
+
 	NUM tempStripX[MAP_X]; //One-dimensional arrays that updateFlows can eat
 	int matStripX[MAP_X];
 
@@ -94,7 +99,7 @@ bool updateFlows3D (NUM temps[MAP_Z][MAP_Y][MAP_X],
 				matStripX[x] = materials[z][y][x];
 					}
 
-				if (! updateFlows(MAP_X, tempStripX, flowsX[z][y], matStripX, matRef)) return (false); //Update the current row, fail if it should
+				if (! updateFlows(MAP_X, tempStripX, flowsX[z][y], fluidMixing[0], matStripX, matRef)) return (false); //Update the current row, fail if it should
 
 		} //End Y loop
 	} //End Z loop
@@ -111,7 +116,7 @@ bool updateFlows3D (NUM temps[MAP_Z][MAP_Y][MAP_X],
 				matStripY[y] = materials[z][y][x];
 					}
 
-				if (! updateFlows(MAP_Y, tempStripY, flowsY[x][z], matStripY, matRef)) return (false); //Update the current row, fail if it should
+				if (! updateFlows(MAP_Y, tempStripY, flowsY[x][z], fluidMixing[1], matStripY, matRef)) return (false); //Update the current row, fail if it should
 
 		} //End Y loop
 	} //End Z loop
@@ -120,7 +125,7 @@ bool updateFlows3D (NUM temps[MAP_Z][MAP_Y][MAP_X],
 	NUM tempStripZ[MAP_Z]; //One-dimensional arrays that updateFlows can eat
 	int matStripZ[MAP_Z];
 
-	for (int y = 0; y < MAP_Y; y++) { //And last the Z acis
+	for (int y = 0; y < MAP_Y; y++) { //And last the Z axis
 		for (int x = 0; x < MAP_X; x++) {
 
 			for (int z = 0; z < MAP_Z; z++) {
@@ -128,7 +133,7 @@ bool updateFlows3D (NUM temps[MAP_Z][MAP_Y][MAP_X],
 				matStripZ[z] = materials[z][y][x];
 					}
 
-				if (! updateFlows(MAP_Z, tempStripZ, flowsZ[y][x], matStripZ, matRef)) return (false); //Update the current row, fail if it should
+				if (! updateFlows(MAP_Z, tempStripZ, flowsZ[y][x], fluidMixing[2], matStripZ, matRef)) return (false); //Update the current row, fail if it should
 
 		} //End Y loop
 	} //End Z loop

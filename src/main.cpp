@@ -36,7 +36,7 @@ bool printFlows(int cellCount, NUM flows[])
 
 bool printFlows3D(NUM flowsX[MAP_Z][MAP_Y][MAP_X-1], NUM flowsY[MAP_X][MAP_Z][MAP_Y-1], NUM flowsZ[MAP_Y][MAP_X][MAP_Z-1]) {
 
-	cout << "X:" <<endl;
+	cout <<"Flows:" <<endl << "X:" <<endl;
 
 	for (int z = 0; z < MAP_Z; z++) { //First, the X axis flows
 		for (int y = 0; y < MAP_Y; y++) {
@@ -77,13 +77,32 @@ bool printFlows3D(NUM flowsX[MAP_Z][MAP_Y][MAP_X-1], NUM flowsY[MAP_X][MAP_Z][MA
 
 } //end function
 
+
+bool printTemps3D(NUM temps[MAP_Z][MAP_Y][MAP_X]) {
+
+	cout <<"Temperatures:" <<endl;
+
+	for (int z = 0; z < MAP_Z; z++) { //First, the X axis flows
+		for (int y = 0; y < MAP_Y; y++) {
+			for (int x = 0; x < MAP_X; x++) {
+				cout <<temps[z][y][x] <<", ";
+			} //End x
+			cout <<endl;
+		} //End y
+		cout <<endl <<endl;
+	}//End z
+
+	return true;
+
+}
+
 int main() {
 
 	material matRef[] = {
-			material(true, 0, 0, 0), //Magic wall.  Yes, this will cause division by zero if its new temperature is evaluated.
-			material(false, ALU_CONDUCT, ALU_HCAP, 0), //Aluminum
-			material(true, AIR_CONDUCT, AIR_HCAP, AMBIENT_TEMP), //Air
-			material(true, ALU_CONDUCT, ALU_HCAP, 100) //Heated Aluminum
+			material(true,  0,           0,        0,            false), //Magic wall.  Yes, this will cause division by zero if its new temperature is evaluated.
+			material(false, ALU_CONDUCT, ALU_HCAP, 0,            false), //Aluminum
+			material(true,  AIR_CONDUCT, AIR_HCAP, AMBIENT_TEMP, true), //Air
+			material(true,  ALU_CONDUCT, ALU_HCAP, 100,          false) //Heated Aluminum
 	};
 
 	NUM currentTemps[MAP_Z][MAP_Y][MAP_X] = {
@@ -154,8 +173,13 @@ int main() {
 
 	printFlows3D(flowsX, flowsY, flowsZ);
 
-
 	NUM newTemps[MAP_Z][MAP_Y][MAP_X];
+
+	NUM deltaTime = 0.01;
+
+	updateTemps3D (deltaTime, currentTemps, newTemps, flowsX, flowsY, flowsZ, materials, matRef);
+
+	printTemps3D(newTemps);
 
 	/*const int loopTimes = 1000;
 	NUM time = 0;
