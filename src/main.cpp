@@ -115,6 +115,7 @@ int main() {
 
 	NUM newTemps[MAP_Z][MAP_Y][MAP_X];
 
+	// Need magic wall along whole border
 	int materials[MAP_Z][MAP_Y][MAP_X] = {
 			{
 					{0, 0, 0, 0},
@@ -154,5 +155,25 @@ int main() {
 
 	printFlows3D(flowsX, flowsY, flowsZ);
 
+=======
+
+
+	/*const int loopTimes = 1000;
+	NUM time = 0;
+
+	clearPython2D();
+	exportPython2D(currentTemps, time);
+
+	for(int i = 1; i < loopTimes; i++) // Starting at 1 to make time the same as i (exports are on even numbers)
+	{
+		updateFlows2D(currentTemps, flowsX, flowsY, materials, matRef);
+		updateTemps2D (DELTATIME, currentTemps, newTemps, flowsX, flowsY, materials, matRef);
+
+		time += DELTATIME;
+		memcpy(currentTemps, newTemps, sizeof(NUM)*MAP_Y*MAP_X);
+
+		if(i%100 == 0) exportPython2D(currentTemps, time);
+		if(i%100 == 0) printTemps2D(currentTemps, time);*/
+	}
 
 }
