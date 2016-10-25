@@ -54,7 +54,7 @@ static const NUM AMBIENT_TEMP = 25 /*C*/ * UNITSPERC /*units/C*/ ;
 
 static const int MAP_X = 4;
 static const int MAP_Y = 4;
-
+static const int MAP_Z = 4;
 
 #include "energyTempConversion.h"
 #include "updateFlows.h"
