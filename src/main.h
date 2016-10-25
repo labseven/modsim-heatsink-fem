@@ -20,12 +20,14 @@ struct material{
 	NUM conductivity;
 	NUM heatCapacity;
 	NUM tempSetPoint;
+	bool isFluid;
 
-	material(bool constantTempIn, NUM conductivityIn, NUM heatCapacityIn, NUM tempSetPointIn) { //Constructor
+	material(bool constantTempIn, NUM conductivityIn, NUM heatCapacityIn, NUM tempSetPointIn, bool isFluidIn) { //Constructor
 		constantTemp = constantTempIn;
 		conductivity = conductivityIn;
 		heatCapacity = heatCapacityIn;
 		tempSetPoint = tempSetPointIn;
+		isFluid = isFluidIn;
 	}
 
 	//material() {}; //Default constructor, for when you are gonna assign values later.
@@ -46,15 +48,18 @@ static const NUM UNITSPERW = 1;
 
 static const NUM ALU_CONDUCT = 205 /*W/mC*/ * UNITSPERW /*units/W*/ / ( UNITSPERC /*units/C*/ * 1000 /*mm/m*/ );
 static const NUM AIR_CONDUCT = 0.024 /*W/mC*/ * UNITSPERW /*units/W*/ / ( UNITSPERC  /*units/C*/* 1000 /*mm/m*/ );
+static const NUM FLUID_MULT = 100; //Unitless.  This multiplies fluid-to-fluid conduction.
 
 static const NUM ALU_HCAP = 0.91 /*J/gC*/ * 0.0027 /*g/mm^3*/ * UNITSPERC /*units/C*/;
 static const NUM AIR_HCAP = 1.005 /*J/gC*/ * 1.2*0.000001 /*g/mm^3*/ * UNITSPERC /*units/C*/;
 
 static const NUM AMBIENT_TEMP = 25 /*C*/ * UNITSPERC /*units/C*/ ;
 
-static const int MAP_X = 4;
-static const int MAP_Y = 4;
+
 static const int MAP_Z = 4;
+static const int MAP_Y = 4;
+static const int MAP_X = 4;
+
 
 #include "energyTempConversion.h"
 #include "updateFlows.h"
