@@ -32,9 +32,10 @@ bool updateFlows (int cellCount, NUM temps[], NUM flows[], bool doFluidMix, int 
 		}
 
 		if (doFluidMix && material1->isFluid && material2->isFluid)
-			flows[i] = (temp1 - temp2) * conduction; //Multiply when fluid mixing is on and both are fluids
+			flows[i] = (temp1 - temp2) * conduction * FLUID_MULT; //Multiply when fluid mixing is on and both are fluids
 		else
 			flows[i] = (temp1 - temp2) * conduction; //Units are already dealt with in conduction
+
 		if(DEBUG) std::cout << flows[i] << "W ";
 
 	}
@@ -138,6 +139,7 @@ bool updateFlows3D (NUM temps[MAP_Z][MAP_Y][MAP_X],
 		} //End Y loop
 	} //End Z loop
 
+	return true;
 
 }
 
