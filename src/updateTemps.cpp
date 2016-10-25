@@ -131,7 +131,7 @@ bool updateTemps3D (NUM deltaTime, NUM currentTemps[MAP_Z][MAP_Y][MAP_X], NUM ne
 		{
 			for(int y = 0; y < MAP_Y; y++)
 			{
-				newTemps[z][y][x] = newTemp3D(currentTemps[z][y][x], deltaTime, materials[z][y][x], matRef, flowsX[z][y][x-1], flowsX[z][y][x], flowsY[z][x][y-1], flowsY[z][x][y], flowsZ[z][x][y], flowsZ[z][x][y]); // Errors will occur here from picking wrong flowsX, flowsY, and flowsZ values
+				newTemps[z][y][x] = newTemp3D(currentTemps[z][y][x], deltaTime, materials[z][y][x], matRef, flowsX[z][y][x-1], flowsX[z][y][x], flowsY[x][z][y-1], flowsY[x][z][y], flowsZ[y][x][z-1], flowsZ[y][x][z]); // Errors will occur here from picking wrong flowsX, flowsY, and flowsZ values
 			}
 		}
 	}
