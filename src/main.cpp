@@ -10,105 +10,6 @@
 
 using namespace std;
 
-bool printTemps(int cellCount, NUM temps[])
-{
-	std::cout << "Temperatures: ";
-	for (int i = 0; i < cellCount; i++)
-	{
-		std::cout << temps[i] << "C ";
-	}
-
-	std::cout << "\n";
-	return true;
-}
-
-bool printFlows(int cellCount, NUM flows[])
-{
-	std::cout << "Flows: ";
-	for (int i = 0; i < cellCount; i++)
-	{
-		std::cout << flows[i] << "W ";
-	}
-
-	std::cout << "\n";
-	return true;
-}
-
-bool printFlows3D(NUM flowsX[MAP_Z][MAP_Y][MAP_X-1], NUM flowsY[MAP_X][MAP_Z][MAP_Y-1], NUM flowsZ[MAP_Y][MAP_X][MAP_Z-1]) {
-
-	cout <<"Flows:" <<endl << "X:" <<endl;
-
-	for (int z = 0; z < MAP_Z; z++) { //First, the X axis flows
-		for (int y = 0; y < MAP_Y; y++) {
-			for (int x = 0; x < MAP_X-1; x++) {
-				cout <<flowsX[z][y][x] <<", ";
-			} //End x
-			cout <<endl;
-		} //End y
-		cout <<endl <<endl;
-	}//End z
-
-	cout <<endl <<"Y:" <<endl;
-
-	for (int x = 0; x < MAP_X; x++) { //First, the X axis flows
-		for (int z = 0; z < MAP_Z; z++) {
-			for (int y = 0; y < MAP_Y-1; y++) {
-				cout <<flowsY[x][z][y] <<", ";
-			} //End y
-			cout <<endl;
-		} //End z
-		cout <<endl <<endl;
-	}//End x
-
-	cout <<endl <<"Z:" <<endl;
-
-		for (int y = 0; y < MAP_Y; y++) { //First, the X axis flows
-			for (int x = 0; x < MAP_X; x++) {
-				for (int z = 0; z < MAP_Z-1; z++) {
-					cout <<flowsZ[y][x][z] <<", ";
-				} //End z
-				cout <<endl;
-			} //End x
-			cout <<endl <<endl;
-		}//End y
-
-		return true;
-
-
-} //end function
-
-
-bool printTemps3D(NUM temps[MAP_Z][MAP_Y][MAP_X]) {
-
-	cout <<"Temperatures:" <<endl;
-
-	if (DEBUG){
-		for (int z = 0; z < MAP_Z; z++) { //First, the X axis flows
-			for (int y = 0; y < MAP_Y; y++) {
-				for (int x = 0; x < MAP_X; x++) {
-					cout <<temps[z][y][x] <<", ";
-				} //End x
-				cout <<endl;
-			} //End y
-			cout <<endl <<endl;
-		}//End z
-	}
-	else{
-		for (int z = 1; z < MAP_Z-1; z++) { //First, the X axis flows
-			for (int y = 1; y < MAP_Y-1; y++) {
-				for (int x = 1; x < MAP_X-1; x++) {
-					cout <<temps[z][y][x] <<", ";
-				} //End x
-				cout <<endl;
-			} //End y
-			cout <<endl <<endl;
-		}//End z
-	}
-
-	return true;
-
-}
-
 int main() {
 
 	material matRef[] = {
@@ -128,14 +29,14 @@ int main() {
 			},
 			{
 					{0, 0, 0, 0},
-					{0, 1, 1, 0},
-					{0, 1, 1, 0},
+					{0, 1, 2, 0},
+					{0, 3, 1, 0},
 					{0, 0, 0, 0}
 			},
 			{
 					{0, 0, 0, 0},
-					{0, 1, 1, 0},
-					{0, 1, 1, 0},
+					{0, 1, 2, 0},
+					{0, 3, 1, 0},
 					{0, 0, 0, 0}
 			},
 			{
@@ -156,16 +57,17 @@ int main() {
 			},
 			{
 					{0, 0, 0, 0},
-					{0, 10, 0, 0},
-					{0, 0, 0, 0},
+					{0, 25, 25, 0},
+					{0, 25, 25, 0},
 					{0, 0, 0, 0}
 			},
 			{
 					{0, 0, 0, 0},
-					{0, 0, 0, 0},
-					{0, 0, 3, 0},
+					{0, 25, 25, 0},
+					{0, 25, 25, 0},
 					{0, 0, 0, 0}
 			},
+
 			{
 					{0, 0, 0, 0},
 					{0, 0, 0, 0},
@@ -175,25 +77,45 @@ int main() {
 	};
 
 	NUM newTemps[MAP_Z][MAP_Y][MAP_X];
-
 	NUM flowsX[MAP_Z][MAP_Y][MAP_X-1];
 	NUM flowsY[MAP_X][MAP_Z][MAP_Y-1];
 	NUM flowsZ[MAP_Y][MAP_X][MAP_Z-1];
 
+	int rectStart[][3] = {
+			{0, 0, 0}, //Magic wall
+			{1, 1, 1}, //Top heatsink
+			{1, 2, 2}, //Side heatsink
+			{1, 2, 1}, //Heater
+			{1, 1, 2}, //Air
+	};
 
-	const int loopTimes = 10;
+	int rectEnd[][3] = {
+			{3, 3, 3},
+			{2, 1, 1},
+			{2, 2, 2},
+			{2, 2, 1},
+			{2, 1, 2},
+	};
+
+	NUM rectTemps[] =     {0, 25, 25, 100, 25};
+	int rectMaterials[] = {0, 1,  1,  3,   2};
+
+	makeMap(currentTemps, materials, 5, rectStart, rectEnd, rectTemps, rectMaterials);
+
+	const int loopTimes = 10000;
 	NUM time = 0;
 	NUM deltaTime = 0.001;
 
 	for(int i = 1; i < loopTimes; i++) // Starting at 1 to make time the same as i (exports are on even numbers)
 	{
 		updateFlows3D(currentTemps, flowsX, flowsY, flowsZ, materials, matRef);
-		updateTemps3D (deltaTime, currentTemps, newTemps, flowsX, flowsY, flowsZ, materials, matRef);
+		updateTemps3D(deltaTime, currentTemps, newTemps, flowsX, flowsY, flowsZ, materials, matRef);
+		moveAir(newTemps, 2, materials, matRef);
 
 		time += deltaTime;
 		memcpy(currentTemps, newTemps, sizeof(NUM)*MAP_Y*MAP_X*MAP_Z);
 
-		//printFlows3D(flowsX, flowsY, flowsZ);
+		printFlows3D(flowsX, flowsY, flowsZ);
 		printTemps3D(newTemps);
 	}
 
