@@ -6,7 +6,7 @@
  */
 
 #include "updateFlows.h"
-#define DEBUG 0
+#define DEBUG 1
 
 //Calculates flow between each pair of cells, given cell temps and materials
 
@@ -16,7 +16,7 @@ bool updateFlows (int cellCount, NUM temps[], NUM flows[], bool doFluidMix, int 
 	NUM temp1, temp2, conduction;
 	material  *material1 = NULL, *material2 = NULL;
 
-	if(DEBUG) std::cout << "updateFlows:\nFlows: ";
+	//if(DEBUG) std::cout << "updateFlows:\nFlows: ";
 	for (int i = 0; i < cellCount-1; i++) { //One fewer than the number of cells
 
 		temp1 = temps[i]; //Get current temperatures from array 'temps'

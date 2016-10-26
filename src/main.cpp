@@ -82,15 +82,28 @@ bool printTemps3D(NUM temps[MAP_Z][MAP_Y][MAP_X]) {
 
 	cout <<"Temperatures:" <<endl;
 
-	for (int z = 0; z < MAP_Z; z++) { //First, the X axis flows
-		for (int y = 0; y < MAP_Y; y++) {
-			for (int x = 0; x < MAP_X; x++) {
-				cout <<temps[z][y][x] <<", ";
-			} //End x
-			cout <<endl;
-		} //End y
-		cout <<endl <<endl;
-	}//End z
+	if (DEBUG){
+		for (int z = 0; z < MAP_Z; z++) { //First, the X axis flows
+			for (int y = 0; y < MAP_Y; y++) {
+				for (int x = 0; x < MAP_X; x++) {
+					cout <<temps[z][y][x] <<", ";
+				} //End x
+				cout <<endl;
+			} //End y
+			cout <<endl <<endl;
+		}//End z
+	}
+	else{
+		for (int z = 1; z < MAP_Z-1; z++) { //First, the X axis flows
+			for (int y = 1; y < MAP_Y-1; y++) {
+				for (int x = 1; x < MAP_X-1; x++) {
+					cout <<temps[z][y][x] <<", ";
+				} //End x
+				cout <<endl;
+			} //End y
+			cout <<endl <<endl;
+		}//End z
+	}
 
 	return true;
 
@@ -144,14 +157,14 @@ int main() {
 			},
 			{
 					{0, 0, 0, 0},
-					{0, 5, 0, 0},
+					{0, 10, 0, 0},
 					{0, 0, 0, 0},
 					{0, 0, 0, 0}
 			},
 			{
 					{0, 0, 0, 0},
 					{0, 0, 0, 0},
-					{0, 0, 0, 0},
+					{0, 0, 3, 0},
 					{0, 0, 0, 0}
 			},
 			{
@@ -162,43 +175,39 @@ int main() {
 			}
 	};
 
-
+	NUM newTemps[MAP_Z][MAP_Y][MAP_X];
 
 	NUM flowsX[MAP_Z][MAP_Y][MAP_X-1];
 	NUM flowsY[MAP_X][MAP_Z][MAP_Y-1];
 	NUM flowsZ[MAP_Y][MAP_X][MAP_Z-1];
 
-//	updateFlows2D(currentTemps, flowsX, flowsY, materials, matRef);
-//	updateTemps2D (DELTATIME, currentTemps, newTemps, flowsX, flowsY, materials, matRef);
-
+/*
 	updateFlows3D(currentTemps, flowsX, flowsY, flowsZ, materials, matRef);
 
-	printFlows3D(flowsX, flowsY, flowsZ);
+	//printFlows3D(flowsX, flowsY, flowsZ);
 
-	NUM newTemps[MAP_Z][MAP_Y][MAP_X];
 
-	NUM deltaTime = 0.001;
+
+
 
 	updateTemps3D (deltaTime, currentTemps, newTemps, flowsX, flowsY, flowsZ, materials, matRef);
 
 	printTemps3D(newTemps);
-
-	/*const int loopTimes = 1000;
+*/
+	const int loopTimes = 10;
 	NUM time = 0;
-
-	clearPython2D();
-	exportPython2D(currentTemps, time);
+	NUM deltaTime = 0.001;
 
 	for(int i = 1; i < loopTimes; i++) // Starting at 1 to make time the same as i (exports are on even numbers)
 	{
-		updateFlows2D(currentTemps, flowsX, flowsY, materials, matRef);
-		updateTemps2D (DELTATIME, currentTemps, newTemps, flowsX, flowsY, materials, matRef);
+		updateFlows3D(currentTemps, flowsX, flowsY, flowsZ, materials, matRef);
+		updateTemps3D (deltaTime, currentTemps, newTemps, flowsX, flowsY, flowsZ, materials, matRef);
 
-		time += DELTATIME;
-		memcpy(currentTemps, newTemps, sizeof(NUM)*MAP_Y*MAP_X);
+		time += deltaTime;
+		memcpy(currentTemps, newTemps, sizeof(NUM)*MAP_Y*MAP_X*MAP_Z);
 
-		if(i%100 == 0) exportPython2D(currentTemps, time);
-		if(i%100 == 0) printTemps2D(currentTemps, time);
-	}*/
+		//printFlows3D(flowsX, flowsY, flowsZ);
+		printTemps3D(newTemps);
+	}
 
 }
