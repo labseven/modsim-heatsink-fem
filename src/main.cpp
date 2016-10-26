@@ -180,19 +180,7 @@ int main() {
 	NUM flowsY[MAP_X][MAP_Z][MAP_Y-1];
 	NUM flowsZ[MAP_Y][MAP_X][MAP_Z-1];
 
-/*
-	updateFlows3D(currentTemps, flowsX, flowsY, flowsZ, materials, matRef);
 
-	//printFlows3D(flowsX, flowsY, flowsZ);
-
-
-
-
-
-	updateTemps3D (deltaTime, currentTemps, newTemps, flowsX, flowsY, flowsZ, materials, matRef);
-
-	printTemps3D(newTemps);
-*/
 	const int loopTimes = 10;
 	NUM time = 0;
 	NUM deltaTime = 0.001;

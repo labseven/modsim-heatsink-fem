@@ -6,7 +6,7 @@
  */
 
 #include "updateFlows.h"
-#define DEBUG 1
+#define DEBUG 0
 
 //Calculates flow between each pair of cells, given cell temps and materials
 
