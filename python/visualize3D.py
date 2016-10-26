@@ -12,6 +12,14 @@ with open("outputPython1.csv","r") as fileIn:
 
 	xyzSize = [int(n) for n in currLine.rstrip('\n').split(",")];
 
+	fig = plt.figure()
+	ax = fig.add_subplot(111, projection='3d')
+
+	for z in range(xyzSize[2]):
+		for y in range(xyzSize[1]):
+			for x in range(xyzSize[0]):
+				ax.scatter(x,y,z, c='b',marker='^');
+			
 	print (xyzSize);
 	#print(xyzSize[1]);
 	tempraturesArray = [[[] for i in range(xyzSize[1])] for i in range(xyzSize[2])];
@@ -44,15 +52,9 @@ print("Tempratures of 2nd z level, 2nd row of first thing: ", tempraturesTimeArr
 def randrange(n, vmin, vmax):
     return (vmax - vmin)*np.random.rand(n) + vmin
 
-fig = plt.figure()
-ax = fig.add_subplot(111, projection='3d')
 
-for z in range(xyzSize[2]):
-	for y in range(xyzSize[1]):
-		for x in range(xyzSize[0]):
-			ax.scatter(x,y,z, c='b',marker='^');
 # n = 100
-# for c, m, zl, zh in [('b', '^', -30, -5)]:
+# for c, m, zl, zh in [('b', '^', -30, -5),('r', '^', -30, -5)]:
 #     xs = randrange(n, 23, 32)
 #     ys = randrange(n, 0, 100)
 #     zs = randrange(n, zl, zh)
