@@ -29,14 +29,14 @@ int main() {
 			},
 			{
 					{0, 0, 0, 0},
-					{0, 1, 1, 0},
-					{0, 1, 1, 0},
+					{0, 1, 2, 0},
+					{0, 1, 2, 0},
 					{0, 0, 0, 0}
 			},
 			{
 					{0, 0, 0, 0},
-					{0, 1, 1, 0},
-					{0, 1, 1, 0},
+					{0, 1, 2, 0},
+					{0, 1, 2, 0},
 					{0, 0, 0, 0}
 			},
 			{
@@ -57,14 +57,14 @@ int main() {
 			},
 			{
 					{0, 0, 0, 0},
-					{0, 10, 0, 0},
+					{0, 0, 0, 0},
 					{0, 0, 0, 0},
 					{0, 0, 0, 0}
 			},
 			{
 					{0, 0, 0, 0},
 					{0, 0, 0, 0},
-					{0, 0, 3, 0},
+					{0, 0, 0, 0},
 					{0, 0, 0, 0}
 			},
 			{
@@ -82,20 +82,22 @@ int main() {
 	NUM flowsZ[MAP_Y][MAP_X][MAP_Z-1];
 
 
-	const int loopTimes = 10;
+	const int loopTimes = 100000;
 	NUM time = 0;
 	NUM deltaTime = 0.001;
 
 	for(int i = 1; i < loopTimes; i++) // Starting at 1 to make time the same as i (exports are on even numbers)
 	{
 		updateFlows3D(currentTemps, flowsX, flowsY, flowsZ, materials, matRef);
-		updateTemps3D (deltaTime, currentTemps, newTemps, flowsX, flowsY, flowsZ, materials, matRef);
+		updateTemps3D(deltaTime, currentTemps, newTemps, flowsX, flowsY, flowsZ, materials, matRef);
+		moveAir(newTemps, 2/*z axis*/, materials, matRef);
 
 		time += deltaTime;
 		memcpy(currentTemps, newTemps, sizeof(NUM)*MAP_Y*MAP_X*MAP_Z);
 
 		//printFlows3D(flowsX, flowsY, flowsZ);
-		printTemps3D(newTemps);
+		//printTemps3D(newTemps);
 	}
+	printTemps3D(newTemps);
 
 }

@@ -59,7 +59,8 @@ static const int MAP_X = 4;
 #include "updateFlows.h"
 #include "updateTemps.h"
 #include "csvExport.h"
-//#include "fixpoint.h"
 #include "print.h"
+#include "moveAir.h"
+//#include "fixpoint.h"
 
 #endif /* MAIN_H_ */
