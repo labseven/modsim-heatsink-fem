@@ -77,13 +77,32 @@ int main() {
 	};
 
 	NUM newTemps[MAP_Z][MAP_Y][MAP_X];
-
 	NUM flowsX[MAP_Z][MAP_Y][MAP_X-1];
 	NUM flowsY[MAP_X][MAP_Z][MAP_Y-1];
 	NUM flowsZ[MAP_Y][MAP_X][MAP_Z-1];
 
+	int rectStart[][3] = {
+			{0, 0, 0}, //Magic wall
+			{1, 1, 1}, //Top heatsink
+			{1, 2, 2}, //Side heatsink
+			{1, 2, 1}, //Heater
+			{1, 1, 2}, //Air
+	};
 
-	const int loopTimes = 100000;
+	int rectEnd[][3] = {
+			{3, 3, 3},
+			{2, 1, 1},
+			{2, 2, 2},
+			{2, 2, 1},
+			{2, 1, 2},
+	};
+
+	NUM rectTemps[] =     {0, 25, 25, 100, 25};
+	int rectMaterials[] = {0, 1,  1,  3,   2};
+
+	makeMap(currentTemps, materials, 5, rectStart, rectEnd, rectTemps, rectMaterials);
+
+	const int loopTimes = 10000;
 	NUM time = 0;
 	NUM deltaTime = 0.001;
 
@@ -91,14 +110,13 @@ int main() {
 	{
 		updateFlows3D(currentTemps, flowsX, flowsY, flowsZ, materials, matRef);
 		updateTemps3D(deltaTime, currentTemps, newTemps, flowsX, flowsY, flowsZ, materials, matRef);
-		moveAir(newTemps, 2/*z axis*/, materials, matRef);
+		moveAir(newTemps, 2, materials, matRef);
 
 		time += deltaTime;
 		memcpy(currentTemps, newTemps, sizeof(NUM)*MAP_Y*MAP_X*MAP_Z);
 
-		//printFlows3D(flowsX, flowsY, flowsZ);
-		//printTemps3D(newTemps);
+		printFlows3D(flowsX, flowsY, flowsZ);
+		printTemps3D(newTemps);
 	}
-	printTemps3D(newTemps);
 
 }
