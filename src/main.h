@@ -50,9 +50,9 @@ static const NUM AIR_HCAP = 1.005 /*J/gC*/ * 1.2*0.000001 /*g/mm^3*/;
 static const NUM AMBIENT_TEMP = 25 /*C*/;
 
 
-static const int MAP_Z = 4;
-static const int MAP_Y = 4;
-static const int MAP_X = 4;
+static const int MAP_Z = 20;
+static const int MAP_Y = 8;
+static const int MAP_X = 20;
 
 
 #include "energyTempConversion.h"
