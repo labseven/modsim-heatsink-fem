@@ -127,7 +127,7 @@ bool updateTemps3D (NUM deltaTime, NUM currentTemps[MAP_Z][MAP_Y][MAP_X], NUM ne
 
 	for(int z = 0; z < MAP_Z; z++) // Loop through all cells
 	{
-		for(int x = 0; x < MAP_X; x++) // Loop through all cells
+		for(int x = 0; x < MAP_X; x++)
 		{
 			for(int y = 0; y < MAP_Y; y++)
 			{
@@ -139,3 +139,5 @@ bool updateTemps3D (NUM deltaTime, NUM currentTemps[MAP_Z][MAP_Y][MAP_X], NUM ne
 
 	return true;
 }
+
+//bool moveAir (NUM currentTemps[MAP_Z][MAP_Y][MAP_X], NUM newTemps[MAP_Z][MAP_Y][MAP_X], )
