@@ -6,7 +6,7 @@
  */
 
 #include "main.h"
-#define DEBUG 0
+#define DEBUG 1
 
 using namespace std;
 
@@ -114,8 +114,7 @@ int main() {
 	material matRef[] = {
 			material(true,  0,           0,        0,            false), //Magic wall.  Yes, this will cause division by zero if its new temperature is evaluated.
 			material(false, ALU_CONDUCT, ALU_HCAP, 0,            false), //Aluminum
-//			material(true,  AIR_CONDUCT, AIR_HCAP, AMBIENT_TEMP, true), //Old air
-			material(false, AIR_CONDUCT, AIR_HCAP, 0,            true), //New air
+			material(false, AIR_CONDUCT, AIR_HCAP, AMBIENT_TEMP, true), //New air
 			material(true,  ALU_CONDUCT, ALU_HCAP, 100,          false) //Heated Aluminum
 	};
 
@@ -129,14 +128,14 @@ int main() {
 			},
 			{
 					{0, 0, 0, 0},
-					{0, 2, 2, 0},
-					{0, 2, 2, 0},
+					{0, 1, 1, 0},
+					{0, 1, 1, 0},
 					{0, 0, 0, 0}
 			},
 			{
 					{0, 0, 0, 0},
-					{0, 2, 2, 0},
-					{0, 2, 2, 0},
+					{0, 1, 1, 0},
+					{0, 1, 1, 0},
 					{0, 0, 0, 0}
 			},
 			{

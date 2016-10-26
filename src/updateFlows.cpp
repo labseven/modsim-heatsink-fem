@@ -24,18 +24,24 @@ bool updateFlows (int cellCount, NUM temps[], NUM flows[], bool doFluidMix, int 
 		material1 = &matRef[materials[i]]; //Get relevant materials, because we will use their conductivities
 		material2 = &matRef[materials[i+1]];
 
-		if (material1->conductivity == 0 || material2->conductivity == 0) conduction = 0;
+		if (material1->conductivity == 0 || material2->conductivity == 0){
+			conduction = 0;
+			if(DEBUG) std::cout << "nc! ";
+		}
 		else {
 			//std::cout << "1 / " <<material1->conductivity <<" = " <<1/material1->conductivity <<".\n";
 			//conduction = 1/(1/(material1->conductivity) + 1/(material2->conductivity)) * CELLSIZE * 2; //Factors in material conductivities, area, and center-to-center dist
 			conduction = (material1->conductivity) * (material2->conductivity) / ( (material1->conductivity) + (material2->conductivity) ) * CELLSIZE * 2; //Gets the same result, without dividing by large numbers
 		}
 
-		if (doFluidMix && material1->isFluid && material2->isFluid)
+		if (doFluidMix && material1->isFluid && material2->isFluid){
 			flows[i] = (temp1 - temp2) * conduction * FLUID_MULT; //Multiply when fluid mixing is on and both are fluids
-		else
+			if(DEBUG) std::cout << "fluid conduction";
+		}
+		else{
 			flows[i] = (temp1 - temp2) * conduction; //Units are already dealt with in conduction
-
+			if(DEBUG) std::cout << "normal conduction";
+		}
 		if(DEBUG) std::cout << flows[i] << "W ";
 
 	}
@@ -102,9 +108,11 @@ bool updateFlows3D (NUM temps[MAP_Z][MAP_Y][MAP_X],
 
 				if (! updateFlows(MAP_X, tempStripX, flowsX[z][y], fluidMixing[0], matStripX, matRef)) return (false); //Update the current row, fail if it should
 
+
 		} //End Y loop
 	} //End Z loop
 
+	if(DEBUG) std::cout << std::endl;
 
 	NUM tempStripY[MAP_Y]; //One-dimensional arrays that updateFlows can eat
 	int matStripY[MAP_Y];
@@ -122,6 +130,7 @@ bool updateFlows3D (NUM temps[MAP_Z][MAP_Y][MAP_X],
 		} //End Y loop
 	} //End Z loop
 
+	if(DEBUG) std::cout << std::endl;
 
 	NUM tempStripZ[MAP_Z]; //One-dimensional arrays that updateFlows can eat
 	int matStripZ[MAP_Z];
@@ -138,6 +147,8 @@ bool updateFlows3D (NUM temps[MAP_Z][MAP_Y][MAP_X],
 
 		} //End Y loop
 	} //End Z loop
+
+
 
 	return true;
 
