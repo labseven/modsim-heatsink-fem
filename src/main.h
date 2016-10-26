@@ -60,5 +60,6 @@ static const int MAP_X = 4;
 #include "updateTemps.h"
 #include "csvExport.h"
 //#include "fixpoint.h"
+#include "print.h"
 
 #endif /* MAIN_H_ */
