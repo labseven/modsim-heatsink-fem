@@ -40,7 +40,7 @@ struct material{
 #define DELTATIME .0001 // Seconds
 
 
-static const NUM ALU_CONDUCT = 205 /*W/mC*/ / 1000 /*mm/m*/;
+static const NUM ALU_CONDUCT = 205. /*W/mC*/ / 1000 /*mm/m*/;
 static const NUM AIR_CONDUCT = 0.024 /*W/mC*/ / 1000 /*mm/m*/;
 static const NUM FLUID_MULT = 10; //Unitless.  This multiplies fluid-to-fluid conduction.  Try to keep this under 10 or so to avoid oscillation
 
