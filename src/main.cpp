@@ -45,7 +45,7 @@ int main() {
 			{18, 14, 6},
 	};
 
-	NUM rectTemps[] =     {0, 0, 25, 100, 25};
+	NUM rectTemps[] =     {0, 25, 25, 100, 25};
 	int rectMaterials[] = {0, 1,  1,  3,   2};
 
 	makeMap(currentTemps, materials, 5, rectStart, rectEnd, rectTemps, rectMaterials);
@@ -58,8 +58,8 @@ int main() {
 	for(int i = 1; i < loopTimes; i++) // Starting at 1 to make time the same as i (exports are on even numbers)
 	{
 		updateFlows3D(currentTemps, flowsX, flowsY, flowsZ, materials, matRef);
-		//updateTemps3D(deltaTime, currentTemps, newTemps, flowsX, flowsY, flowsZ, materials, matRef);
-		//moveAir(newTemps, 2, materials, matRef);
+		updateTemps3D(deltaTime, currentTemps, newTemps, flowsX, flowsY, flowsZ, materials, matRef);
+		moveAir(newTemps, 2, materials, matRef);
 
 		time += deltaTime;
 		memcpy(currentTemps, newTemps, sizeof(NUM)*MAP_Y*MAP_X*MAP_Z);
