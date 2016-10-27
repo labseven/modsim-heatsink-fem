@@ -17,22 +17,18 @@ bool updateFlows (int cellCount, NUM temps[], NUM flows[], bool doFluidMix, int 
 	NUM temp1, temp2, conduction;
 	material  material1, material2;
 
-	//if(DEBUG) std::cout << "updateFlows:\nFlows: ";
 	for (int i = 0; i < cellCount-1; i++) { //One fewer than the number of cells
 
 		temp1 = temps[i]; //Get current temperatures from array 'temps'
 		temp2 = temps[i+1];
 		material1 = matRef[materials[i]]; //Get relevant materials, because we will use their conductivities
 		material2 = matRef[materials[i+1]];
-		//material1 = matRef[0];
-		//material2 = matRef[0];
 
 		if (material1.conductivity <= 0 || material2.conductivity <= 0){ //Zero or negative conductivities represent things that shouldn't be conducted with
 			conduction = 0;
 			if(DEBUG) std::cout << "nc! ";
 		}
 		else {
-			//std::cout << "1 / " <<material1->conductivity <<" = " <<1/material1->conductivity <<".\n";
 			//conduction = 1/(1/(material1->conductivity) + 1/(material2->conductivity)) * CELLSIZE * 2; //Factors in material conductivities, area, and center-to-center dist
 			conduction = (material1.conductivity) * (material2.conductivity) / ( (material1.conductivity) + (material2.conductivity) ) * CELLSIZE * 2; //Gets the same result, without dividing by large numbers
 		}
@@ -50,7 +46,7 @@ bool updateFlows (int cellCount, NUM temps[], NUM flows[], bool doFluidMix, int 
 	}
 	if(DEBUG) std::cout << "\n";
 
-	return true; //Unless something went wrong
+	return true;
 
 }
 
