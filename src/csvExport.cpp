@@ -56,7 +56,7 @@ bool clearPython2D()
 {
 	ofstream myfile;
 	myfile.open ("outputPython.csv");
-	myfile << MAP_X << "," << MAP_Y << "\n";
+	myfile << MAP_X << "," << MAP_Y <<  "\n";
 	myfile.close();
 	return true;
 }
@@ -82,3 +82,35 @@ bool exportPython2D(NUM currentTemps[MAP_Y][MAP_X], NUM currentTime)
 	return true;
 }
 
+bool clearPython3D(int edgeRemove = 0)
+{
+	ofstream myfile;
+	myfile.open ("outputPython.csv");
+	myfile << MAP_X-(edgeRemove*2) << "," << MAP_Y-(edgeRemove*2) << "," << MAP_Z-(edgeRemove*2) << "\n";
+	myfile.close();
+	return true;
+}
+
+bool exportPython3D(NUM currentTemps[MAP_Z][MAP_Y][MAP_X], NUM currentTime, int edgeRemove = 0)
+{
+	ofstream myfile;
+	myfile.open ("outputPython.csv", ios::app);
+
+	myfile << currentTime << "\n";
+
+	for(int z = edgeRemove; z < MAP_Z-edgeRemove; z++)
+	{
+		for(int y = edgeRemove; y < MAP_Y-edgeRemove; y++)
+		{
+			for (int x = edgeRemove; x < MAP_X-edgeRemove; x++)
+			{
+				myfile << currentTemps[z][y][x] << ",";
+			}
+			myfile << "\n";
+		}
+	}
+	myfile.close();
+
+
+	return true;
+}

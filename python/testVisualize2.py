@@ -1,3 +1,6 @@
+
+
+
 # Imports the output into python and then visualize it
 
 # tempraturesTimeArray holds [iteration#][0: time, 1+:z level][y level]
@@ -70,9 +73,10 @@ ax = fig.add_subplot(111, projection='3d')
 
 
 
-colormap = cm.get_cmap("plasma");
+colormap = cm.get_cmap("spring");
+cArray = [int(x) for x in tempraturesTimeArray[0][1]];
 
-ax.scatter(xList,yList,zList, cmap=colormap, c=tempraturesTimeArray[0][1], s=50);
+ax.scatter(xList,yList,zList, cmap=colormap, c=tempraturesTimeArray[0][1]);
 
 
 ax.set_xlabel('X Label')
