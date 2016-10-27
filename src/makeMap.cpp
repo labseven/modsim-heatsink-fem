@@ -6,7 +6,7 @@
  */
 
 #include "makeMap.h"
-#define DEBUG 1
+#define DEBUG 0
 
 using namespace std;
 
@@ -15,9 +15,16 @@ using namespace std;
 bool makeMap(NUM (newTemps)[MAP_Z][MAP_Y][MAP_X], int (newMaterials)[MAP_Z][MAP_Y][MAP_X], int rectCount, int start[][3], int end[][3], NUM temps[], int materials[]) {
 
 
+
 	for (int rect = 0; rect < rectCount; rect++) { //Pick a prism
 
 		for (int axis = 0; axis < 3; axis ++) {
+
+			if (start[rect][axis] < 0) //If a value is negative, wrap around
+				start[rect][axis] = ((axis == 0)? MAP_Z : ( (axis == 1)? MAP_Y : MAP_X )) + start[rect][axis];
+
+			if (end[rect][axis] < 0)
+				end[rect][axis] = ((axis == 0)? MAP_Z : ( (axis == 1)? MAP_Y : MAP_X )) + end[rect][axis];
 
 			if (
 					start[rect][axis] < 0 ||
