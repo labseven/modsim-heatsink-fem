@@ -111,8 +111,6 @@ bool updateFlows3D (NUM temps[MAP_Z][MAP_Y][MAP_X],
 				matStripX[x] = materials[z][y][x];
 			}
 
-			cout << "Updating x flows with y=" <<y <<" and z=" <<z <<endl;
-
 			if (! updateFlows(MAP_X, tempStripX, flowsX[z][y], fluidMixing[0], matStripX, matRef)) return (false); //Update the current row, fail if it should
 
 		} //End Y loop
