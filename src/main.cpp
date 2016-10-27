@@ -46,7 +46,10 @@ int main() {
 	NUM rectTemps[] =     {0, 25, 25, 100, 25};
 	int rectMaterials[] = {0, 1,  1,  3,   2};
 
-	makeMap(currentTemps, materials, 5, rectStart, rectEnd, rectTemps, rectMaterials);
+	if(!makeMap(currentTemps, materials, 5, rectStart, rectEnd, rectTemps, rectMaterials)) {
+		cout << "makeMap failed." <<endl;
+		return(-1);
+	}
 
 	const int loopTimes = 1000;
 	NUM time = 0;
