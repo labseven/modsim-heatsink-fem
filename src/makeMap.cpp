@@ -16,12 +16,28 @@ bool makeMap(NUM (newTemps)[MAP_Z][MAP_Y][MAP_X], int (newMaterials)[MAP_Z][MAP_
 
 
 
-	if(DEBUG) {
-		cout << "newTemps size: " <<sizeof(newTemps[5][0]) / sizeof(NUM) <<endl;
-		cout << "newMaterials size: " <<sizeof(newMaterials[5][0]) / sizeof(int) <<endl;
-	}
-
 	for (int rect = 0; rect < rectCount; rect++) { //Pick a prism
+
+		for (int axis = 0; axis < 3; axis ++) {
+
+			if (start[rect][axis] < 0) //If a value is negative, wrap around
+				start[rect][axis] = ((axis == 0)? MAP_Z : ( (axis == 1)? MAP_Y : MAP_X )) + start[rect][axis];
+
+			if (end[rect][axis] < 0)
+				end[rect][axis] = ((axis == 0)? MAP_Z : ( (axis == 1)? MAP_Y : MAP_X )) + end[rect][axis];
+
+			if (
+					start[rect][axis] < 0 ||
+					end[rect][axis] < 0 ||
+					end[rect][axis] < start[rect][axis] ||
+					start[rect][axis] > ((axis == 0)? MAP_Z : ( (axis == 1)? MAP_Y : MAP_X )) - 1 || //Triggers if any start is larger than its relevent dimensional bound
+					end[rect][axis] > ((axis == 0)? MAP_Z : ( (axis == 1)? MAP_Y : MAP_X )) - 1//The nested conditional is to select the right dimension
+					) {
+				if(DEBUG) cout << "Error in " <<((axis == 0)? "Z" : ( (axis == 1)? "y" : "x" )) <<" axis of prism #" <<rect <<endl;
+				return(false);
+			}
+
+		}
 
 		if(DEBUG) cout << "Starting rectangular prism #" <<rect <<endl;
 
@@ -40,31 +56,6 @@ bool makeMap(NUM (newTemps)[MAP_Z][MAP_Y][MAP_X], int (newMaterials)[MAP_Z][MAP_
 		} //z
 
 	} //rect
-
-	/*
-	if(DEBUG) {
-		for (int rect = 0; rect < rectCount; rect++) { //Pick a prism
-			for (int z = start[rect][0]; z < end[rect][0]+1; z++) { //Loop through every cell in the relevant rectangular prism
-				for (int y = start[rect][1]; y < end[rect][1]+1; y++) {
-					for (int x = start[rect][2]; x < end[rect][2]+1; x++) {
-
-						cout << "Reading cell " <<x <<", " <<y <<", " <<z <<endl;
-
-						if (newTemps[z][y][x] != temps[rect]) {
-							cout << "Temperature mismatch." <<endl;
-							return false;
-						}
-
-						if (newMaterials[z][y][x] != materials[rect]) {
-							cout << "Material mismatch." <<endl;
-							return false;
-						}
-					} //x
-				} //y
-			} //z
-		} //rect
-	}//debug
-	*/
 
 
 	return true;
