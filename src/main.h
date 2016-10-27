@@ -51,8 +51,8 @@ static const NUM AMBIENT_TEMP = 25 /*C*/;
 
 
 static const int MAP_Z = 20;
-static const int MAP_Y = 8;
-static const int MAP_X = 20;
+static const int MAP_Y = 20;
+static const int MAP_X = 8;
 
 
 #include "energyTempConversion.h"
