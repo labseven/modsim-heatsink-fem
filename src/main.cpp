@@ -27,8 +27,6 @@ int main() {
 	NUM flowsY[MAP_X][MAP_Z][MAP_Y-1];
 	NUM flowsZ[MAP_Y][MAP_X][MAP_Z-1];
 
-
-
 	int rectStart[][3] = {
 			{0,  0, 0}, //Magic wall
 			{1,  1, 1}, //Top heatsink
@@ -50,8 +48,7 @@ int main() {
 
 	makeMap(currentTemps, materials, 5, rectStart, rectEnd, rectTemps, rectMaterials);
 
-
-	const int loopTimes = 30;
+	const int loopTimes = 1000;
 	NUM time = 0;
 	NUM deltaTime = 0.001;
 
@@ -64,10 +61,11 @@ int main() {
 		time += deltaTime;
 		memcpy(currentTemps, newTemps, sizeof(NUM)*MAP_Y*MAP_X*MAP_Z);
 
-		printFlows3D(flowsX, flowsY, flowsZ);
-		printTemps3D(newTemps);
+		//printFlows3D(flowsX, flowsY, flowsZ);
+		//printTemps3D(newTemps);
 	}
 
+	printFlows3D(flowsX, flowsY, flowsZ);
 	printTemps3D(currentTemps);
 
 }
