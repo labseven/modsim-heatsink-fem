@@ -55,6 +55,8 @@ int main() {
 	NUM time = 0;
 	NUM deltaTime = 0.001;
 
+	clearPython3D(1);
+
 	for(int i = 1; i < loopTimes; i++) // Starting at 1 to make time the same as i (exports are on even numbers)
 	{
 		updateFlows3D(currentTemps, flowsX, flowsY, flowsZ, materials, matRef);
@@ -64,10 +66,11 @@ int main() {
 		time += deltaTime;
 		memcpy(currentTemps, newTemps, sizeof(NUM)*MAP_Y*MAP_X*MAP_Z);
 
-		printFlows3D(flowsX, flowsY, flowsZ);
-		printTemps3D(newTemps);
+		//printFlows3D(flowsX, flowsY, flowsZ);
+		//printTemps3D(newTemps);
 	}
 
 	printTemps3D(currentTemps);
+	exportPython3D(currentTemps, time, 1);
 
 }
