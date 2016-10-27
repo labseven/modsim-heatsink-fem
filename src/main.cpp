@@ -19,107 +19,36 @@ int main() {
 			material(true,  ALU_CONDUCT, ALU_HCAP, 100,          false) //Heated Aluminum
 	};
 
+	int materials[MAP_Z][MAP_Y][MAP_X];
 
-	int materials[MAP_Z][MAP_Y][MAP_X];/* = {
-			{
-					{0, 0, 0, 0},
-					{0, 0, 0, 0},
-					{0, 0, 0, 0},
-					{0, 0, 0, 0}
-			},
-			{
-					{0, 0, 0, 0},
-					{0, 1, 2, 0},
-					{0, 3, 1, 0},
-					{0, 0, 0, 0}
-			},
-			{
-					{0, 0, 0, 0},
-					{0, 1, 2, 0},
-					{0, 3, 1, 0},
-					{0, 0, 0, 0}
-			},
-			{
-					{0, 0, 0, 0},
-					{0, 0, 0, 0},
-					{0, 0, 0, 0},
-					{0, 0, 0, 0}
-			}
-	};*/
-
-
-	NUM currentTemps[MAP_Z][MAP_Y][MAP_X];/* = {
-			{
-					{0, 0, 0, 0},
-					{0, 0, 0, 0},
-					{0, 0, 0, 0},
-					{0, 0, 0, 0}
-			},
-			{
-					{0, 0, 0, 0},
-					{0, 25, 25, 0},
-					{0, 25, 25, 0},
-					{0, 0, 0, 0}
-			},
-			{
-					{0, 0, 0, 0},
-					{0, 25, 25, 0},
-					{0, 25, 25, 0},
-					{0, 0, 0, 0}
-			},
-
-			{
-					{0, 0, 0, 0},
-					{0, 0, 0, 0},
-					{0, 0, 0, 0},
-					{0, 0, 0, 0}
-			}
-	};*/
-
+	NUM currentTemps[MAP_Z][MAP_Y][MAP_X];
 	NUM newTemps[MAP_Z][MAP_Y][MAP_X];
 	NUM flowsX[MAP_Z][MAP_Y][MAP_X-1];
 	NUM flowsY[MAP_X][MAP_Z][MAP_Y-1];
 	NUM flowsZ[MAP_Y][MAP_X][MAP_Z-1];
 
-	/*
+
+
 	int rectStart[][3] = {
-			{0, 0, 0}, //Magic wall
-			{1, 1, 1}, //Top heatsink
-			{1, 2, 2}, //Side heatsink
-			{1, 2, 1}, //Heater
-			{1, 1, 2}, //Air
+			{0,  0, 0}, //Magic wall
+			{1,  1, 1}, //Top heatsink
+			{1, 15, 1}, //Side heatsink
+//			{1, 18, 1}, //Heater
+//			{1,  1, 4}, //Air
 	};
 
 	int rectEnd[][3] = {
-			{3, 3, 3},
-			{2, 1, 1},
-			{2, 2, 2},
-			{2, 2, 1},
-			{2, 1, 2},
+			{19, 7, 19},
+			{18, 3, 17},
+			{18, 17, 6},
+//			{18, 18, 6},
+//			{18, 14, 6},
 	};
 
-	*/
+	NUM rectTemps[] =     {0, 25, 25/*, 100, 25*/};
+	int rectMaterials[] = {0, 1,  1/*,  3,   2*/};
 
-	int rectStart[][3] = {
-				{0,  0, 0}, //Magic wall
-				{1,  1, 1}, //Top heatsink
-				{1, 15, 1}, //Side heatsink
-				{1, 18, 1}, //Heater
-				{1,  1, 4}, //Air
-		};
-
-		int rectEnd[][3] = {
-				{19, 7, 19},
-				{18, 3, 17},
-				{18, 17, 6},
-				{18, 18, 6},
-				{18, 14, 6},
-		};
-
-		NUM rectTemps[] =     {0, 25, 25, 100, 25};
-		int rectMaterials[] = {0, 1,  1,  3,   2};
-
-	makeMap(currentTemps, materials, 5, rectStart, rectEnd, rectTemps, rectMaterials);
+	makeMap(&currentTemps, &materials, 3, rectStart, rectEnd, rectTemps, rectMaterials);
 
 	/*
 	const int loopTimes = 1000;
