@@ -10,7 +10,7 @@ import matplotlib.cm as cm
 
 
 # Import the array
-with open("outputPython1.csv","r") as fileIn:
+with open("outputPython.csv","r") as fileIn:
 	currLine = fileIn.readline();
 
 	xyzSize = [int(n) for n in currLine.rstrip('\n').split(",")];
@@ -27,7 +27,7 @@ with open("outputPython1.csv","r") as fileIn:
 	while(1):
 		currLine = fileIn.readline();
 		if(not currLine): break;
-		time = [int(currLine.rstrip('\n'))];
+		time = [float(currLine.rstrip('\n'))];
 		# print("Time: ", time);
 
 		tempraturesList = [];
@@ -70,10 +70,10 @@ ax = fig.add_subplot(111, projection='3d')
 
 
 
-colormap = cm.get_cmap("autumn");
+colormap = cm.get_cmap("spring");
+cArray = [x/100. for x in tempraturesTimeArray[0][1]];
 
-
-ax.scatter(xList,yList,zList, c=tempraturesTimeArray[0][1], cmap=colormap);
+ax.scatter(xList,yList,zList, tempraturesTimeArray[0][1], cmap=colormap);
 
 # for z in range(xyzSize[2]):
 # 	for y in range(xyzSize[1]):
