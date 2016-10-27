@@ -51,7 +51,7 @@ int main() {
 	makeMap(currentTemps, materials, 5, rectStart, rectEnd, rectTemps, rectMaterials);
 
 
-	const int loopTimes = 3;
+	const int loopTimes = 30;
 	NUM time = 0;
 	NUM deltaTime = 0.001;
 
