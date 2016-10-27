@@ -121,7 +121,7 @@ int main() {
 
 	makeMap(currentTemps, materials, 5, rectStart, rectEnd, rectTemps, rectMaterials);
 
-
+	/*
 	const int loopTimes = 1000;
 	NUM time = 0;
 	NUM deltaTime = 0.001;
@@ -138,6 +138,6 @@ int main() {
 		//printFlows3D(flowsX, flowsY, flowsZ);
 		//printTemps3D(newTemps);
 	}
-	printTemps3D(newTemps);
+	printTemps3D(newTemps);*/
 
 }
