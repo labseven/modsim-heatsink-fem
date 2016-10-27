@@ -30,7 +30,7 @@ struct material{
 		isFluid = isFluidIn;
 	}
 
-	//material() {}; //Default constructor, for when you are gonna assign values later.
+	material() {}; //Default constructor, for when you are gonna assign values later.
 
 };
 

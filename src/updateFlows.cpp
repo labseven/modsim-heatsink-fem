@@ -10,31 +10,34 @@
 
 //Calculates flow between each pair of cells, given cell temps and materials
 
+using namespace std;
 
 bool updateFlows (int cellCount, NUM temps[], NUM flows[], bool doFluidMix, int materials[], material matRef[]) {
 
 	NUM temp1, temp2, conduction;
-	material  *material1 = NULL, *material2 = NULL;
+	material  material1, material2;
 
 	//if(DEBUG) std::cout << "updateFlows:\nFlows: ";
 	for (int i = 0; i < cellCount-1; i++) { //One fewer than the number of cells
 
 		temp1 = temps[i]; //Get current temperatures from array 'temps'
 		temp2 = temps[i+1];
-		material1 = &matRef[materials[i]]; //Get relevant materials, because we will use their conductivities
-		material2 = &matRef[materials[i+1]];
+		material1 = matRef[materials[i]]; //Get relevant materials, because we will use their conductivities
+		material2 = matRef[materials[i+1]];
+		//material1 = matRef[0];
+		//material2 = matRef[0];
 
-		if (material1->conductivity == 0 || material2->conductivity == 0){
+		if (material1.conductivity <= 0 || material2.conductivity <= 0){ //Zero or negative conductivities represent things that shouldn't be conducted with
 			conduction = 0;
 			if(DEBUG) std::cout << "nc! ";
 		}
 		else {
 			//std::cout << "1 / " <<material1->conductivity <<" = " <<1/material1->conductivity <<".\n";
 			//conduction = 1/(1/(material1->conductivity) + 1/(material2->conductivity)) * CELLSIZE * 2; //Factors in material conductivities, area, and center-to-center dist
-			conduction = (material1->conductivity) * (material2->conductivity) / ( (material1->conductivity) + (material2->conductivity) ) * CELLSIZE * 2; //Gets the same result, without dividing by large numbers
+			conduction = (material1.conductivity) * (material2.conductivity) / ( (material1.conductivity) + (material2.conductivity) ) * CELLSIZE * 2; //Gets the same result, without dividing by large numbers
 		}
 
-		if (doFluidMix && material1->isFluid && material2->isFluid){
+		if (doFluidMix && material1.isFluid && material2.isFluid){
 			flows[i] = (temp1 - temp2) * conduction * FLUID_MULT; //Multiply when fluid mixing is on and both are fluids
 			if(DEBUG) std::cout << "fluid conduction";
 		}
@@ -95,6 +98,8 @@ bool updateFlows3D (NUM temps[MAP_Z][MAP_Y][MAP_X],
 
 	bool fluidMixing[] = {true, true, false}; //X, Y, Z
 
+	if(DEBUG) cout << "Updating X flows..." <<endl;
+
 	NUM tempStripX[MAP_X]; //One-dimensional arrays that updateFlows can eat
 	int matStripX[MAP_X];
 
@@ -104,15 +109,16 @@ bool updateFlows3D (NUM temps[MAP_Z][MAP_Y][MAP_X],
 			for (int x = 0; x < MAP_X; x++) {
 				tempStripX[x] = temps[z][y][x];
 				matStripX[x] = materials[z][y][x];
-					}
+			}
 
-				if (! updateFlows(MAP_X, tempStripX, flowsX[z][y], fluidMixing[0], matStripX, matRef)) return (false); //Update the current row, fail if it should
+			cout << "Updating x flows with y=" <<y <<" and z=" <<z <<endl;
 
+			if (! updateFlows(MAP_X, tempStripX, flowsX[z][y], fluidMixing[0], matStripX, matRef)) return (false); //Update the current row, fail if it should
 
 		} //End Y loop
 	} //End Z loop
 
-	if(DEBUG) std::cout << std::endl;
+	if(DEBUG) cout <<"Updating Y flows..." << endl;
 
 	NUM tempStripY[MAP_Y]; //One-dimensional arrays that updateFlows can eat
 	int matStripY[MAP_Y];
@@ -127,10 +133,10 @@ bool updateFlows3D (NUM temps[MAP_Z][MAP_Y][MAP_X],
 
 				if (! updateFlows(MAP_Y, tempStripY, flowsY[x][z], fluidMixing[1], matStripY, matRef)) return (false); //Update the current row, fail if it should
 
-		} //End Y loop
-	} //End Z loop
+		} //End Z loop
+	} //End X loop
 
-	if(DEBUG) std::cout << std::endl;
+	if(DEBUG) cout <<"Updating Z flows..." << endl;
 
 	NUM tempStripZ[MAP_Z]; //One-dimensional arrays that updateFlows can eat
 	int matStripZ[MAP_Z];
@@ -145,10 +151,10 @@ bool updateFlows3D (NUM temps[MAP_Z][MAP_Y][MAP_X],
 
 				if (! updateFlows(MAP_Z, tempStripZ, flowsZ[y][x], fluidMixing[2], matStripZ, matRef)) return (false); //Update the current row, fail if it should
 
-		} //End Y loop
-	} //End Z loop
+		} //End X loop
+	} //End Y loop
 
-
+	if(DEBUG) cout <<"Done updating flows." << endl;
 
 	return true;
 
