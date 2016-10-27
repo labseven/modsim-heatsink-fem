@@ -6,7 +6,7 @@
  */
 
 #include "makeMap.h"
-#define DEBUG 0
+#define DEBUG 1
 
 using namespace std;
 
@@ -23,8 +23,8 @@ bool makeMap(NUM (newTemps)[MAP_Z][MAP_Y][MAP_X], int (newMaterials)[MAP_Z][MAP_
 					start[rect][axis] < 0 ||
 					end[rect][axis] < 0 ||
 					end[rect][axis] < start[rect][axis] ||
-					start[rect][axis] > ((axis == 0)? MAP_Z : ( (axis == 1)? MAP_Y : MAP_X )) || //Triggers if any start is larger than its relevent dimensional bound
-					end[rect][axis] > ((axis == 0)? MAP_Z : ( (axis == 1)? MAP_Y : MAP_X ))//The nested conditional is to select the right dimension
+					start[rect][axis] > ((axis == 0)? MAP_Z : ( (axis == 1)? MAP_Y : MAP_X )) - 1 || //Triggers if any start is larger than its relevent dimensional bound
+					end[rect][axis] > ((axis == 0)? MAP_Z : ( (axis == 1)? MAP_Y : MAP_X )) - 1//The nested conditional is to select the right dimension
 					) {
 				if(DEBUG) cout << "Error in " <<((axis == 0)? "Z" : ( (axis == 1)? "y" : "x" )) <<" axis of prism #" <<rect <<endl;
 				return(false);
