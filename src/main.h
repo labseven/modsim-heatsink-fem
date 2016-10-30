@@ -11,6 +11,7 @@
 #include <iostream>
 #include <cmath>
 #include <string.h>
+#include <time.h>
 
 
 #define NUM double
