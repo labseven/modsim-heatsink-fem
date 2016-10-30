@@ -8,13 +8,15 @@ import matplotlib.pyplot as plt
 import matplotlib.cm as cm
 
 
+zLevelResolution = 10
+plotNumberToGraph = -1
+print(list(range(0,10,2)))
 
 # Import the array
 with open("outputPython.csv","r") as fileIn:
 	currLine = fileIn.readline();
 
 	xyzSize = [int(n) for n in currLine.rstrip('\n').split(",")];
-
 	print (xyzSize);
 	#print(xyzSize[1]);
 	tempraturesList = [];
@@ -27,17 +29,19 @@ with open("outputPython.csv","r") as fileIn:
 	while(1):
 		currLine = fileIn.readline();
 		if(not currLine): break;
+		print(currLine)
 		time = [float(currLine.rstrip('\n'))];
-		# print("Time: ", time);
+		print("Time: ", time);
 
 		tempraturesList = [];
 		for z in range(xyzSize[2]):
 			for y in range(xyzSize[1]):
 				currLine = fileIn.readline();
-				bigAssList = currLine.split(",");
-				bigAssList.pop(); # removes the last element, which is \n or empty
-				bigAssList = [float(n) for n in bigAssList];
-				tempraturesList = tempraturesList + bigAssList;
+				if (z%zLevelResolution == 0):
+					bigAssList = currLine.split(",");
+					bigAssList.pop(); # removes the last element, which is \n or empty
+					bigAssList = [float(n) for n in bigAssList];
+					tempraturesList = tempraturesList + bigAssList;
 		# print("Tempratures: ",tempraturesList);
 		# print();
 		tempraturesTimeArray.append(time + [tempraturesList]);
@@ -48,7 +52,7 @@ with open("outputPython.csv","r") as fileIn:
 # print("Time of first thing: ", tempraturesTimeArray[0][0]);
 # print("Tempratures of first thing: ", tempraturesTimeArray[0][1]);
 
-for z in range(xyzSize[2]):
+for z in range(0,xyzSize[2],zLevelResolution):
 	for y in range(xyzSize[1]):
 		for x in range(xyzSize[0]):
 			xList = xList + [x];
@@ -68,17 +72,14 @@ fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
 
 
-
+print("Time of simulation: ", tempraturesTimeArray[plotNumberToGraph][0])
 
 colormap = cm.get_cmap("plasma");
 
-ax.scatter(xList,yList,zList, cmap=colormap, c=tempraturesTimeArray[0][1], s=70, alpha=.6);
+ax.scatter(xList,yList,zList, cmap=colormap, c=tempraturesTimeArray[plotNumberToGraph][1], s=100, alpha=.8);
 
 
-ax.set_xlabel('X Label')
-ax.set_ylabel('Y Label')
-ax.set_zlabel('Z Label')
-
+#plt.colorbar()
 plt.show()
 
 
