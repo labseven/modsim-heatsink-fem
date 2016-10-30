@@ -1,4 +1,4 @@
 .metadata
 src/.settings/
 RemoteSystemsTempFiles/.project
-outputPython.csv
+*.csv
