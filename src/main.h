@@ -54,9 +54,9 @@ static const NUM AMBIENT_TEMP = 25 /*C*/;
 //static const int MAP_Y = 150;
 //static const int MAP_X = 60;
 
-#define MAP_Z 60
-#define MAP_Y 150
-#define MAP_X 60
+#define MAP_Z 20
+#define MAP_Y 50
+#define MAP_X 20
 
 #include "energyTempConversion.h"
 #include "updateFlows.h"
