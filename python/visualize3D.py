@@ -45,8 +45,8 @@ with open("outputPython.csv","r") as fileIn:
 # print;
 # print("Time and temp: ", tempraturesTimeArray);
 
-print("Time of first thing: ", tempraturesTimeArray[0][0]);
-print("Tempratures of first thing: ", tempraturesTimeArray[0][1]);
+# print("Time of first thing: ", tempraturesTimeArray[0][0]);
+# print("Tempratures of first thing: ", tempraturesTimeArray[0][1]);
 
 for z in range(xyzSize[2]):
 	for y in range(xyzSize[1]):
@@ -72,7 +72,7 @@ ax = fig.add_subplot(111, projection='3d')
 
 colormap = cm.get_cmap("plasma");
 
-ax.scatter(xList,yList,zList, cmap=colormap, c=tempraturesTimeArray[0][1], s=50);
+ax.scatter(xList,yList,zList, cmap=colormap, c=tempraturesTimeArray[0][1], s=70, alpha=.6);
 
 
 ax.set_xlabel('X Label')
