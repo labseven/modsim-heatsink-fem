@@ -45,7 +45,7 @@ static const NUM AIR_CONDUCT = 0.024 /*W/mC*/ / 1000 /*mm/m*/;
 static const NUM FLUID_MULT = 10; //Unitless.  This multiplies fluid-to-fluid conduction.  Try to keep this under 10 or so to avoid oscillation
 
 static const NUM ALU_HCAP = 0.91 /*J/gC*/ * 0.0027 /*g/mm^3*/;
-static const NUM AIR_HCAP = 1.005 /*J/gC*/ * 1.2*0.000001 /*g/mm^3*/;
+static const NUM AIR_HCAP = 1.005 /*J/gC*/ * 1.2*0.000000001 /*g/mm^3*/;
 
 static const NUM AMBIENT_TEMP = 25 /*C*/;
 
@@ -54,7 +54,7 @@ static const NUM AMBIENT_TEMP = 25 /*C*/;
 //static const int MAP_Y = 150;
 //static const int MAP_X = 60;
 
-#define MAP_Z 20
+#define MAP_Z 60
 #define MAP_Y 50
 #define MAP_X 20
 

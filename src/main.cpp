@@ -11,7 +11,6 @@
 using namespace std;
 
 int main() {
-
 	material matRef[] = {
 			material(true,  0,           0,        0,            false), //Magic wall.  Zero / negative conductivity is a sign to say don't calculate flows.
 			material(false, ALU_CONDUCT, ALU_HCAP, 0,            false), //Aluminum
@@ -75,9 +74,11 @@ int main() {
 	const int loopTimes = 10000;
 	NUM time = 0;
 	NUM deltaTime = 0.001;
-	int airspeedDivisor = 4;
+	int airspeedDivisor = 8;
 
 	clearPython3D(1);
+	cout << "Simulation starting..." << endl;
+	exportPython3D(currentTemps, time, 1);
 
 	for(int i = 1; i < loopTimes; i++) // Starting at 1 to make time the same as i (exports are on even numbers)
 	{
@@ -91,9 +92,10 @@ int main() {
 		//printFlows3D(flowsX, flowsY, flowsZ);
 		//printTemps3D(newTemps);
 		//Data export goes here
+		if(i % 10000 == 0) 	exportPython3D(currentTemps, time, 1);
 	}
 
-	printFlows3D(flowsX, flowsY, flowsZ);
+	//printFlows3D(flowsX, flowsY, flowsZ);
 	printTemps3D(currentTemps);
 	exportPython3D(currentTemps, time, 1);
 
