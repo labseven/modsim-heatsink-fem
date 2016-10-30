@@ -18,4 +18,3 @@ EANDTTYPE temp2energy (EANDTTYPE temp, EANDTTYPE heatCapacity) /* Temperature Un
 {
 	return temp * heatCapacity;
 }
-

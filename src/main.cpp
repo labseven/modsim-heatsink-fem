@@ -71,7 +71,7 @@ int main() {
 		return(-1);
 	}
 
-	const int loopTimes = 10000;
+	const int loopTimes = 50000;
 	NUM time = 0;
 	NUM deltaTime = 0.001;
 	int airspeedDivisor = 8;
