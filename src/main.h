@@ -43,8 +43,8 @@ struct material{
 
 static const NUM ALU_CONDUCT = 205. /*W/mC*/ / 1000 /*mm/m*/;
 //static const NUM AIR_CONDUCT = 0.024 /*W/mC*/ / 1000 /*mm/m*/;
-static const NUM AIR_CONDUCT = 0.24 /*W/mC*/ / 1000 /*mm/m*/;
-static const NUM FLUID_MULT = 10; //Unitless.  This multiplies fluid-to-fluid conduction.  Try to keep this under 10 or so to avoid oscillation
+static const NUM AIR_CONDUCT = 2.4 /*W/mC*/ / 1000 /*mm/m*/;
+static const NUM FLUID_MULT = 1; //Unitless.
 
 static const NUM ALU_HCAP = 0.91 /*J/gC*/ * 0.0027 /*g/mm^3*/;
 static const NUM AIR_HCAP = 1.005 /*J/gC*/ * 1.2*0.000001 /*g/mm^3*/;
