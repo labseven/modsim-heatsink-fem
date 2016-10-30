@@ -71,9 +71,9 @@ int main() {
 		return(-1);
 	}
 
-	const int loopTimes = 50000;
+	const int loopTimes = 1000;
 	NUM time = 0;
-	NUM deltaTime = 0.001;
+	NUM deltaTime = 0.0001;
 	int airspeedDivisor = 8;
 
 	clearPython3D(1);
@@ -92,7 +92,7 @@ int main() {
 		//printFlows3D(flowsX, flowsY, flowsZ);
 		//printTemps3D(newTemps);
 		//Data export goes here
-		if(i % 10000 == 0) 	exportPython3D(currentTemps, time, 1);
+		if(i % 1 == 0) 	exportPython3D(currentTemps, time, 1);
 	}
 
 	//printFlows3D(flowsX, flowsY, flowsZ);

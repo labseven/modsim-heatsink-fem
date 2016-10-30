@@ -9,7 +9,7 @@ import matplotlib.cm as cm
 
 
 zLevelResolution = 10
-plotNumberToGraph = -1
+plotNumberToGraph = 10
 print(list(range(0,10,2)))
 
 # Import the array
@@ -29,7 +29,6 @@ with open("outputPython.csv","r") as fileIn:
 	while(1):
 		currLine = fileIn.readline();
 		if(not currLine): break;
-		print(currLine)
 		time = [float(currLine.rstrip('\n'))];
 		print("Time: ", time);
 
@@ -73,6 +72,7 @@ ax = fig.add_subplot(111, projection='3d')
 
 
 print("Time of simulation: ", tempraturesTimeArray[plotNumberToGraph][0])
+print("Data: ", tempraturesTimeArray[plotNumberToGraph][1])
 
 colormap = cm.get_cmap("plasma");
 
