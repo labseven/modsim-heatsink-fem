@@ -71,14 +71,17 @@ int main() {
 		return(-1);
 	}
 
-	const int loopTimes = 50000;
-	NUM time = 0;
+	const int loopTimes = 5000;
+	NUM currTime = 0;
 	NUM deltaTime = 0.001;
 	int airspeedDivisor = 8;
 
 	clearPython3D(1);
 	cout << "Simulation starting..." << endl;
-	exportPython3D(currentTemps, time, 1);
+	exportPython3D(currentTemps, currTime, 1);
+
+	time_t simStartTime;
+	time(&simStartTime);
 
 	for(int i = 1; i < loopTimes; i++) // Starting at 1 to make time the same as i (exports are on even numbers)
 	{
@@ -86,17 +89,19 @@ int main() {
 		updateTemps3D(deltaTime, currentTemps, newTemps, flowsX, flowsY, flowsZ, materials, matRef);
 		if(i % airspeedDivisor == 0) moveAir(newTemps, 2, materials, matRef);
 
-		time += deltaTime;
+		currTime += deltaTime;
 		memcpy(currentTemps, newTemps, sizeof(NUM)*MAP_Y*MAP_X*MAP_Z);
 
 		//printFlows3D(flowsX, flowsY, flowsZ);
 		//printTemps3D(newTemps);
 		//Data export goes here
-		if(i % 10000 == 0) 	exportPython3D(currentTemps, time, 1);
+		if(i % 10000 == 0) 	exportPython3D(currentTemps, currTime, 1);
 	}
 
 	//printFlows3D(flowsX, flowsY, flowsZ);
 	printTemps3D(currentTemps);
-	exportPython3D(currentTemps, time, 1);
+	exportPython3D(currentTemps, currTime, 1);
+
+	cout << "Simulation time: " <<difftime(time(NULL), simStartTime) <<" seconds";
 
 }
