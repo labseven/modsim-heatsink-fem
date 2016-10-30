@@ -9,7 +9,7 @@ import matplotlib.cm as cm
 
 
 zLevelResolution = 10
-plotNumberToGraph = 10
+plotNumberToGraph = -1
 print(list(range(0,10,2)))
 
 # Import the array
@@ -72,7 +72,6 @@ ax = fig.add_subplot(111, projection='3d')
 
 
 print("Time of simulation: ", tempraturesTimeArray[plotNumberToGraph][0])
-print("Data: ", tempraturesTimeArray[plotNumberToGraph][1])
 
 colormap = cm.get_cmap("plasma");
 

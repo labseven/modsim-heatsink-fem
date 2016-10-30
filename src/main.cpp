@@ -71,6 +71,7 @@ int main() {
 		return(-1);
 	}
 
+<<<<<<< HEAD
 	const int loopTimes = 1000;
 	NUM deltaTime = 0.0001;
 	NUM currTime = 0;
