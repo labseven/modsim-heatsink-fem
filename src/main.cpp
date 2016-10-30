@@ -18,7 +18,7 @@ int main() {
 			material(false, AIR_CONDUCT, AIR_HCAP, AMBIENT_TEMP, true), //New air
 			material(true,  ALU_CONDUCT, ALU_HCAP, 100,          false), //Heated Aluminum
 			material(true,  ALU_CONDUCT, ALU_HCAP, 0,            false), //Cooled Aluminum
-	};
+			};
 
 	int materials[MAP_Z][MAP_Y][MAP_X];
 
