@@ -75,8 +75,10 @@ print("Time of simulation: ", tempraturesTimeArray[plotNumberToGraph][0])
 
 colormap = cm.get_cmap("plasma");
 
-cax = ax.scatter(xList,yList,zList, cmap=colormap, c=tempraturesTimeArray[plotNumberToGraph][1], s=100, alpha=.8);
+ims = []
 
+for i in range(len(tempraturesTimeArray)):
+	cax = ax.scatter(xList,yList,zList, cmap=colormap, c=tempraturesTimeArray[plotNumberToGraph][1], s=100, alpha=.8);
 
 plt.colorbar(cax)
 

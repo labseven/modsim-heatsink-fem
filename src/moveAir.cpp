@@ -38,7 +38,7 @@ NUM moveAir (NUM temps[MAP_Z][MAP_Y][MAP_X], int axis, int materials[MAP_Z][MAP_
 
 	int prevCell[3]; //Location of the previous cell.
 
-	for (int z = MAP_Z; z < 0; z--) { //Loop through every cell
+	for (int z = MAP_Z; z > 0; z--) { //Loop through every cell
 		for (int y = 0; y < MAP_Y; y++) {
 			for (int x = 0; x < MAP_X; x++) {
 
