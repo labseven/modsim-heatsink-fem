@@ -68,10 +68,10 @@ int main() {
 
 		int rectEnd[][3] = {
 				{-1,      -1, -1},
-				{depth-1, -2, -2},
-				{depth-1, -3,  6},
-				{depth-1, -3, -2},
-				{depth-1, -2, -2},
+				{depth-2, -2, -2},
+				{depth-2, -3,  6},
+				{depth-2, -3, -2},
+				{depth-2, -2, -2},
 		};
 
 		NUM rectTemps[] =     {0, 25, 70, 90, 100};
@@ -95,9 +95,9 @@ int main() {
 		{
 			updateFlows3D(currentTemps, flowsX, flowsY, flowsZ, materials, matRef);
 			updateTemps3D(deltaTime, currentTemps, newTemps, flowsX, flowsY, flowsZ, materials, matRef);
-			//if(i % airspeedDivisor == 0) cout << moveAir(newTemps, 2, materials, matRef) / (deltaTime * airspeedDivisor) <<endl; //Average power out
+			//if(i % airspeedDivisor == 0) cout << moveAir(newTemps, materials, matRef) / (deltaTime * airspeedDivisor) <<endl; //Average power out
 			if(i % airspeedDivisor == 0) {
-				currEnergy = moveAir(newTemps, 2, materials, matRef);
+				currEnergy = moveAir(newTemps, materials, matRef);
 				cout << currEnergy << endl;
 			}
 

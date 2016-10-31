@@ -10,66 +10,24 @@
 
 using namespace std;
 
-NUM moveAir (NUM temps[MAP_Z][MAP_Y][MAP_X], int axis, int materials[MAP_Z][MAP_Y][MAP_X], material matRef[]) {
+NUM moveAir (NUM temps[MAP_Z][MAP_Y][MAP_X], int materials[MAP_Z][MAP_Y][MAP_X], material matRef[]) {
 
 	NUM energy = 0; //Joules
 
-
-	//Now for the ugly bit.  Output the energy that's being lost by the system.
-
-
-	{
-		int z = MAP_Z - 2; //The index of the second-to-last layer
-
-		for (int y = 0; y < MAP_Y; y++) {
-				for (int x = 0; x < MAP_X; x++) {
-					if (matRef[materials[z][y][x]].isFluid && !matRef[materials[z+1][y][x]].isFluid) {
-						energy += temp2energy(temps[z][y][x] - AMBIENT_TEMP, matRef[materials[z][y][x]].heatCapacity);
-						//if(DEBUG) cout << "Adding temperature " <<temps[z][y][x] <<" at " <<x <<", " <<y <<", " <<z <<endl;
-					} //If fluid
-					//else if(DEBUG) cout << "Skipping temperature " <<temps[z][y][x] <<" at " <<x <<", " <<y <<", " <<z <<endl;
-				} //x loop
-		} //y loop
-
-
-	}//End ugliness
-
-
-
 	int prevCell[3]; //Location of the previous cell.
 
-	for (int z = MAP_Z-1; z > -1; z--) { //Loop through every cell, bottom to top
+	for (int z = MAP_Z-1; z > 0; z--) { //Loop through every cell, bottom to top, skipping the first and last layers
 		for (int y = 0; y < MAP_Y; y++) {
 			for (int x = 0; x < MAP_X; x++) {
 
-				if (matRef[materials[z][y][x]]/*this material*/.isFluid) { //Only do anything if this material is fluid
-					//if(DEBUG) cout << "Flowing " <<x <<", " <<y <<", " <<z <<endl;
+				if (matRef[materials[z][y][x]].isFluid) { //Only do anything if this material is fluid
+
+					if(!matRef[materials[z+1][y][x]].isFluid) //If the next one down is solid
+						energy += temp2energy(temps[z][y][x] - AMBIENT_TEMP, matRef[materials[z][y][x]].heatCapacity);
 
 
-					if (axis == 0) { //x axis
-						prevCell[0] = z;
-						prevCell[1] = y;
-						prevCell[2] = x-1;
-					} //End x axis
-					else if (axis == 1) { //y axis
-						prevCell[0] = z;
-						prevCell[1] = y-1;
-						prevCell[2] = x;
-					} //End x axis
-					else if (axis == 2) { //z axis
-						prevCell[0] = z-1;
-						prevCell[1] = y;
-						prevCell[2] = x;
-					} //End x axis
-					else {
-						cout << "Axis must be between 0 and 2." <<endl;
-						return false;
-					}
-
-					//if(DEBUG) cout << "Prev. cell is " <<prevCell[2] <<", " <<prevCell[1] <<", " <<prevCell[0] <<endl;
-
-					if (matRef[materials [prevCell[0]] [prevCell[1]] [prevCell[2]] ].isFluid) {
-						temps[z][y][x] = temps [prevCell[0]] [prevCell[1]] [prevCell[2]]; //If they're both fluid, just set the temp to that of the previous one
+					if (matRef[materials[z-1][y][x]].isFluid) {
+						temps[z][y][x] = temps[z-1][y][x]; //If they're both fluid, just set the temp to that of the previous one
 						if(DEBUG) cout << "Setting cell " <<x <<", " <<y <<", " <<z <<" to " <<temps [prevCell[0]] [prevCell[1]] [prevCell[2]] <<endl;
 					}
 					else
@@ -82,8 +40,6 @@ NUM moveAir (NUM temps[MAP_Z][MAP_Y][MAP_X], int axis, int materials[MAP_Z][MAP_
 			} //x
 		} //y
 	} //z
-
-
 
 
 	return energy;
