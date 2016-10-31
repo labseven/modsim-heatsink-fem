@@ -72,7 +72,7 @@ int main() {
 	}
 
 
-	const int loopTimes = 1000;
+	const int loopTimes = 10000;
 	NUM deltaTime = 0.0001;
 	NUM currTime = 0;
 	int airspeedDivisor = 8;
@@ -103,6 +103,6 @@ int main() {
 	printTemps3D(currentTemps);
 	exportPython3D(currentTemps, currTime, 1);
 
-	cout << "Simulation time: " <<difftime(time(NULL), simStartTime) <<" seconds";
+	cout << "Simulation time: " << difftime(time(NULL), simStartTime) <<" seconds" << endl;
 
 }
