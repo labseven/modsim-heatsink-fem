@@ -44,7 +44,7 @@ int main() {
 			{-2, -2, -2},
 	};
 
-	NUM rectTemps[] =     {0, 25, 25, 25, 100};
+	NUM rectTemps[] =     {0, 25, 70, 90, 100};
 	int rectMaterials[] = {0,  2,  1,  1,   3};
 
 	/*
@@ -72,7 +72,7 @@ int main() {
 	}
 
 
-	const int loopTimes = 10000;
+	const int loopTimes = 3000;
 	NUM deltaTime = 0.0001;
 	NUM currTime = 0;
 	//int airspeedDivisor = 8;
@@ -90,7 +90,7 @@ int main() {
 	{
 		updateFlows3D(currentTemps, flowsX, flowsY, flowsZ, materials, matRef);
 		updateTemps3D(deltaTime, currentTemps, newTemps, flowsX, flowsY, flowsZ, materials, matRef);
-		if(i % airspeedDivisor == 0) moveAir(newTemps, 2, materials, matRef);
+		if(i % airspeedDivisor == 0) cout << moveAir(newTemps, 2, materials, matRef) / (deltaTime * airspeedDivisor) <<endl; //Average power out
 
 		currTime += deltaTime;
 		memcpy(currentTemps, newTemps, sizeof(NUM)*MAP_Y*MAP_X*MAP_Z);
