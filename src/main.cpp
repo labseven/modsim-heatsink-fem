@@ -47,8 +47,8 @@ int main() {
 	*/
 
 
-	const int loopTimes = 5000;
-	NUM deltaTime = 0.001;
+	const int loopTimes = 2000;
+	NUM deltaTime = 0.0004;
 	NUM currEnergy = 0;
 	int airspeedDivisor = round(CELLSIZE / (AIRSPEED * deltaTime));
 	NUM currTime = 0;
@@ -74,7 +74,7 @@ int main() {
 				{depth-2, -2, -2},
 		};
 
-		NUM rectTemps[] =     {0, 25, 75, 95, 100};
+		NUM rectTemps[] =     {0, 25, 98, 100, 100};
 		int rectMaterials[] = {0,  2,  1,  1,   3};
 
 		if(!makeMap(currentTemps, materials, 5, rectStart, rectEnd, rectTemps, rectMaterials)) {
@@ -85,7 +85,7 @@ int main() {
 
 
 		cout << "Simulation starting with depth " <<depth <<"..." << endl;
-		cout << "loops: " << loopTimes << " deltaTime: " << deltaTime << " total time: " << deltaTime * loopTimes << " airSpeed: " << AIRSPEED << " airspeedDivisor: " << airspeedDivisor << endl;
+		cout << "loops: " << loopTimes << " deltaTime: " << deltaTime << " total time: " << deltaTime * loopTimes << " Target Air Speed: " << AIRSPEED << " airspeedDivisor: " << airspeedDivisor << " actual air speed: " << (CELLSIZE)/(deltaTime * airspeedDivisor) << endl;
 		exportPython3D(currentTemps, currTime, 1);
 
 		time_t simStartTime;
@@ -108,6 +108,7 @@ int main() {
 			//printTemps3D(newTemps);
 			//Data export goes here
 			if(i % 100 == 0) 	exportPower(currTime, currEnergy, deltaTime, airspeedDivisor);
+			if(i % 1000 == 0) 		exportPython3D(currentTemps, currTime, 1);
 		}
 
 		//printFlows3D(flowsX, flowsY, flowsZ);

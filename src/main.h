@@ -51,14 +51,14 @@ static const NUM AIR_HCAP = 1.005 /*J/gC*/ * 1.2*0.000001 /*g/mm^3*/;
 
 static const NUM AMBIENT_TEMP = 25 /*C*/;
 
-static const NUM AIRSPEED = 1 /*m/s*/ * 1000 /*mm/m*/;
+static const NUM AIRSPEED = 3 /*m/s*/ * 1000 /*mm/m*/;
 
 
 //static const int MAP_Z = 60;
 //static const int MAP_Y = 150;
 //static const int MAP_X = 60;
 
-#define MAP_Z 200
+#define MAP_Z 100
 #define MAP_Y 55
 #define MAP_X 11
 
