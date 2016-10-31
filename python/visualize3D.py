@@ -6,11 +6,11 @@ import numpy as np
 from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
+import matplotlib.animation as animation
 
 
-zLevelResolution = 10
-plotNumberToGraph = -1
-print(list(range(0,10,2)))
+zLevelResolution = 100
+plotNumberToGraph = 1
 
 # Import the array
 with open("outputPython.csv","r") as fileIn:
@@ -70,17 +70,15 @@ for z in range(0,xyzSize[2],zLevelResolution):
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
 
-
+print("Number of simulations: ", len(tempraturesTimeArray))
 print("Time of simulation: ", tempraturesTimeArray[plotNumberToGraph][0])
 
 colormap = cm.get_cmap("plasma");
 
-ims = []
+cax = ax.scatter(xList,yList,zList, cmap=colormap, c=tempraturesTimeArray[plotNumberToGraph][1], s=100, alpha=.8);
 
-for i in range(len(tempraturesTimeArray)):
-	cax = ax.scatter(xList,yList,zList, cmap=colormap, c=tempraturesTimeArray[plotNumberToGraph][1], s=100, alpha=.8);
 
-plt.colorbar(cax)
+plt.colorbar(cax);
 
 plt.show()
 

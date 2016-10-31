@@ -26,4 +26,7 @@ bool clearPython2D();
 bool exportPython3D(NUM currentTemps[MAP_Z][MAP_Y][MAP_X], NUM currentTime, int edgeRemove);
 bool clearPython3D(int edgeRemove);
 
+bool exportPower(NUM currentTime, NUM energy, NUM deltaTime, NUM airspeedDivisor);
+bool clearExportPower();
+
 #endif /* CSVEXPORT_H_ */

@@ -49,11 +49,14 @@ int main() {
 
 	const int loopTimes = 1000;
 	NUM deltaTime = 0.001;
+	NUM currEnergy = 0;
 	int airspeedDivisor = round(CELLSIZE / (AIRSPEED * deltaTime));
 	NUM currTime = 0;
-	clearPython3D(1);
+	clearPython3D(1); // 1 is edge remove
+	clearExportPower();
 
-	for (int depth = 5; depth < MAP_Z+1; depth += 5) { //Run lots of heatsinks!
+	for (int depth = MAP_Z; depth < MAP_Z+1; depth += 5) { //Run lots of heatsinks!
+		currTime = 0;
 
 		int rectStart[][3] = { //A reasonably-shaped single-fin heatsink.
 				{0,  0, 0}, //Magic wall
@@ -65,7 +68,7 @@ int main() {
 
 		int rectEnd[][3] = {
 				{-1,      -1, -1},
-				{-2,      -2, -2},
+				{depth-1, -2, -2},
 				{depth-1, -3,  6},
 				{depth-1, -3, -2},
 				{depth-1, -2, -2},
@@ -93,7 +96,10 @@ int main() {
 			updateFlows3D(currentTemps, flowsX, flowsY, flowsZ, materials, matRef);
 			updateTemps3D(deltaTime, currentTemps, newTemps, flowsX, flowsY, flowsZ, materials, matRef);
 			//if(i % airspeedDivisor == 0) cout << moveAir(newTemps, 2, materials, matRef) / (deltaTime * airspeedDivisor) <<endl; //Average power out
-			if(i % airspeedDivisor == 0) moveAir(newTemps, 2, materials, matRef);
+			if(i % airspeedDivisor == 0) {
+				currEnergy = moveAir(newTemps, 2, materials, matRef);
+				cout << currEnergy << endl;
+			}
 
 			currTime += deltaTime;
 			memcpy(currentTemps, newTemps, sizeof(NUM)*MAP_Y*MAP_X*MAP_Z);
@@ -101,11 +107,11 @@ int main() {
 			//printFlows3D(flowsX, flowsY, flowsZ);
 			//printTemps3D(newTemps);
 			//Data export goes here
-			if(i % 10000 == 0) 	exportPython3D(currentTemps, currTime, 1);
+			if(i % 100 == 0) 	exportPower(currTime, currEnergy, deltaTime, airspeedDivisor);
 		}
 
 		//printFlows3D(flowsX, flowsY, flowsZ);
-		printTemps3D(currentTemps);
+		//printTemps3D(currentTemps);
 		exportPython3D(currentTemps, currTime, 1);
 
 		cout << "Simulation time: " << difftime(time(NULL), simStartTime) <<" seconds" << endl;

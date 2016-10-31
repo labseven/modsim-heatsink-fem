@@ -114,3 +114,18 @@ bool exportPython3D(NUM currentTemps[MAP_Z][MAP_Y][MAP_X], NUM currentTime, int 
 
 	return true;
 }
+bool clearExportPower()
+{
+	ofstream myfile;
+	myfile.open ("outputEnergy.csv");
+	myfile.close();
+	return true;
+}
+bool exportPower(NUM currentTime, NUM energy, NUM deltaTime, NUM airspeedDivisor)
+{
+	ofstream myfile;
+	myfile.open ("outputEnergy.csv", ios::app);
+	myfile << currentTime << "," << energy*1./(deltaTime * airspeedDivisor) << "\n";
+	myfile.close();
+	return true;
+}
