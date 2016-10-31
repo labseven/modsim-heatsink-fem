@@ -80,6 +80,7 @@ int main() {
 
 	clearPython3D(1);
 	cout << "Simulation starting..." << endl;
+	cout << "loops: " << loopTimes << " deltaTime: " << deltaTime << " total time: " << deltaTime * loopTimes << " airSpeed: " << AIRSPEED << " airspeedDivisor: " << airspeedDivisor << endl;
 	exportPython3D(currentTemps, currTime, 1);
 
 	time_t simStartTime;
