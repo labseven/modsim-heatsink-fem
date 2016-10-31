@@ -9,8 +9,8 @@ import matplotlib.cm as cm
 import matplotlib.animation as animation
 
 
-zLevelResolution = 15
-plotNumberToGraph = 1
+zLevelResolution = 10
+plotNumberToGraph = -1
 
 # Import the array
 with open("outputPython.csv","r") as fileIn:
@@ -72,11 +72,10 @@ ax = fig.add_subplot(111, projection='3d')
 
 print("Number of simulations: ", len(tempraturesTimeArray))
 print("Time of simulation: ", tempraturesTimeArray[plotNumberToGraph][0])
-print("Tempratures: ", tempraturesTimeArray[plotNumberToGraph][1])
 
 colormap = cm.get_cmap("plasma");
 
-cax = ax.scatter(xList,yList,zList, cmap=colormap, c=tempraturesTimeArray[plotNumberToGraph][1], s=150, alpha=.8);
+cax = ax.scatter(xList,yList,zList, cmap=colormap, c=tempraturesTimeArray[plotNumberToGraph][1], s=100, alpha=.8);
 
 
 plt.colorbar(cax);

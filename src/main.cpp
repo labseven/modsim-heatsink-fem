@@ -12,11 +12,14 @@ using namespace std;
 
 int main() {
 	material matRef[] = {
-			material(true,  0,           0,        0,            false), //Magic wall.  Zero / negative conductivity is a sign to say don't calculate flows.
-			material(false, ALU_CONDUCT, ALU_HCAP, 0,            false), //Aluminum
-			material(false, AIR_CONDUCT, AIR_HCAP, AMBIENT_TEMP, true), //New air
-			material(true,  ALU_CONDUCT, ALU_HCAP, 100,          false), //Heated Aluminum
-			material(true,  ALU_CONDUCT, ALU_HCAP, 0,            false), //Cooled Aluminum
+			material(true,  0,             0,          0,            false), //Magic wall.  Zero / negative conductivity is a sign to say don't calculate flows.
+			material(false, ALU_CONDUCT,   ALU_HCAP,   0,            false), //Aluminum
+			material(false, AIR_CONDUCT,   AIR_HCAP,   AMBIENT_TEMP, true), //New air
+			material(true,  ALU_CONDUCT,   ALU_HCAP,   100,          false), //Heated Aluminum
+			material(true,  ALU_CONDUCT,   ALU_HCAP,   0,            false), //Cooled Aluminum
+			material(false, WATER_CONDUCT, WATER_HCAP, AMBIENT_TEMP, true), //Water
+			material(false, COPPER_CONDUCT,COPPER_HCAP,0,            false), //Copper
+			material(true,  COPPER_CONDUCT,COPPER_HCAP, 100,          false), //Heated copper
 			};
 
 	int materials[MAP_Z][MAP_Y][MAP_X];
@@ -47,8 +50,8 @@ int main() {
 	*/
 
 
-	const int loopTimes = 2000;
-	NUM deltaTime = 0.0004;
+	const int loopTimes = 4000;
+	NUM deltaTime = 0.0008;
 	NUM currEnergy = 0;
 	int airspeedDivisor = round(CELLSIZE / (AIRSPEED * deltaTime));
 	NUM currTime = 0;
@@ -74,8 +77,9 @@ int main() {
 				{depth-2, -2, -2},
 		};
 
-		NUM rectTemps[] =     {0, 25, 98, 100, 100};
-		int rectMaterials[] = {0,  2,  1,  1,   3};
+//		NUM rectTemps[] =     {0, 25, 98, 100, 100}; //Copper preheat
+		NUM rectTemps[] =     {0, 25, 55, 95, 100}; //Water preheat
+		int rectMaterials[] = {0,  5,  1,  1,   3};
 
 		if(!makeMap(currentTemps, materials, 5, rectStart, rectEnd, rectTemps, rectMaterials)) {
 			cout << "makeMap failed." <<endl;
@@ -112,7 +116,7 @@ int main() {
 		}
 
 		//printFlows3D(flowsX, flowsY, flowsZ);
-		//printTemps3D(currentTemps);
+		printTemps3D(currentTemps);
 		exportPython3D(currentTemps, currTime, 1);
 
 		cout << "Simulation time: " << difftime(time(NULL), simStartTime) <<" seconds" << endl;

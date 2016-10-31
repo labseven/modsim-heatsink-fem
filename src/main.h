@@ -43,15 +43,19 @@ struct material{
 
 static const NUM ALU_CONDUCT = 205. /*W/mC*/ / 1000 /*mm/m*/;
 static const NUM AIR_CONDUCT = 0.024 /*W/mC*/ / 1000 /*mm/m*/;
-//static const NUM AIR_CONDUCT = 2.4 /*W/mC*/ / 1000 /*mm/m*/;
-static const NUM FLUID_MULT = 1.5; //Unitless.
+static const NUM WATER_CONDUCT = 0.58 / 1000; //Same units, you lazy arse
+static const NUM COPPER_CONDUCT = 401. / 1000;
+
+static const NUM FLUID_MULT = 1; //Unitless.
 
 static const NUM ALU_HCAP = 0.91 /*J/gC*/ * 0.0027 /*g/mm^3*/;
 static const NUM AIR_HCAP = 1.005 /*J/gC*/ * 1.2*0.000001 /*g/mm^3*/;
+static const NUM WATER_HCAP = 4.19 * 0.001;
+static const NUM COPPER_HCAP = 0.39 * 0.00894;
 
 static const NUM AMBIENT_TEMP = 25 /*C*/;
 
-static const NUM AIRSPEED = 3 /*m/s*/ * 1000 /*mm/m*/;
+static const NUM AIRSPEED = 0.5 /*m/s*/ * 1000 /*mm/m*/;
 
 
 //static const int MAP_Z = 60;
