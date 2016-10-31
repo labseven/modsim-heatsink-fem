@@ -27,26 +27,6 @@ int main() {
 	NUM flowsY[MAP_X][MAP_Z][MAP_Y-1];
 	NUM flowsZ[MAP_Y][MAP_X][MAP_Z-1];
 
-
-	int rectStart[][3] = { //A reasonably-shaped single-fin heatsink.
-			{0,  0, 0}, //Magic wall
-			{1,  1, 1}, //Air, starts by filling everything
-			{1,  6, 1}, //Top heatsink
-			{1, -7, 1}, //Side heatsink
-			{1, -2, 1}, //Heater
-	};
-
-	int rectEnd[][3] = {
-			{-1, -1, -1},
-			{-2, -2, -2},
-			{-2, -3,  6},
-			{-2, -3, -2},
-			{-2, -2, -2},
-	};
-
-	NUM rectTemps[] =     {0, 25, 70, 90, 100};
-	int rectMaterials[] = {0,  2,  1,  1,   3};
-
 	/*
 	int rectStart[][3] = { //Simple setup to test values
 				{0,  0, 0}, //Magic wall
@@ -66,46 +46,70 @@ int main() {
 	int rectMaterials[] = {0, 1,  3,  4};
 	*/
 
-	if(!makeMap(currentTemps, materials, 5, rectStart, rectEnd, rectTemps, rectMaterials)) {
-		cout << "makeMap failed." <<endl;
-		return(-1);
-	}
 
-
-	const int loopTimes = 3000;
-	NUM deltaTime = 0.0001;
-	NUM currTime = 0;
-	//int airspeedDivisor = 8;
+	const int loopTimes = 1000;
+	NUM deltaTime = 0.001;
 	int airspeedDivisor = round(CELLSIZE / (AIRSPEED * deltaTime));
-
+	NUM currTime = 0;
 	clearPython3D(1);
-	cout << "Simulation starting..." << endl;
-	cout << "loops: " << loopTimes << " deltaTime: " << deltaTime << " total time: " << deltaTime * loopTimes << " airSpeed: " << AIRSPEED << " airspeedDivisor: " << airspeedDivisor << endl;
-	exportPython3D(currentTemps, currTime, 1);
 
-	time_t simStartTime;
-	time(&simStartTime);
+	for (int depth = 5; depth < MAP_Z+1; depth += 5) { //Run lots of heatsinks!
 
-	for(int i = 1; i < loopTimes; i++) // Starting at 1 to make time the same as i (exports are on even numbers)
-	{
-		updateFlows3D(currentTemps, flowsX, flowsY, flowsZ, materials, matRef);
-		updateTemps3D(deltaTime, currentTemps, newTemps, flowsX, flowsY, flowsZ, materials, matRef);
-		//if(i % airspeedDivisor == 0) cout << moveAir(newTemps, 2, materials, matRef) / (deltaTime * airspeedDivisor) <<endl; //Average power out
-		if(i % airspeedDivisor == 0) moveAir(newTemps, 2, materials, matRef);
+		int rectStart[][3] = { //A reasonably-shaped single-fin heatsink.
+				{0,  0, 0}, //Magic wall
+				{1,  1, 1}, //Air, starts by filling everything
+				{1,  6, 1}, //Top heatsink
+				{1, -7, 1}, //Side heatsink
+				{1, -2, 1}, //Heater
+		};
 
-		currTime += deltaTime;
-		memcpy(currentTemps, newTemps, sizeof(NUM)*MAP_Y*MAP_X*MAP_Z);
+		int rectEnd[][3] = {
+				{-1,      -1, -1},
+				{-2,      -2, -2},
+				{depth-1, -3,  6},
+				{depth-1, -3, -2},
+				{depth-1, -2, -2},
+		};
+
+		NUM rectTemps[] =     {0, 25, 70, 90, 100};
+		int rectMaterials[] = {0,  2,  1,  1,   3};
+
+		if(!makeMap(currentTemps, materials, 5, rectStart, rectEnd, rectTemps, rectMaterials)) {
+			cout << "makeMap failed." <<endl;
+			return(-1);
+		}
+
+
+
+		cout << "Simulation starting with depth " <<depth <<"..." << endl;
+		cout << "loops: " << loopTimes << " deltaTime: " << deltaTime << " total time: " << deltaTime * loopTimes << " airSpeed: " << AIRSPEED << " airspeedDivisor: " << airspeedDivisor << endl;
+		exportPython3D(currentTemps, currTime, 1);
+
+		time_t simStartTime;
+		time(&simStartTime);
+
+		for(int i = 1; i < loopTimes; i++) // Starting at 1 to make time the same as i (exports are on even numbers)
+		{
+			updateFlows3D(currentTemps, flowsX, flowsY, flowsZ, materials, matRef);
+			updateTemps3D(deltaTime, currentTemps, newTemps, flowsX, flowsY, flowsZ, materials, matRef);
+			//if(i % airspeedDivisor == 0) cout << moveAir(newTemps, 2, materials, matRef) / (deltaTime * airspeedDivisor) <<endl; //Average power out
+			if(i % airspeedDivisor == 0) moveAir(newTemps, 2, materials, matRef);
+
+			currTime += deltaTime;
+			memcpy(currentTemps, newTemps, sizeof(NUM)*MAP_Y*MAP_X*MAP_Z);
+
+			//printFlows3D(flowsX, flowsY, flowsZ);
+			//printTemps3D(newTemps);
+			//Data export goes here
+			if(i % 10000 == 0) 	exportPython3D(currentTemps, currTime, 1);
+		}
 
 		//printFlows3D(flowsX, flowsY, flowsZ);
-		//printTemps3D(newTemps);
-		//Data export goes here
-		if(i % 10000 == 0) 	exportPython3D(currentTemps, currTime, 1);
-	}
+		printTemps3D(currentTemps);
+		exportPython3D(currentTemps, currTime, 1);
 
-	//printFlows3D(flowsX, flowsY, flowsZ);
-	printTemps3D(currentTemps);
-	exportPython3D(currentTemps, currTime, 1);
+		cout << "Simulation time: " << difftime(time(NULL), simStartTime) <<" seconds" << endl;
 
-	cout << "Simulation time: " << difftime(time(NULL), simStartTime) <<" seconds" << endl;
+	} //End multi-heatsink for
 
 }
