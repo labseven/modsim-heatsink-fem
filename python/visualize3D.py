@@ -9,7 +9,7 @@ import matplotlib.cm as cm
 import matplotlib.animation as animation
 
 
-zLevelResolution = 100
+zLevelResolution = 10
 plotNumberToGraph = 1
 
 # Import the array
