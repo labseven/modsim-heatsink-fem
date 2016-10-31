@@ -9,8 +9,9 @@
 #define MOVEAIR_H_
 
 #include "main.h"
+#include <math.h>
 
-bool moveAir (NUM temps[MAP_Z][MAP_Y][MAP_X], int axis, int materials[MAP_Z][MAP_Y][MAP_X], material matRef[]); //Updates air temperatures in place
+NUM moveAir (NUM temps[MAP_Z][MAP_Y][MAP_X], int axis, int materials[MAP_Z][MAP_Y][MAP_X], material matRef[]); //Updates air temperatures in place
 
 
 #endif /* MOVEAIR_H_ */

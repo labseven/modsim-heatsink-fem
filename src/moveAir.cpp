@@ -6,11 +6,11 @@
  */
 
 #include "moveAir.h"
-#define DEBUG 0
+#define DEBUG 1
 
 using namespace std;
 
-bool moveAir (NUM temps[MAP_Z][MAP_Y][MAP_X], int axis, int materials[MAP_Z][MAP_Y][MAP_X], material matRef[]) {
+NUM moveAir (NUM temps[MAP_Z][MAP_Y][MAP_X], int axis, int materials[MAP_Z][MAP_Y][MAP_X], material matRef[]) {
 
 	int prevCell[3]; //Location of the previous cell.
 
@@ -56,7 +56,28 @@ bool moveAir (NUM temps[MAP_Z][MAP_Y][MAP_X], int axis, int materials[MAP_Z][MAP
 	} //z
 
 
-	return true;
+	NUM energy = 0; //Joules
+
+	{//Now for the ugly bit.  Output the energy that's being lost by the system.
+
+
+		int z = MAP_Z - 2; //The index of the second-to-last layer
+
+		for (int y = 0; y < MAP_Y; y++) {
+				for (int x = 0; x < MAP_X; x++) {
+					if (matRef[materials[z][y][x]]/*this material*/.isFluid) {
+						energy += temp2energy(temps[z][y][x], matRef[materials[z][y][x]].heatCapacity);
+						if(DEBUG) cout << "Adding temperature " <<temps[z][y][x] <<" at " <<x <<", " <<y <<", " <<z <<endl;
+					} //If fluid
+					else if(DEBUG) cout << "Skipping " <<x <<", " <<y <<", " <<z <<endl;
+				} //x loop
+		} //y loop
+
+
+	}//End ugliness
+	return energy;
+
+
 
 }
 
