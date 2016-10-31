@@ -58,7 +58,7 @@ static const NUM AIRSPEED = 3 /*m/s*/ * 1000 /*mm/m*/;
 //static const int MAP_Y = 150;
 //static const int MAP_X = 60;
 
-#define MAP_Z 100
+#define MAP_Z 30
 #define MAP_Y 55
 #define MAP_X 11
 

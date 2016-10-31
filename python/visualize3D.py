@@ -9,11 +9,11 @@ import matplotlib.cm as cm
 import matplotlib.animation as animation
 
 
-zLevelResolution = 15
-plotNumberToGraph = 1
+zLevelResolution = 5
+plotNumberToGraph = -1
 
 # Import the array
-with open("outputPython.csv","r") as fileIn:
+with open("./graphsAndShit/outputPythonMedium.csv","r") as fileIn:
 	currLine = fileIn.readline();
 
 	xyzSize = [int(n) for n in currLine.rstrip('\n').split(",")];
