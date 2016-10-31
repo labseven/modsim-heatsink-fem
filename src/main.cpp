@@ -47,7 +47,7 @@ int main() {
 	*/
 
 
-	const int loopTimes = 1000;
+	const int loopTimes = 5000;
 	NUM deltaTime = 0.001;
 	NUM currEnergy = 0;
 	int airspeedDivisor = round(CELLSIZE / (AIRSPEED * deltaTime));
@@ -62,19 +62,19 @@ int main() {
 				{0,  0, 0}, //Magic wall
 				{1,  1, 1}, //Air, starts by filling everything
 				{1,  6, 1}, //Top heatsink
-				{1, -7, 1}, //Side heatsink
+				{1, -6, 1}, //Side heatsink
 				{1, -2, 1}, //Heater
 		};
 
 		int rectEnd[][3] = {
 				{-1,      -1, -1},
 				{depth-2, -2, -2},
-				{depth-2, -3,  6},
-				{depth-2, -3, -2},
+				{depth-2, -3,  3},
+				{depth-2, -2, -2},
 				{depth-2, -2, -2},
 		};
 
-		NUM rectTemps[] =     {0, 25, 70, 90, 100};
+		NUM rectTemps[] =     {0, 25, 75, 95, 100};
 		int rectMaterials[] = {0,  2,  1,  1,   3};
 
 		if(!makeMap(currentTemps, materials, 5, rectStart, rectEnd, rectTemps, rectMaterials)) {
@@ -98,7 +98,7 @@ int main() {
 			//if(i % airspeedDivisor == 0) cout << moveAir(newTemps, materials, matRef) / (deltaTime * airspeedDivisor) <<endl; //Average power out
 			if(i % airspeedDivisor == 0) {
 				currEnergy = moveAir(newTemps, materials, matRef);
-				cout << currEnergy << endl;
+				if(DEBUG) cout << currEnergy << endl;
 			}
 
 			currTime += deltaTime;

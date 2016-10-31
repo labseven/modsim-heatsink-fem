@@ -58,9 +58,9 @@ static const NUM AIRSPEED = 1 /*m/s*/ * 1000 /*mm/m*/;
 //static const int MAP_Y = 150;
 //static const int MAP_X = 60;
 
-#define MAP_Z 60
-#define MAP_Y 40
-#define MAP_X 20
+#define MAP_Z 200
+#define MAP_Y 55
+#define MAP_X 11
 
 #include "energyTempConversion.h"
 #include "updateFlows.h"

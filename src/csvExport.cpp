@@ -125,7 +125,7 @@ bool exportPower(NUM currentTime, NUM energy, NUM deltaTime, NUM airspeedDivisor
 {
 	ofstream myfile;
 	myfile.open ("outputEnergy.csv", ios::app);
-	myfile << currentTime << "," << energy*1./(deltaTime * airspeedDivisor) << "\n";
+	myfile << currentTime << "," << energy/(deltaTime * airspeedDivisor) << "\n";
 	myfile.close();
 	return true;
 }
