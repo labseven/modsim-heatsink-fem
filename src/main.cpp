@@ -75,7 +75,8 @@ int main() {
 	const int loopTimes = 10000;
 	NUM deltaTime = 0.0001;
 	NUM currTime = 0;
-	int airspeedDivisor = 8;
+	//int airspeedDivisor = 8;
+	int airspeedDivisor = round(CELLSIZE / (AIRSPEED * deltaTime));
 
 	clearPython3D(1);
 	cout << "Simulation starting..." << endl;
